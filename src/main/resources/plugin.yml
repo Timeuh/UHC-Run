@@ -1,0 +1,19 @@
+name: DemonSlayerUHC
+version: 1.0
+main: com.timeuh.dsuhc.DemonSlayerUHC
+authors: [ Timeuh ]
+description: Un plugin de style LG UHC mais dans l'univers de Demon Slayer
+
+commands:
+  test:
+    description: commande de test
+    permission: test.use
+    aliases: [tst]
+
+  gamebroadcast:
+    description: broadcast de partie
+    permission: gamebroadcast.use
+    aliases: [gbc, gamebc]
+
+  spawn:
+    description: retour au spawn
