@@ -1,8 +1,8 @@
-name: DemonSlayerUHC
+name: UHCRun
 version: 1.0
-main: com.timeuh.dsuhc.DemonSlayerUHC
+main: fr.timeuh.uhcrun.UHCRun
 authors: [ Timeuh ]
-description: Un plugin de style LG UHC mais dans l'univers de Demon Slayer
+description: Un plugin de d'UHC run classique
 
 commands:
   test:
@@ -17,3 +17,13 @@ commands:
 
   spawn:
     description: retour au spawn
+
+  gamestop:
+    description: arrete la partie
+    permission: gamestop.use
+    aliases: [gstp]
+
+  gamestart:
+    description: commence la partie
+    permission: gamestart.use
+    aliases: [gstt]
