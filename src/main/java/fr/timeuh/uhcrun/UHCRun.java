@@ -67,14 +67,21 @@ public final class UHCRun extends JavaPlugin {
            players.remove(player);
            player.setGameMode(GameMode.SPECTATOR);
            player.sendMessage("Vous êtes mort, cheh !");
-           checkWin();
+           checkWin(this);
        }
     }
 
-    public void checkWin(){
+    public void checkWin(UHCRun uhcRun){
         if (players.size() == 1){
             Player winner = players.get(0);
+            Location spawn = new Location(winner.getWorld(), 0, 65, 0);
+            uhcRun.setState(GameState.WAITING);
+            winner.setLevel(0);
+            winner.sendMessage("Arrêt de la partie ...");
+            winner.sendMessage("Téléportation au spawn...");
+            winner.teleport(spawn);
             Bukkit.broadcastMessage("§5[UHCRun] "+winner.getName() + " Gagne cette game !");
+
         }
     }
 

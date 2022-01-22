@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class GameCycle  extends BukkitRunnable {
 
     private UHCRun uhcRun;
-    private int timer = 0;
+    private int timer = 30;
 
     public GameCycle(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
@@ -23,13 +23,13 @@ public class GameCycle  extends BukkitRunnable {
             Bukkit.broadcastMessage("§3Combat final dans : " + timer +" secondes");
         }
 
-        if (timer == 30){
+        if (timer == 0){
             for (Player player : uhcRun.getPlayers()){
                 player.teleport(new Location(Bukkit.getWorld("world"),0,65,0,12f,17f));
             }
             cancel();
             Bukkit.broadcastMessage("Teleportation finale");
         }
-        timer++;
+        timer--;
     }
 }

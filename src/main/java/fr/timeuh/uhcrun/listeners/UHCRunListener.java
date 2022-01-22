@@ -70,7 +70,7 @@ public class UHCRunListener implements Listener {
         }
 
         event.setQuitMessage("§5[UHCRun] §c" +player.getName() + " Quitte les runners");
-        uhcRun.checkWin();
+        uhcRun.checkWin(uhcRun);
     }
 
     @EventHandler
