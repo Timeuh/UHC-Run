@@ -31,7 +31,6 @@ public class UHCRunDamageListener implements Listener {
         if (victime instanceof Player){
             Player player = (Player) victime;
             if (player.getHealth() <= event.getDamage()){
-                event.setDamage(0);
                 uhcRun.eliminate(player);
             }
         }
@@ -58,7 +57,6 @@ public class UHCRunDamageListener implements Listener {
                     }
                 }
                 killer.sendMessage("Vous avez tué " +player.getName());
-                event.setDamage(0);
                 uhcRun.eliminate(player);
             }
         }
