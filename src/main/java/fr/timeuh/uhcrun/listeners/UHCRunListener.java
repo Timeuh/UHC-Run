@@ -2,7 +2,7 @@ package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.GameState;
-import fr.timeuh.uhcrun.start.GameAutoStart;
+import fr.timeuh.uhcrun.tasks.GameAutoStart;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,10 +23,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class UHCRunListener implements Listener {
 
-    private UHCRun UHCRun;
+    private UHCRun uhcRun;
 
     public UHCRunListener(UHCRun UHCRun) {
-        this.UHCRun = UHCRun;
+        this.uhcRun = UHCRun;
     }
 
     @EventHandler
@@ -32,22 +34,22 @@ public class UHCRunListener implements Listener {
         Player player = event.getPlayer();
         player.getInventory().clear();
 
-        if (!UHCRun.isState(GameState.WAITING)){
+        if (!uhcRun.isState(GameState.WAITING)){
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage("Le jeu est en cours");
             event.setJoinMessage(null);
             return;
         }
 
-        if (!UHCRun.getPlayers().contains(player)){
-            UHCRun.getPlayers().add(player);
-            event.setJoinMessage("§5[UHCRun] §c" + player.getName() + " §9Rejoint les runners");
+        if (!uhcRun.getPlayers().contains(player)){
+            uhcRun.getPlayers().add(player);
+            event.setJoinMessage("§5[UHCRun] §c" + player.getName() + " Rejoint les runners");
         }
 
-        if (UHCRun.isState(GameState.WAITING) && UHCRun.getPlayers().size() > 1){
-            GameAutoStart start = new GameAutoStart(UHCRun);
-            start.runTaskTimer(UHCRun, 0, 20);
-            UHCRun.setState(GameState.STARTING);
+        if (uhcRun.isState(GameState.WAITING) && uhcRun.getPlayers().size() > 1){
+            GameAutoStart start = new GameAutoStart(uhcRun);
+            start.runTaskTimer(uhcRun, 0, 20);
+            uhcRun.setState(GameState.STARTING);
         }
 
 
@@ -62,7 +64,13 @@ public class UHCRunListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event){
+        Player player = event.getPlayer();
+        if (uhcRun.getPlayers().contains(player)){
+            uhcRun.getPlayers().remove(player);
+        }
 
+        event.setQuitMessage("§5[UHCRun] §c" +player.getName() + " Quitte les runners");
+        uhcRun.checkWin();
     }
 
     @EventHandler
@@ -102,6 +110,22 @@ public class UHCRunListener implements Listener {
                 player.getInventory().addItem(new ItemStack(Material.DIAMOND));
                 player.closeInventory();
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlace(BlockPlaceEvent event){
+        if (!uhcRun.isState(GameState.PLAYING)){
+            event.setCancelled(true);
+            return;
+        }
+    }
+
+    @EventHandler
+    public void onBreak(BlockBreakEvent event){
+        if (!uhcRun.isState(GameState.PLAYING)){
+            event.setCancelled(true);
+            return;
         }
     }
 }

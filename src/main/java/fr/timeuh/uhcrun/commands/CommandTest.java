@@ -2,7 +2,7 @@ package fr.timeuh.uhcrun.commands;
 
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
-import fr.timeuh.uhcrun.start.GameAutoStart;
+import fr.timeuh.uhcrun.tasks.GameAutoStart;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 
 public class CommandTest implements CommandExecutor {
 
-    private UHCRun UHCRun;
+    private UHCRun uhcRun;
 
-    public CommandTest(UHCRun UHCRun) {
-        this.UHCRun = UHCRun;
+    public CommandTest(UHCRun uhcRun) {
+        this.uhcRun = uhcRun;
     }
 
     public CommandTest() {
@@ -31,7 +31,7 @@ public class CommandTest implements CommandExecutor {
 
             switch(command.getName()){
                 case "test":
-                    player.sendMessage(ChatColor.AQUA + UHCRun.getConfig().getString("messages.test"));
+                    player.sendMessage(ChatColor.AQUA + uhcRun.getConfig().getString("messages.test"));
                     return true;
 
                 case "gamebroadcast":
@@ -54,7 +54,7 @@ public class CommandTest implements CommandExecutor {
                     return true;
 
                 case "gamestop":
-                    UHCRun.setState(GameState.WAITING);
+                    uhcRun.setState(GameState.WAITING);
                     player.setLevel(0);
                     player.sendMessage("Arrêt de la partie ...");
                     player.sendMessage("Téléportation au spawn...");
@@ -62,9 +62,9 @@ public class CommandTest implements CommandExecutor {
                     return true;
 
                 case "gamestart":
-                    GameAutoStart start = new GameAutoStart(UHCRun);
-                    start.runTaskTimer(UHCRun, 0, 20);
-                    UHCRun.setState(GameState.STARTING);
+                    GameAutoStart start = new GameAutoStart(uhcRun);
+                    start.runTaskTimer(uhcRun, 0, 20);
+                    uhcRun.setState(GameState.STARTING);
                     return true;
 
                 default: break;
