@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class GameStop extends BukkitRunnable {
 
     private UHCRun uhcRun;
-    private int timer = 30;
+    private int timer = 20;
 
     public GameStop(UHCRun UHCRun){
         this.uhcRun = UHCRun;
@@ -23,12 +23,12 @@ public class GameStop extends BukkitRunnable {
     public void run() {
         uhcRun.setState(GameState.FINISH);
 
-        if (timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
-            Bukkit.broadcastMessage("§6Arrêt dans §4" + timer + " §6secondes");
+        if (timer == 20 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
+            Bukkit.broadcastMessage("§5[UHCRun] §6Arrêt dans §4" + timer + " §6secondes");
         }
 
         if (timer == 0){
-            Bukkit.broadcastMessage("§6Arrêt de la partie");
+            Bukkit.broadcastMessage("§5[UHCRun] §6Arrêt de la partie");
             for (int i = 0 ; i < uhcRun.getPlayers().size(); i++){
                 Player player = uhcRun.getPlayers().get(i);
                 Location spawn = new Location(player.getWorld(), 0, 100, 0);

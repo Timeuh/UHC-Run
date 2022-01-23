@@ -27,11 +27,11 @@ public class GameStart extends BukkitRunnable {
         }*/
 
         if (timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
-            Bukkit.broadcastMessage("§6Démarrage dans §4" + timer + " §6secondes");
+            Bukkit.broadcastMessage("§5[UHCRun] §6Démarrage dans §4" + timer + " §6secondes");
         }
 
         if (timer == 0){
-            Bukkit.broadcastMessage("§6Démarrage de la partie");
+            Bukkit.broadcastMessage("§5[UHCRun] §6Démarrage de la partie");
             uhcRun.setState(GameState.STARTING);
 
             for (int i = 0 ; i < uhcRun.getAlivePlayers().size(); i++){

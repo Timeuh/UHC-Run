@@ -24,7 +24,7 @@ public class GameCycle  extends BukkitRunnable {
 
         if (!uhcRun.isState(GameState.FINISH)){
             if (timer == 20 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
-                Bukkit.broadcastMessage("§6Combat final dans §4" + timer +" §6secondes");
+                Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §4" + timer +" §6secondes");
             }
 
             if (timer == 0){
@@ -32,7 +32,7 @@ public class GameCycle  extends BukkitRunnable {
                     player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
                 }
                 cancel();
-                Bukkit.broadcastMessage("§6Teleportation finale");
+                Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
                 uhcRun.setState(GameState.FIGHTING);
             }
         }

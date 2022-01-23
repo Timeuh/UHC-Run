@@ -44,7 +44,7 @@ public class GameListener implements Listener {
         if (!uhcRun.getPlayers().contains(player) && !uhcRun.getAlivePlayers().contains(player)){
             uhcRun.getPlayers().add(player);
             uhcRun.getAlivePlayers().add(player);
-            event.setJoinMessage("§5[UHCRun] §c" + player.getName() + " Rejoint les runners");
+            event.setJoinMessage("§5[UHCRun] §4" + player.getName() + " §6Rejoint les runners");
         }
 
         player.setGameMode(GameMode.ADVENTURE);

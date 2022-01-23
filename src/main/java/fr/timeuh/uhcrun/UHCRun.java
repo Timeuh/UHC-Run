@@ -73,7 +73,7 @@ public final class UHCRun extends JavaPlugin {
        if (alivePlayers.contains(player)) {
            alivePlayers.remove(player);
            player.setGameMode(GameMode.SPECTATOR);
-           player.sendMessage("Vous êtes mort, cheh !");
+           player.sendMessage("§5[UHCRun] §6Vous êtes mort, cheh !");
            checkWin(this);
        }
     }
@@ -81,12 +81,9 @@ public final class UHCRun extends JavaPlugin {
     public void checkWin(UHCRun uhcRun){
         if (alivePlayers.size() == 1){
             Player winner = alivePlayers.get(0);
-            Location spawn = new Location(winner.getWorld(), 0, 65, 0);
-            uhcRun.setState(GameState.FINISH);
+            Location spawn = new Location(winner.getWorld(), 0, 100, 0);
             winner.setLevel(0);
-            winner.sendMessage("§6Arrêt de la partie ...");
-            winner.sendMessage("§6Téléportation au spawn...");
-            winner.getInventory().clear();
+            winner.sendMessage("§5[UHCRun] §6Téléportation au spawn...");
             winner.teleport(spawn);
             Bukkit.broadcastMessage("§5[UHCRun] §4"+winner.getName() + " §6Gagne cette game !");
             GameStop stop = new GameStop(this);

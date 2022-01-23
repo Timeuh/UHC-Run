@@ -50,7 +50,7 @@ public class GameDamageListener implements Listener {
                         killer = (Player) arrow.getShooter();
                     }
                 }
-                killer.sendMessage("§6Vous avez tué §4" +player.getName());
+                killer.sendMessage("§5[UHCRun] §6Vous avez tué §4" +player.getName());
                 uhcRun.eliminate(player);
             }
         }
