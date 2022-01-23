@@ -25,6 +25,7 @@ public class GameDamageListener implements Listener {
         if (victim instanceof Player){
             Player player = (Player) victim;
             if (player.getHealth() <= event.getDamage()){
+                Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
                 uhcRun.eliminate(player);
             }
         }
@@ -35,13 +36,11 @@ public class GameDamageListener implements Listener {
         Entity victim = event.getEntity();
         if (victim instanceof Player){
             Player player = (Player) victim;
-
             if (player.getHealth() <= event.getDamage()){
                 Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
                 uhcRun.eliminate(player);
             }
         }
-
     }
 
     @EventHandler
