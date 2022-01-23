@@ -33,6 +33,7 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
         player.getInventory().clear();
 
+
         if (!uhcRun.isState(GameState.WAITING)){
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage("Le jeu est en cours");

@@ -2,6 +2,7 @@ name: UHCRun
 version: 1.0
 main: fr.timeuh.uhcrun.UHCRun
 authors: [ Timeuh ]
+load: STARTUP
 description: Un plugin de d'UHC run classique
 
 commands:

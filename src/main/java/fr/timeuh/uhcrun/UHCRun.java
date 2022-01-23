@@ -37,6 +37,19 @@ public final class UHCRun extends JavaPlugin {
 
         pluginManager.registerEvents(new GameListener(this), this);
         pluginManager.registerEvents(new GameDamageListener(this), this);
+
+        WorldBorder border = world.getWorldBorder();
+        border.setCenter(0,0);
+        border.setSize(3000);
+        border.setDamageAmount(2);
+        Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+            @Override
+            public void run() {
+                if (border.getSize() > 250){
+                    border.setSize(border.getSize()-2);
+                }
+            }
+        },0,20);
     }
 
     @Override
