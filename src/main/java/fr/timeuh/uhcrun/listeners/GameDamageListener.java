@@ -2,6 +2,7 @@ package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
+import fr.timeuh.uhcrun.tasks.GameStop;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -29,6 +30,13 @@ public class GameDamageListener implements Listener {
                 uhcRun.eliminate(player);
             }
         }
+
+        if (uhcRun.getAlivePlayers().size() == 0){
+            if (uhcRun.getPlayers().size() > 0){
+                GameStop stop = new GameStop(uhcRun);
+                stop.runTaskTimer(uhcRun, 0, 20);
+            }
+        }
     }
 
     @EventHandler
@@ -53,6 +61,13 @@ public class GameDamageListener implements Listener {
                 }
                 killer.sendMessage("Vous avez tué " +player.getName());
                 uhcRun.eliminate(player);
+            }
+        }
+
+        if (uhcRun.getAlivePlayers().size() == 0){
+            if (uhcRun.getPlayers().size() > 0){
+                GameStop stop = new GameStop(uhcRun);
+                stop.runTaskTimer(uhcRun, 0, 20);
             }
         }
 

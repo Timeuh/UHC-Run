@@ -26,7 +26,7 @@ public class GameCycle  extends BukkitRunnable {
             Bukkit.broadcastMessage("§3Combat final dans " + timer +" secondes");
         }
 
-        if (timer == 0){
+        if (timer == 0 && !uhcRun.isState(GameState.FINISH)){
             for (Player player : uhcRun.getAlivePlayers()){
                 player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
             }
@@ -35,11 +35,18 @@ public class GameCycle  extends BukkitRunnable {
             uhcRun.setState(GameState.FIGHTING);
         }
 
-        while (uhcRun.isState(GameState.FIGHTING)) {
+        if (uhcRun.isState(GameState.FIGHTING)) {
             if (border.getSize() > 250) {
                 border.setSize(250, 60);
                 border.setDamageAmount(2);
                 border.setDamageBuffer(2);
+            }
+
+            if (uhcRun.getAlivePlayers().size() == 0){
+                if (uhcRun.getPlayers().size() > 0){
+                    GameStop stop = new GameStop(uhcRun);
+                    stop.runTaskTimer(uhcRun, 0, 20);
+                }
             }
         }
 
