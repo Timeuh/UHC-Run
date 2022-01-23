@@ -65,7 +65,6 @@ public class GameListener implements Listener {
         }
 
         event.setQuitMessage("§5[UHCRun] §4" +player.getName() + " §6Quitte les runners");
-        uhcRun.checkWin(uhcRun);
     }
 
     @EventHandler

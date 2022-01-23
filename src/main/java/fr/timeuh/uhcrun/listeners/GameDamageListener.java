@@ -2,7 +2,6 @@ package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
