@@ -36,7 +36,7 @@ public class GameListener implements Listener {
 
         if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
             player.setGameMode(GameMode.SPECTATOR);
-            player.sendMessage("Le jeu est en cours");
+            player.sendMessage("§5[UHCRun] §6Le jeu est en cours");
             event.setJoinMessage(null);
             return;
         }
@@ -64,7 +64,7 @@ public class GameListener implements Listener {
             uhcRun.getAlivePlayers().remove(player);
         }
 
-        event.setQuitMessage("§5[UHCRun] §c" +player.getName() + " Quitte les runners");
+        event.setQuitMessage("§5[UHCRun] §4" +player.getName() + " §6Quitte les runners");
         uhcRun.checkWin(uhcRun);
     }
 

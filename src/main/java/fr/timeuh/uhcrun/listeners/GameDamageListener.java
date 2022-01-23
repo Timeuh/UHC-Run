@@ -1,6 +1,7 @@
 package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.UHCRun;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -35,22 +36,9 @@ public class GameDamageListener implements Listener {
         Entity victim = event.getEntity();
         if (victim instanceof Player){
             Player player = (Player) victim;
-            Entity damager = event.getDamager();
-            Player killer = player;
 
             if (player.getHealth() <= event.getDamage()){
-
-                if (damager instanceof Player){
-                    killer = (Player) damager;
-                }
-
-                if (damager instanceof Arrow){
-                    Arrow arrow = (Arrow) damager;
-                    if (arrow.getShooter() instanceof Player){
-                        killer = (Player) arrow.getShooter();
-                    }
-                }
-                killer.sendMessage("§5[UHCRun] §6Vous avez tué §4" +player.getName());
+                Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
                 uhcRun.eliminate(player);
             }
         }
