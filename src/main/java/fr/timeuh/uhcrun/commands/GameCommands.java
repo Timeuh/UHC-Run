@@ -1,6 +1,5 @@
 package fr.timeuh.uhcrun.commands;
 
-import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.tasks.GameStart;
 import fr.timeuh.uhcrun.tasks.GameStop;
@@ -37,7 +36,7 @@ public class GameCommands implements CommandExecutor {
 
                 case "broadcast":
                     if(args.length == 0){
-                        player.sendMessage("l'utilisation correcte de cette commande est : /broadcast <message>");
+                        player.sendMessage("§6l'utilisation correcte de cette commande est : §4/broadcast <message>");
                     }
 
                     if(args.length > 1){
@@ -50,7 +49,7 @@ public class GameCommands implements CommandExecutor {
                     return true;
 
                 case "spawn":
-                    player.sendMessage("Téléportation au spawn...");
+                    player.sendMessage("§6Téléportation au spawn...");
                     player.teleport(spawn);
                     return true;
 

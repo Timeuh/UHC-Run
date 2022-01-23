@@ -31,7 +31,7 @@ public class GameStart extends BukkitRunnable {
         }
 
         if (timer == 0){
-            Bukkit.broadcastMessage("Démarrage de la partie");
+            Bukkit.broadcastMessage("§6Démarrage de la partie");
             uhcRun.setState(GameState.STARTING);
 
             for (int i = 0 ; i < uhcRun.getAlivePlayers().size(); i++){

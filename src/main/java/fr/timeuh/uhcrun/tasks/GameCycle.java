@@ -22,17 +22,19 @@ public class GameCycle  extends BukkitRunnable {
     public void run() {
         WorldBorder border = Bukkit.getWorld("world").getWorldBorder();
 
-        if (timer == 20 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
-            Bukkit.broadcastMessage("§3Combat final dans " + timer +" secondes");
-        }
-
-        if (timer == 0 && !uhcRun.isState(GameState.FINISH)){
-            for (Player player : uhcRun.getAlivePlayers()){
-                player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
+        if (!uhcRun.isState(GameState.FINISH)){
+            if (timer == 20 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
+                Bukkit.broadcastMessage("§6Combat final dans §4" + timer +" §6secondes");
             }
-            cancel();
-            Bukkit.broadcastMessage("Teleportation finale");
-            uhcRun.setState(GameState.FIGHTING);
+
+            if (timer == 0){
+                for (Player player : uhcRun.getAlivePlayers()){
+                    player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
+                }
+                cancel();
+                Bukkit.broadcastMessage("§6Teleportation finale");
+                uhcRun.setState(GameState.FIGHTING);
+            }
         }
 
         if (uhcRun.isState(GameState.FIGHTING)) {
@@ -41,13 +43,6 @@ public class GameCycle  extends BukkitRunnable {
                 border.setDamageAmount(2);
                 border.setDamageBuffer(2);
             }
-
-            /*if (uhcRun.getAlivePlayers().size() == 0){
-                if (uhcRun.getPlayers().size() > 0){
-                    GameStop stop = new GameStop(uhcRun);
-                    stop.runTaskTimer(uhcRun, 0, 20);
-                }
-            }*/
         }
 
         timer--;

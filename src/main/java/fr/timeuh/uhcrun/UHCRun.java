@@ -3,6 +3,7 @@ package fr.timeuh.uhcrun;
 import fr.timeuh.uhcrun.commands.GameCommands;
 import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
+import fr.timeuh.uhcrun.tasks.GameStop;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -83,15 +84,19 @@ public final class UHCRun extends JavaPlugin {
             Location spawn = new Location(winner.getWorld(), 0, 65, 0);
             uhcRun.setState(GameState.FINISH);
             winner.setLevel(0);
-            winner.sendMessage("Arrêt de la partie ...");
-            winner.sendMessage("Téléportation au spawn...");
+            winner.sendMessage("§6Arrêt de la partie ...");
+            winner.sendMessage("§6Téléportation au spawn...");
             winner.getInventory().clear();
             winner.teleport(spawn);
-            Bukkit.broadcastMessage("§5[UHCRun] "+winner.getName() + " Gagne cette game !");
+            Bukkit.broadcastMessage("§5[UHCRun] §4"+winner.getName() + " §6Gagne cette game !");
+            GameStop stop = new GameStop(this);
+            stop.runTaskTimer(uhcRun, 0, 20);
         }
 
         if (alivePlayers.size() == 0){
-            Bukkit.broadcastMessage("§5[UHCRun] Tout le monde est mort ! Il n'y a pas de gagnant");
+            Bukkit.broadcastMessage("§5[UHCRun] §6Tout le monde est mort ! Il n'y a pas de gagnant");
+            GameStop stop = new GameStop(this);
+            stop.runTaskTimer(uhcRun, 0, 20);
         }
     }
 
