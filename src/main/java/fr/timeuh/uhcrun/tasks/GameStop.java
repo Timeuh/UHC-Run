@@ -2,10 +2,7 @@ package fr.timeuh.uhcrun.tasks;
 
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -34,7 +31,14 @@ public class GameStop extends BukkitRunnable {
                 Location spawn = new Location(player.getWorld(), 0, 100, 0);
                 player.teleport(spawn);
                 player.getInventory().clear();
+
+                if (player.getGameMode() == GameMode.SPECTATOR){
+                    player.setGameMode(GameMode.SURVIVAL);
+                }
             }
+            WorldBorder border = Bukkit.getWorld("world").getWorldBorder();
+            border.setSize(500);
+            uhcRun.setState(GameState.WAITING);
             cancel();
         }
         timer--;

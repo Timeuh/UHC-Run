@@ -38,10 +38,6 @@ public final class UHCRun extends JavaPlugin {
 
         pluginManager.registerEvents(new GameListener(this), this);
         pluginManager.registerEvents(new GameDamageListener(this), this);
-
-        WorldBorder border = world.getWorldBorder();
-        border.setCenter(0,0);
-        border.setSize(500);
     }
 
     @Override

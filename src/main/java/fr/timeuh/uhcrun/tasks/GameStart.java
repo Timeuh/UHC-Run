@@ -2,10 +2,7 @@ package fr.timeuh.uhcrun.tasks;
 
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.GameState;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -44,7 +41,9 @@ public class GameStart extends BukkitRunnable {
                 player.getInventory().setItem(1, new ItemStack(Material.GOLDEN_APPLE, 4));
                 player.updateInventory();
             }
-
+            WorldBorder border = Bukkit.getWorld("world").getWorldBorder();
+            border.setCenter(0,0);
+            border.setSize(500);
             uhcRun.setState(GameState.PLAYING);
             GameCycle cycle = new GameCycle(uhcRun);
             cycle.runTaskTimer(uhcRun,0,20);

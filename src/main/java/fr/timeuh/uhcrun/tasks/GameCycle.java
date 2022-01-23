@@ -42,6 +42,7 @@ public class GameCycle  extends BukkitRunnable {
                 border.setSize(250, 60);
                 border.setDamageAmount(2);
                 border.setDamageBuffer(2);
+                cancel();
             }
         }
 
