@@ -2,7 +2,6 @@ package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.GameState;
-import fr.timeuh.uhcrun.tasks.GameAutoStart;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -21,11 +20,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 
-public class UHCRunListener implements Listener {
+public class GameListener implements Listener {
 
     private UHCRun uhcRun;
 
-    public UHCRunListener(UHCRun UHCRun) {
+    public GameListener(UHCRun UHCRun) {
         this.uhcRun = UHCRun;
     }
 
@@ -41,17 +40,11 @@ public class UHCRunListener implements Listener {
             return;
         }
 
-        if (!uhcRun.getPlayers().contains(player)){
+        if (!uhcRun.getPlayers().contains(player) && !uhcRun.getAlivePlayers().contains(player)){
             uhcRun.getPlayers().add(player);
+            uhcRun.getAlivePlayers().add(player);
             event.setJoinMessage("§5[UHCRun] §c" + player.getName() + " Rejoint les runners");
         }
-
-        if (uhcRun.isState(GameState.WAITING) && uhcRun.getPlayers().size() > 1){
-            GameAutoStart start = new GameAutoStart(uhcRun);
-            start.runTaskTimer(uhcRun, 0, 20);
-            uhcRun.setState(GameState.STARTING);
-        }
-
 
         player.setGameMode(GameMode.ADVENTURE);
         ItemStack selectionEquipe = new ItemStack(Material.STICK);
@@ -65,8 +58,9 @@ public class UHCRunListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
-        if (uhcRun.getPlayers().contains(player)){
+        if (uhcRun.getPlayers().contains(player) && uhcRun.getAlivePlayers().contains(player)){
             uhcRun.getPlayers().remove(player);
+            uhcRun.getAlivePlayers().remove(player);
         }
 
         event.setQuitMessage("§5[UHCRun] §c" +player.getName() + " Quitte les runners");

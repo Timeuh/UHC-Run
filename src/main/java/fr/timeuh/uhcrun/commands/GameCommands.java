@@ -2,7 +2,7 @@ package fr.timeuh.uhcrun.commands;
 
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
-import fr.timeuh.uhcrun.tasks.GameAutoStart;
+import fr.timeuh.uhcrun.tasks.GameStart;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -11,15 +11,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandTest implements CommandExecutor {
+public class GameCommands implements CommandExecutor {
 
     private UHCRun uhcRun;
 
-    public CommandTest(UHCRun uhcRun) {
+    public GameCommands(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
     }
 
-    public CommandTest() {
+    public GameCommands() {
     }
 
 
@@ -54,7 +54,7 @@ public class CommandTest implements CommandExecutor {
                     return true;
 
                 case "gamestop":
-                    uhcRun.setState(GameState.WAITING);
+                    uhcRun.setState(GameState.FINISH);
                     player.setLevel(0);
                     player.sendMessage("Arrêt de la partie ...");
                     player.sendMessage("Téléportation au spawn...");
@@ -62,7 +62,7 @@ public class CommandTest implements CommandExecutor {
                     return true;
 
                 case "gamestart":
-                    GameAutoStart start = new GameAutoStart(uhcRun);
+                    GameStart start = new GameStart(uhcRun);
                     start.runTaskTimer(uhcRun, 0, 20);
                     uhcRun.setState(GameState.STARTING);
                     return true;

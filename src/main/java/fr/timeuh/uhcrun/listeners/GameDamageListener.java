@@ -9,12 +9,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
-public class UHCRunDamageListener implements Listener {
+public class GameDamageListener implements Listener {
 
     private UHCRun uhcRun;
 
-    public UHCRunDamageListener(UHCRun uhcRun) {
+    public GameDamageListener(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
     }
 
@@ -38,9 +39,9 @@ public class UHCRunDamageListener implements Listener {
 
     @EventHandler
     public void onPvp(EntityDamageByEntityEvent event){
-        Entity victime = event.getEntity();
-        if (victime instanceof Player){
-            Player player = (Player) victime;
+        Entity victim = event.getEntity();
+        if (victim instanceof Player){
+            Player player = (Player) victim;
             Entity damager = event.getDamager();
             Player killer = player;
 
@@ -61,5 +62,10 @@ public class UHCRunDamageListener implements Listener {
             }
         }
 
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event){
+        event.setDeathMessage(null);
     }
 }

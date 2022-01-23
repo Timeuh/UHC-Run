@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class GameAutoStart extends BukkitRunnable {
+public class GameStart extends BukkitRunnable {
 
     private int timer = 10;;
     private UHCRun uhcRun;
 
-    public GameAutoStart(UHCRun UHCRun){
+    public GameStart(UHCRun UHCRun){
         this.uhcRun = UHCRun;
     }
 
@@ -27,15 +27,15 @@ public class GameAutoStart extends BukkitRunnable {
         }*/
 
         if (timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
-            Bukkit.broadcastMessage("§6Démarrage dans : §4" + timer + " §6secondes");
+            Bukkit.broadcastMessage("§6Démarrage dans §4" + timer + " §6secondes");
         }
 
         if (timer == 0){
             Bukkit.broadcastMessage("Démarrage de la partie");
             uhcRun.setState(GameState.PLAYING);
 
-            for (int i = 0 ; i < uhcRun.getPlayers().size(); i++){
-                Player player = uhcRun.getPlayers().get(i);
+            for (int i = 0 ; i < uhcRun.getAlivePlayers().size(); i++){
+                Player player = uhcRun.getAlivePlayers().get(i);
                 Location spawn = uhcRun.getSpawns().get(i);
                 player.teleport(spawn);
                 player.getInventory().clear();

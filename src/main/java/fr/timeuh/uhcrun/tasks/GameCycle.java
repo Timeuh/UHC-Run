@@ -1,5 +1,6 @@
 package fr.timeuh.uhcrun.tasks;
 
+import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -20,15 +21,16 @@ public class GameCycle  extends BukkitRunnable {
     public void run() {
 
         if (timer == 20 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
-            Bukkit.broadcastMessage("§3Combat final dans : " + timer +" secondes");
+            Bukkit.broadcastMessage("§3Combat final dans " + timer +" secondes");
         }
 
         if (timer == 0){
-            for (Player player : uhcRun.getPlayers()){
+            for (Player player : uhcRun.getAlivePlayers()){
                 player.teleport(new Location(Bukkit.getWorld("world"),0,65,0,12f,17f));
             }
             cancel();
             Bukkit.broadcastMessage("Teleportation finale");
+            uhcRun.setState(GameState.FIGHTING);
         }
         timer--;
     }
