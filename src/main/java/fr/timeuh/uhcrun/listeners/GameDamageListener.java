@@ -31,12 +31,12 @@ public class GameDamageListener implements Listener {
             }
         }
 
-        if (uhcRun.getAlivePlayers().size() == 0){
+        /*if (uhcRun.getAlivePlayers().size() == 0){
             if (uhcRun.getPlayers().size() > 0){
                 GameStop stop = new GameStop(uhcRun);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }
-        }
+        }*/
     }
 
     @EventHandler
@@ -64,12 +64,12 @@ public class GameDamageListener implements Listener {
             }
         }
 
-        if (uhcRun.getAlivePlayers().size() == 0){
+        /*if (uhcRun.getAlivePlayers().size() == 0){
             if (uhcRun.getPlayers().size() > 0){
                 GameStop stop = new GameStop(uhcRun);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }
-        }
+        }*/
 
     }
 

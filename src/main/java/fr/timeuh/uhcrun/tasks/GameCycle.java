@@ -42,12 +42,12 @@ public class GameCycle  extends BukkitRunnable {
                 border.setDamageBuffer(2);
             }
 
-            if (uhcRun.getAlivePlayers().size() == 0){
+            /*if (uhcRun.getAlivePlayers().size() == 0){
                 if (uhcRun.getPlayers().size() > 0){
                     GameStop stop = new GameStop(uhcRun);
                     stop.runTaskTimer(uhcRun, 0, 20);
                 }
-            }
+            }*/
         }
 
         timer--;

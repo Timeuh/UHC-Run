@@ -45,6 +45,7 @@ public class GameStart extends BukkitRunnable {
                 player.updateInventory();
             }
 
+            uhcRun.setState(GameState.PLAYING);
             GameCycle cycle = new GameCycle(uhcRun);
             cycle.runTaskTimer(uhcRun,0,20);
 

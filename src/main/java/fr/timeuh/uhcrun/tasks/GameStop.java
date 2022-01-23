@@ -20,15 +20,15 @@ public class GameStop extends BukkitRunnable {
 
     @Override
     public void run() {
-            Bukkit.broadcastMessage("Arrêt de la partie");
-            uhcRun.setState(GameState.FINISH);
+        Bukkit.broadcastMessage("Arrêt de la partie");
+        uhcRun.setState(GameState.FINISH);
 
-            for (int i = 0 ; i < uhcRun.getPlayers().size(); i++){
-                Player player = uhcRun.getPlayers().get(i);
-                Location spawn = new Location(player.getWorld(), 0, 100, 0);
-                player.teleport(spawn);
-                player.getInventory().clear();
-            }
-            cancel();
+        for (int i = 0 ; i < uhcRun.getPlayers().size(); i++){
+            Player player = uhcRun.getPlayers().get(i);
+            Location spawn = new Location(player.getWorld(), 0, 100, 0);
+            player.teleport(spawn);
+            player.getInventory().clear();
         }
+        cancel();
+    }
 }
