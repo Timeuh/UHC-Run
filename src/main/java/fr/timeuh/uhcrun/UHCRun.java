@@ -30,10 +30,10 @@ public final class UHCRun extends JavaPlugin {
         spawns.add(new Location(world,-25,100,-25,12f,17f));
 
         getCommand("test").setExecutor(new GameCommands(this));
-        getCommand("gamebroadcast").setExecutor(new GameCommands());
+        getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
-        getCommand("gamestop").setExecutor(new GameCommands(this));
-        getCommand("gamestart").setExecutor(new GameCommands(this));
+        getCommand("stop").setExecutor(new GameCommands(this));
+        getCommand("start").setExecutor(new GameCommands(this));
 
         pluginManager.registerEvents(new GameListener(this), this);
         pluginManager.registerEvents(new GameDamageListener(this), this);
@@ -88,6 +88,10 @@ public final class UHCRun extends JavaPlugin {
             winner.getInventory().clear();
             winner.teleport(spawn);
             Bukkit.broadcastMessage("§5[UHCRun] "+winner.getName() + " Gagne cette game !");
+        }
+
+        if (alivePlayers.size() == 0){
+            Bukkit.broadcastMessage("§5[UHCRun] Tout le monde est mort ! Il n'y a pas de gagnant");
         }
     }
 

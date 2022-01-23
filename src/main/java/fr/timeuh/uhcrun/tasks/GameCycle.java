@@ -35,15 +35,12 @@ public class GameCycle  extends BukkitRunnable {
             uhcRun.setState(GameState.FIGHTING);
         }
 
-        if (uhcRun.isState(GameState.FIGHTING)) {
+        while (uhcRun.isState(GameState.FIGHTING)) {
             if (border.getSize() > 250) {
                 border.setSize(250, 60);
-                border.setDamageAmount(2.0);
+                border.setDamageAmount(2);
+                border.setDamageBuffer(2);
             }
-        }
-
-        if (uhcRun.isState(GameState.FINISH)){
-            border.setSize(500);
         }
 
         timer--;

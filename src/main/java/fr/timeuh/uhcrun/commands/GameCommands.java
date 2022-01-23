@@ -3,6 +3,7 @@ package fr.timeuh.uhcrun.commands;
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.tasks.GameStart;
+import fr.timeuh.uhcrun.tasks.GameStop;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -54,17 +55,13 @@ public class GameCommands implements CommandExecutor {
                     return true;
 
                 case "stop":
-                    uhcRun.setState(GameState.FINISH);
-                    player.setLevel(0);
-                    player.sendMessage("Arrêt de la partie ...");
-                    player.sendMessage("Téléportation au spawn...");
-                    player.teleport(spawn);
+                    GameStop stop = new GameStop(uhcRun);
+                    stop.runTaskTimer(uhcRun, 0, 20);
                     return true;
 
                 case "start":
                     GameStart start = new GameStart(uhcRun);
                     start.runTaskTimer(uhcRun, 0, 20);
-                    uhcRun.setState(GameState.STARTING);
                     return true;
 
                 default: break;
