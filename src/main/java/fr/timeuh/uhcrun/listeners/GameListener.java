@@ -34,7 +34,7 @@ public class GameListener implements Listener {
         player.getInventory().clear();
 
 
-        if (!uhcRun.isState(GameState.WAITING)){
+        if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage("Le jeu est en cours");
             event.setJoinMessage(null);
@@ -110,7 +110,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event){
-        if (!uhcRun.isState(GameState.PLAYING)){
+            if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.FINISH)){
             event.setCancelled(true);
             return;
         }
@@ -118,7 +118,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent event){
-        if (!uhcRun.isState(GameState.PLAYING)){
+        if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.FINISH)){
             event.setCancelled(true);
             return;
         }

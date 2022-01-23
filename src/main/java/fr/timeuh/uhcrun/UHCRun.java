@@ -26,8 +26,8 @@ public final class UHCRun extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         World world = Bukkit.getWorld("world");
 
-        spawns.add(new Location(world,25,65,25,12f,17f));
-        spawns.add(new Location(world,-25,65,-25,12f,17f));
+        spawns.add(new Location(world,25,100,25,12f,17f));
+        spawns.add(new Location(world,-25,100,-25,12f,17f));
 
         getCommand("test").setExecutor(new GameCommands(this));
         getCommand("gamebroadcast").setExecutor(new GameCommands());
@@ -40,16 +40,8 @@ public final class UHCRun extends JavaPlugin {
 
         WorldBorder border = world.getWorldBorder();
         border.setCenter(0,0);
-        border.setSize(3000);
+        border.setSize(500);
         border.setDamageAmount(2);
-        Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
-            @Override
-            public void run() {
-                if (border.getSize() > 250){
-                    border.setSize(border.getSize()-2);
-                }
-            }
-        },0,20);
     }
 
     @Override

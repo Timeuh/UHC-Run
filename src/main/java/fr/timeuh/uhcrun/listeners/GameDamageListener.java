@@ -22,15 +22,9 @@ public class GameDamageListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event){
-        Entity victime = event.getEntity();
-
-        if (!uhcRun.isState(GameState.PLAYING)){
-            event.setCancelled(true);
-            return;
-        }
-
-        if (victime instanceof Player){
-            Player player = (Player) victime;
+        Entity victim = event.getEntity();
+        if (victim instanceof Player){
+            Player player = (Player) victim;
             if (player.getHealth() <= event.getDamage()){
                 uhcRun.eliminate(player);
             }
