@@ -41,7 +41,6 @@ public final class UHCRun extends JavaPlugin {
         WorldBorder border = world.getWorldBorder();
         border.setCenter(0,0);
         border.setSize(500);
-        border.setDamageAmount(2);
     }
 
     @Override

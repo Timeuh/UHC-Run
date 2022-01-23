@@ -9,22 +9,19 @@ commands:
   test:
     description: commande de test
     permission: test.use
-    aliases: [tst]
 
-  gamebroadcast:
+  broadcast:
     description: broadcast de partie
     permission: gamebroadcast.use
-    aliases: [gbc, gamebc]
+    aliases: [bc]
 
   spawn:
     description: retour au spawn
 
-  gamestop:
+  stop:
     description: arrete la partie
     permission: gamestop.use
-    aliases: [gstp]
 
-  gamestart:
+  start:
     description: commence la partie
     permission: gamestart.use
-    aliases: [gstt]
