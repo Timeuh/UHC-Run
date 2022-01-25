@@ -3,7 +3,6 @@ package fr.timeuh.uhcrun.tasks;
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
