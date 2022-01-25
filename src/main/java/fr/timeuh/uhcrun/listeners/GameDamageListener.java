@@ -2,6 +2,7 @@ package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Bukkit;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,11 +47,16 @@ public class GameDamageListener implements Listener {
     @EventHandler
     public void onPvp(EntityDamageByEntityEvent event){
         Entity victim = event.getEntity();
+        Entity killer = event.getDamager();
         if (victim instanceof Player){
             Player player = (Player) victim;
             if (player.getHealth() <= event.getDamage()){
                 uhcRun.eliminate(player);
                 Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
+                if (killer instanceof Player){
+                    Player killerPlayer = (Player) killer;
+                    killerPlayer.setStatistic(Statistic.PLAYER_KILLS, killerPlayer.getStatistic(Statistic.PLAYER_KILLS)+1);
+                }
             }
 
             for (Player sbPlayer : uhcRun.getPlayers()){

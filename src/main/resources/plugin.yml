@@ -21,7 +21,6 @@ commands:
   gamestop:
     description: arrete la partie
     permission: gamestop.use
-    aliases: [stop]
 
   start:
     description: commence la partie
