@@ -28,8 +28,8 @@ public class GameCycle  extends BukkitRunnable {
             }
 
             if (timer == 0){
+                int i = 0;
                 for (Player player : uhcRun.getAlivePlayers()){
-                    int i = 0;
                     uhcRun.createPVPBoard(player);
                     uhcRun.ajouterNoFall(player);
                     player.teleport(uhcRun.getPvp().get(i));
@@ -39,6 +39,10 @@ public class GameCycle  extends BukkitRunnable {
                 cancel();
                 Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
                 uhcRun.setState(GameState.FIGHTING);
+            }
+
+            for (Player player : uhcRun.getAlivePlayers()){
+                uhcRun.createBoard(player);
             }
         }
 

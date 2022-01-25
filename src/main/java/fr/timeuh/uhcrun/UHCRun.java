@@ -173,10 +173,8 @@ public final class UHCRun extends JavaPlugin {
         score.setScore(3);
         Score score1 = obj.getScore("§6Joueurs en vie : §4"+alivePlayers.size());
         score1.setScore(2);
-        Score score3 = obj.getScore("§6Kills : §4"+ player.getStatistic(Statistic.PLAYER_KILLS));
-        score3.setScore(1);
-        Score score4 = obj.getScore("§6Phase PvP dans §4"+ GameCycle.getTimer() +"§6 secondes");
-        score4.setScore(0);
+        Score score2 = obj.getScore("§6Phase PvP dans §4"+ GameCycle.getTimer() +"§6 secondes");
+        score2.setScore(1);
         player.setScoreboard(board);
     }
 
