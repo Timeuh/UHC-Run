@@ -34,6 +34,7 @@ public class GameStart extends BukkitRunnable {
             for (int i = 0 ; i < uhcRun.getAlivePlayers().size(); i++){
                 Player player = uhcRun.getAlivePlayers().get(i);
                 Location spawn = uhcRun.getSpawns().get(i);
+                uhcRun.ajouterNoFall(player);
                 player.teleport(spawn);
                 player.getInventory().clear();
                 player.setGameMode(GameMode.SURVIVAL);

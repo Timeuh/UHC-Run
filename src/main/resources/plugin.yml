@@ -18,10 +18,11 @@ commands:
   spawn:
     description: retour au spawn
 
-  stop:
+  gamestop:
     description: arrete la partie
     permission: gamestop.use
+    aliases: [stop]
 
   start:
     description: commence la partie
-    permission: gamestart.use
+    permission: start.use

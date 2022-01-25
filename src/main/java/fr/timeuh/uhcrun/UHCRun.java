@@ -17,6 +17,7 @@ public final class UHCRun extends JavaPlugin {
     private GameState state;
     private List<Player> players = new ArrayList<>();
     private List<Player> alivePlayers = new ArrayList<>();
+    private List<Player> cancelFallPlayer = new ArrayList<>();
     private List<Location> spawns = new ArrayList<>();
 
     @Override
@@ -33,7 +34,7 @@ public final class UHCRun extends JavaPlugin {
         getCommand("test").setExecutor(new GameCommands(this));
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
-        getCommand("stop").setExecutor(new GameCommands(this));
+        getCommand("gamestop").setExecutor(new GameCommands(this));
         getCommand("start").setExecutor(new GameCommands(this));
 
         pluginManager.registerEvents(new GameListener(this), this);
@@ -61,8 +62,20 @@ public final class UHCRun extends JavaPlugin {
         return alivePlayers;
     }
 
+    public List<Player> getNoFallPlayers() {
+        return cancelFallPlayer;
+    }
+
     public List<Location> getSpawns() {
         return spawns;
+    }
+
+    public void ajouterNoFall(Player player){
+        cancelFallPlayer.add(player);
+    }
+
+    public void supprimerNoFall(Player player) {
+        cancelFallPlayer.remove(player);
     }
 
     public void eliminate(Player player) {

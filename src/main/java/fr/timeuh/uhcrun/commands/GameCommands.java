@@ -53,7 +53,7 @@ public class GameCommands implements CommandExecutor {
                     player.teleport(spawn);
                     return true;
 
-                case "stop":
+                case "gamestop":
                     GameStop stop = new GameStop(uhcRun);
                     stop.runTaskTimer(uhcRun, 0, 20);
                     return true;

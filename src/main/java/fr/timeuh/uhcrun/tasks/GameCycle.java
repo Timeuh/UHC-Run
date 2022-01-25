@@ -22,13 +22,14 @@ public class GameCycle  extends BukkitRunnable {
     public void run() {
         WorldBorder border = Bukkit.getWorld("world").getWorldBorder();
 
-        if (!uhcRun.isState(GameState.FINISH)){
+        if (uhcRun.isState(GameState.PLAYING)){
             if (timer == 20 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
                 Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §4" + timer +" §6secondes");
             }
 
             if (timer == 0){
                 for (Player player : uhcRun.getAlivePlayers()){
+                    uhcRun.ajouterNoFall(player);
                     player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
                 }
                 cancel();
@@ -42,9 +43,10 @@ public class GameCycle  extends BukkitRunnable {
                 border.setSize(250, 60);
                 border.setDamageAmount(2);
                 border.setDamageBuffer(2);
-                cancel();
             }
         }
+
+
 
         timer--;
     }

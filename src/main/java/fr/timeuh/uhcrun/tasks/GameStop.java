@@ -29,6 +29,7 @@ public class GameStop extends BukkitRunnable {
             for (int i = 0 ; i < uhcRun.getPlayers().size(); i++){
                 Player player = uhcRun.getPlayers().get(i);
                 Location spawn = new Location(player.getWorld(), 0, 100, 0);
+                uhcRun.ajouterNoFall(player);
                 player.teleport(spawn);
                 player.getInventory().clear();
 
