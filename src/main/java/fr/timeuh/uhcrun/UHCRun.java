@@ -3,6 +3,7 @@ package fr.timeuh.uhcrun;
 import fr.timeuh.uhcrun.commands.GameCommands;
 import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
+import fr.timeuh.uhcrun.tasks.GameCycle;
 import fr.timeuh.uhcrun.tasks.GameStop;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -115,6 +116,8 @@ public final class UHCRun extends JavaPlugin {
         score1.setScore(2);
         Score score3 = obj.getScore("§6Kills : §4"+ player.getStatistic(Statistic.PLAYER_KILLS));
         score3.setScore(1);
+        Score score4 = obj.getScore("§6Phase PvP dans §4"+ GameCycle.getTimer() +"§6 secondes");
+        score4.setScore(0);
         player.setScoreboard(board);
     }
 

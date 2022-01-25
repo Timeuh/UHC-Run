@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class GameCycle  extends BukkitRunnable {
 
     private UHCRun uhcRun;
-    public static int timer = 30;
+    private static int timer = 30;
 
     public GameCycle(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
@@ -31,6 +31,7 @@ public class GameCycle  extends BukkitRunnable {
                 for (Player player : uhcRun.getAlivePlayers()){
                     uhcRun.ajouterNoFall(player);
                     player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
+                    uhcRun.checkWin(uhcRun);
                 }
                 cancel();
                 Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
@@ -46,8 +47,16 @@ public class GameCycle  extends BukkitRunnable {
             }
         }
 
+        for (Player presentPlayer : uhcRun.getPlayers()){
+            uhcRun.createBoard(presentPlayer);
+        }
+
 
 
         timer--;
+    }
+
+    public static int getTimer(){
+        return timer;
     }
 }

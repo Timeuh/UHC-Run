@@ -35,10 +35,6 @@ public class GameDamageListener implements Listener {
                 if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK)
                 Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
                 uhcRun.eliminate(player);
-
-                for (Player sbPlayer : uhcRun.getPlayers()){
-                    uhcRun.createBoard(sbPlayer);
-                }
             }
         }
 
@@ -57,10 +53,6 @@ public class GameDamageListener implements Listener {
                     Player killerPlayer = (Player) killer;
                     killerPlayer.setStatistic(Statistic.PLAYER_KILLS, killerPlayer.getStatistic(Statistic.PLAYER_KILLS)+1);
                 }
-            }
-
-            for (Player sbPlayer : uhcRun.getPlayers()){
-                uhcRun.createBoard(sbPlayer);
             }
         }
     }
