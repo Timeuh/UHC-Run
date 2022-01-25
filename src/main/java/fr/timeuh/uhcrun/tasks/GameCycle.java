@@ -47,10 +47,6 @@ public class GameCycle  extends BukkitRunnable {
                 border.setDamageBuffer(2);
             }
         }
-
-        for (Player presentPlayer : uhcRun.getPlayers()){
-            uhcRun.createBoard(presentPlayer);
-        }
         timer--;
     }
 

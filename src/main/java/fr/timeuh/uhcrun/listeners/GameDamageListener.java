@@ -1,5 +1,6 @@
 package fr.timeuh.uhcrun.listeners;
 
+import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
@@ -36,12 +37,13 @@ public class GameDamageListener implements Listener {
                 Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
                 uhcRun.eliminate(player);
 
-                for (Player sbPlayer : uhcRun.getPlayers()){
-                    uhcRun.createPVPBoard(sbPlayer);
+                if (uhcRun.isState(GameState.FIGHTING)) {
+                    for (Player sbPlayer : uhcRun.getPlayers()) {
+                        uhcRun.createPVPBoard(sbPlayer);
+                    }
                 }
             }
         }
-
     }
 
     @EventHandler
@@ -57,8 +59,11 @@ public class GameDamageListener implements Listener {
                     Player killerPlayer = (Player) killer;
                     killerPlayer.setStatistic(Statistic.PLAYER_KILLS, killerPlayer.getStatistic(Statistic.PLAYER_KILLS)+1);
                 }
-                for (Player sbPlayer : uhcRun.getPlayers()){
-                    uhcRun.createPVPBoard(sbPlayer);
+
+                if (uhcRun.isState(GameState.FIGHTING)) {
+                    for (Player sbPlayer : uhcRun.getPlayers()) {
+                        uhcRun.createPVPBoard(sbPlayer);
+                    }
                 }
             }
         }
