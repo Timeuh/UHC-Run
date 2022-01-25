@@ -32,7 +32,7 @@ public class GameListener implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
         player.getInventory().clear();
-
+        uhcRun.createBoard(player);
 
         if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
             player.setGameMode(GameMode.SPECTATOR);
@@ -62,6 +62,8 @@ public class GameListener implements Listener {
         if (uhcRun.getPlayers().contains(player) && uhcRun.getAlivePlayers().contains(player)){
             uhcRun.getPlayers().remove(player);
             uhcRun.getAlivePlayers().remove(player);
+        } else if (uhcRun.getPlayers().contains(player)){
+            uhcRun.getPlayers().remove(player);
         }
 
         event.setQuitMessage("§5[UHCRun] §4" +player.getName() + " §6Quitte les runners");
@@ -74,12 +76,6 @@ public class GameListener implements Listener {
         ItemStack item = event.getItem();
 
         if (item == null) return;
-
-        if (item.getType() == Material.DIAMOND_SWORD){
-            if (action == Action.RIGHT_CLICK_AIR){
-                player.sendMessage("Frappe moi !");
-            }
-        }
 
         if (item.getType() == Material.STICK && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
                 && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Sélection de l'équipe")) {

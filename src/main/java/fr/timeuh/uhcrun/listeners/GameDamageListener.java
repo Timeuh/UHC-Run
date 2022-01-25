@@ -33,6 +33,10 @@ public class GameDamageListener implements Listener {
             } else if (player.getHealth() <= event.getDamage()){
                 Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
                 uhcRun.eliminate(player);
+
+                for (Player sbPlayer : uhcRun.getPlayers()){
+                    uhcRun.createBoard(sbPlayer);
+                }
             }
         }
 
@@ -45,10 +49,11 @@ public class GameDamageListener implements Listener {
             Player player = (Player) victim;
             if (player.getHealth() <= event.getDamage()){
                 uhcRun.eliminate(player);
+                Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
             }
 
-            if (event.getDamager() instanceof Player){
-                Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
+            for (Player sbPlayer : uhcRun.getPlayers()){
+                uhcRun.createBoard(sbPlayer);
             }
         }
     }

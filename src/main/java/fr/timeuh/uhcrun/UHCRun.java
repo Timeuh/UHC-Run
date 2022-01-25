@@ -8,6 +8,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,10 +91,6 @@ public final class UHCRun extends JavaPlugin {
     public void checkWin(UHCRun uhcRun){
         if (alivePlayers.size() == 1){
             Player winner = alivePlayers.get(0);
-            Location spawn = new Location(winner.getWorld(), 0, 100, 0);
-            winner.setLevel(0);
-            winner.sendMessage("§5[UHCRun] §6Téléportation au spawn...");
-            winner.teleport(spawn);
             Bukkit.broadcastMessage("§5[UHCRun] §4"+winner.getName() + " §6Gagne cette game !");
             GameStop stop = new GameStop(this);
             stop.runTaskTimer(uhcRun, 0, 20);
@@ -104,6 +101,21 @@ public final class UHCRun extends JavaPlugin {
             GameStop stop = new GameStop(this);
             stop.runTaskTimer(uhcRun, 0, 20);
         }
+    }
+
+    public void createBoard(Player player){
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        Scoreboard board = manager.getNewScoreboard();
+        Objective obj = board.registerNewObjective("UHCRun","dummy");
+        obj.setDisplayName("§5UHCRun §6by §4Timeuh");
+        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+        Score score = obj.getScore("§6--------------");
+        score.setScore(3);
+        Score score1 = obj.getScore("§6Joueurs en vie : §4"+alivePlayers.size());
+        score1.setScore(2);
+        Score score3 = obj.getScore("§6Kills : §4"+ player.getStatistic(Statistic.PLAYER_KILLS));
+        score3.setScore(1);
+        player.setScoreboard(board);
     }
 
 }
