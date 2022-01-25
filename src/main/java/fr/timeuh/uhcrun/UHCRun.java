@@ -205,7 +205,7 @@ public final class UHCRun extends JavaPlugin {
         score.setScore(3);
         Score score1 = obj.getScore("§6Bienvenue dans cet UHC Run !");
         score1.setScore(2);
-        Score score2 = obj.getScore("§6PVP : §4 "+20 +"§6 minutes");
+        Score score2 = obj.getScore("§6PVP : §4"+20 +"§6 minutes");
         score2.setScore(1);
         Score score3 = obj.getScore("§6Joueurs en ligne : §4" + getPlayers().size() + "§6/§4" + Bukkit.getMaxPlayers());
         score3.setScore(0);
