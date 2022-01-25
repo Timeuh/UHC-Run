@@ -21,6 +21,7 @@ public final class UHCRun extends JavaPlugin {
     private List<Player> alivePlayers = new ArrayList<>();
     private List<Player> cancelFallPlayer = new ArrayList<>();
     private List<Location> spawns = new ArrayList<>();
+    private List<Location> pvp = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -28,11 +29,9 @@ public final class UHCRun extends JavaPlugin {
         saveDefaultConfig();
         setState(GameState.WAITING);
         PluginManager pluginManager = getServer().getPluginManager();
-        World world = Bukkit.getWorld("world");
 
-        spawns.add(new Location(world,25,100,25,12f,17f));
-        spawns.add(new Location(world,-25,100,-25,12f,17f));
-
+        buildSpawns();
+        buildPVP();
         getCommand("test").setExecutor(new GameCommands(this));
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
@@ -46,6 +45,62 @@ public final class UHCRun extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    public void buildSpawns(){
+        World world = Bukkit.getWorld("world");
+        spawns.add(new Location(world,1300,100,1300,12f,17f));
+        spawns.add(new Location(world,1300,100,-1300,12f,17f));
+        spawns.add(new Location(world,-1300,100,1300,12f,17f));
+        spawns.add(new Location(world,-1300,100,-1300,12f,17f));
+
+        spawns.add(new Location(world,-1100,100,0,12f,17f));
+        spawns.add(new Location(world,1100,100,0,12f,17f));
+        spawns.add(new Location(world,0,100,-1100,12f,17f));
+        spawns.add(new Location(world,0,100,1100,12f,17f));
+
+        spawns.add(new Location(world,1000,100,1000,12f,17f));
+        spawns.add(new Location(world,1000,100,-1000,12f,17f));
+        spawns.add(new Location(world,-1000,100,1000,12f,17f));
+        spawns.add(new Location(world,-1000,100,-1000,12f,17f));
+
+        spawns.add(new Location(world,800,100,0,12f,17f));
+        spawns.add(new Location(world,-800,100,0,12f,17f));
+        spawns.add(new Location(world,0,100,800,12f,17f));
+        spawns.add(new Location(world,0,100,-800,12f,17f));
+
+        spawns.add(new Location(world,500,100,500,12f,17f));
+        spawns.add(new Location(world,500,100,-500,12f,17f));
+        spawns.add(new Location(world,-500,100,500,12f,17f));
+        spawns.add(new Location(world,-500,100,-500,12f,17f));
+    }
+
+    public void buildPVP(){
+        World world = Bukkit.getWorld("world");
+        pvp.add(new Location(world,1000,100,1000,12f,17f));
+        pvp.add(new Location(world,1000,100,-1000,12f,17f));
+        pvp.add(new Location(world,-1000,100,1000,12f,17f));
+        pvp.add(new Location(world,-1000,100,-1000,12f,17f));
+
+        pvp.add(new Location(world,-800,100,0,12f,17f));
+        pvp.add(new Location(world,800,100,0,12f,17f));
+        pvp.add(new Location(world,0,100,-800,12f,17f));
+        pvp.add(new Location(world,0,100,800,12f,17f));
+
+        pvp.add(new Location(world,600,100,600,12f,17f));
+        pvp.add(new Location(world,600,100,-600,12f,17f));
+        pvp.add(new Location(world,-600,100,600,12f,17f));
+        pvp.add(new Location(world,-600,100,-600,12f,17f));
+
+        pvp.add(new Location(world,400,100,0,12f,17f));
+        pvp.add(new Location(world,-400,100,0,12f,17f));
+        pvp.add(new Location(world,0,100,400,12f,17f));
+        pvp.add(new Location(world,0,100,-400,12f,17f));
+
+        pvp.add(new Location(world,200,100,200,12f,17f));
+        pvp.add(new Location(world,200,100,-200,12f,17f));
+        pvp.add(new Location(world,-200,100,200,12f,17f));
+        pvp.add(new Location(world,-200,100,-200,12f,17f));
     }
 
     public void setState(GameState state){
@@ -70,6 +125,10 @@ public final class UHCRun extends JavaPlugin {
 
     public List<Location> getSpawns() {
         return spawns;
+    }
+
+    public List<Location> getPvp() {
+        return pvp;
     }
 
     public void ajouterNoFall(Player player){

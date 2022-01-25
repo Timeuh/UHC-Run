@@ -29,10 +29,12 @@ public class GameCycle  extends BukkitRunnable {
 
             if (timer == 0){
                 for (Player player : uhcRun.getAlivePlayers()){
+                    int i = 0;
                     uhcRun.createPVPBoard(player);
                     uhcRun.ajouterNoFall(player);
-                    player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
+                    player.teleport(uhcRun.getPvp().get(i));
                     uhcRun.checkWin(uhcRun);
+                    i++;
                 }
                 cancel();
                 Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
@@ -42,7 +44,7 @@ public class GameCycle  extends BukkitRunnable {
 
         if (uhcRun.isState(GameState.FIGHTING)) {
             if (border.getSize() > 250) {
-                border.setSize(250, 60);
+                border.setSize(250, 300);
                 border.setDamageAmount(2);
                 border.setDamageBuffer(2);
             }
