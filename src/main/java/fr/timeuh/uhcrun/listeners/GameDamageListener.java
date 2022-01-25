@@ -31,6 +31,7 @@ public class GameDamageListener implements Listener {
                 event.setDamage(0);
                 event.setCancelled(true);
             } else if (player.getHealth() <= event.getDamage()){
+                if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK)
                 Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
                 uhcRun.eliminate(player);
 
