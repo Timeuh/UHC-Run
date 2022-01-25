@@ -59,4 +59,8 @@ public class GameCycle  extends BukkitRunnable {
     public static int getTimer(){
         return timer;
     }
+
+    public static void resetTimer(){
+        timer = 30;
+    }
 }

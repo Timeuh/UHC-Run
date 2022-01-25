@@ -37,6 +37,9 @@ public class GameListener implements Listener {
         uhcRun.createBoard(player);
 
         if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
+            if (!uhcRun.getPlayers().contains(player)) {
+                uhcRun.getPlayers().add(player);
+            }
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage("§5[UHCRun] §6Le jeu est en cours");
             event.setJoinMessage(null);

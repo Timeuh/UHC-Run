@@ -51,6 +51,7 @@ public class GameStart extends BukkitRunnable {
             WorldBorder border = Bukkit.getWorld("world").getWorldBorder();
             border.setCenter(0,0);
             border.setSize(500);
+            GameCycle.resetTimer();
             GameCycle cycle = new GameCycle(uhcRun);
             cycle.runTaskTimer(uhcRun,0,20);
 

@@ -37,6 +37,9 @@ public class GameStop extends BukkitRunnable {
                     player.setGameMode(GameMode.SURVIVAL);
                 }
             }
+            for (Player alive : uhcRun.getAlivePlayers()){
+                uhcRun.getAlivePlayers().remove(alive);
+            }
             WorldBorder border = Bukkit.getWorld("world").getWorldBorder();
             border.setSize(500);
             uhcRun.setState(GameState.WAITING);
