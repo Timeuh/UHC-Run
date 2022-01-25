@@ -29,10 +29,10 @@ public class GameCycle  extends BukkitRunnable {
 
             if (timer == 0){
                 for (Player player : uhcRun.getAlivePlayers()){
+                    uhcRun.createPVPBoard(player);
                     uhcRun.ajouterNoFall(player);
                     player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
                     uhcRun.checkWin(uhcRun);
-                    uhcRun.createPVPBoard(player);
                 }
                 cancel();
                 Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");

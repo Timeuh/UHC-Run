@@ -124,7 +124,7 @@ public final class UHCRun extends JavaPlugin {
     public void createPVPBoard(Player player) {
         ScoreboardManager manager2 = Bukkit.getScoreboardManager();
         Scoreboard boardPVP = manager2.getNewScoreboard();
-        Objective obj = boardPVP.registerNewObjective("UHCRun","dummy");
+        Objective obj = boardPVP.registerNewObjective("UHCRunPVP","dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6--------------");
@@ -136,5 +136,22 @@ public final class UHCRun extends JavaPlugin {
         Score score4 = obj.getScore("§6Phase PvP §4débutée");
         score4.setScore(0);
         player.setScoreboard(boardPVP);
+    }
+
+    public void createLobbyBoard(Player player){
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        Scoreboard board = manager.getNewScoreboard();
+        Objective obj = board.registerNewObjective("UHCRunLobby","dummy");
+        obj.setDisplayName("§5UHCRun §6by §4Timeuh");
+        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+        Score score = obj.getScore("§6------------------------------");
+        score.setScore(3);
+        Score score1 = obj.getScore("§6Bienvenue dans cet UHC Run !");
+        score1.setScore(2);
+        Score score2 = obj.getScore("§6PVP : §4 "+20 +"§6 minutes");
+        score2.setScore(1);
+        Score score3 = obj.getScore("§6Joueurs en ligne : §4" + getPlayers().size() + "§6/§4" + Bukkit.getMaxPlayers());
+        score3.setScore(0);
+        player.setScoreboard(board);
     }
 }

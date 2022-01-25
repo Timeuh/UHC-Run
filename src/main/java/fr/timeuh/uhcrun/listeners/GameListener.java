@@ -34,7 +34,6 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
         player.getInventory().clear();
         player.setStatistic(Statistic.PLAYER_KILLS, 0);
-        uhcRun.createBoard(player);
 
         if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
             if (!uhcRun.getPlayers().contains(player)) {
@@ -58,6 +57,10 @@ public class GameListener implements Listener {
         selectionEquipe.setItemMeta(selectionEquipeMeta);
         player.getInventory().setItem(4, selectionEquipe);
         player.updateInventory();
+
+        for (Player present : uhcRun.getPlayers()) {
+            uhcRun.createLobbyBoard(present);
+        }
     }
 
     @EventHandler
