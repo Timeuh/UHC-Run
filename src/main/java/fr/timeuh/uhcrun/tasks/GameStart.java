@@ -32,6 +32,10 @@ public class GameStart extends BukkitRunnable {
             Bukkit.broadcastMessage("§5[UHCRun] §6Démarrage de la partie");
             uhcRun.setState(GameState.PLAYING);
 
+            for (Player player : uhcRun.getPlayers()){
+                uhcRun.getAlivePlayers().add(player);
+            }
+
             for (int i = 0 ; i < uhcRun.getAlivePlayers().size(); i++){
                 Player player = uhcRun.getAlivePlayers().get(i);
                 Location spawn = uhcRun.getSpawns().get(i);

@@ -5,6 +5,7 @@ import fr.timeuh.uhcrun.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,6 +33,7 @@ public class GameListener implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
         player.getInventory().clear();
+        player.setStatistic(Statistic.PLAYER_KILLS, 0);
         uhcRun.createBoard(player);
 
         if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
@@ -41,9 +43,8 @@ public class GameListener implements Listener {
             return;
         }
 
-        if (!uhcRun.getPlayers().contains(player) && !uhcRun.getAlivePlayers().contains(player)){
+        if (!uhcRun.getPlayers().contains(player)){
             uhcRun.getPlayers().add(player);
-            uhcRun.getAlivePlayers().add(player);
             event.setJoinMessage("§5[UHCRun] §4" + player.getName() + " §6Rejoint les runners");
         }
 
