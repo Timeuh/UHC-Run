@@ -169,7 +169,7 @@ public final class UHCRun extends JavaPlugin {
         Objective obj = board.registerNewObjective("UHCRun","dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore("§6--------------");
+        Score score = obj.getScore("§6-------------------------");
         score.setScore(3);
         Score score1 = obj.getScore("§6Joueurs en vie : §4"+alivePlayers.size());
         score1.setScore(2);
@@ -184,7 +184,7 @@ public final class UHCRun extends JavaPlugin {
         Objective obj = boardPVP.registerNewObjective("UHCRunPVP","dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore("§6--------------");
+        Score score = obj.getScore("§6-------------------------");
         score.setScore(3);
         Score score1 = obj.getScore("§6Joueurs en vie : §4"+alivePlayers.size());
         score1.setScore(2);
@@ -201,7 +201,7 @@ public final class UHCRun extends JavaPlugin {
         Objective obj = board.registerNewObjective("UHCRunLobby","dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore("§6------------------------------");
+        Score score = obj.getScore("§6-------------------------");
         score.setScore(3);
         Score score1 = obj.getScore("§6Bienvenue dans cet UHC Run !");
         score1.setScore(2);
