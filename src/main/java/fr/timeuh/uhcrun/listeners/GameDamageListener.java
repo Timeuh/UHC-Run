@@ -37,7 +37,7 @@ public class GameDamageListener implements Listener {
                 uhcRun.eliminate(player);
 
                 for (Player sbPlayer : uhcRun.getPlayers()){
-                    uhcRun.createBoard(sbPlayer);
+                    uhcRun.createPVPBoard(sbPlayer);
                 }
             }
         }
@@ -57,10 +57,9 @@ public class GameDamageListener implements Listener {
                     Player killerPlayer = (Player) killer;
                     killerPlayer.setStatistic(Statistic.PLAYER_KILLS, killerPlayer.getStatistic(Statistic.PLAYER_KILLS)+1);
                 }
-            }
-
-            for (Player sbPlayer : uhcRun.getPlayers()){
-                uhcRun.createBoard(sbPlayer);
+                for (Player sbPlayer : uhcRun.getPlayers()){
+                    uhcRun.createPVPBoard(sbPlayer);
+                }
             }
         }
     }

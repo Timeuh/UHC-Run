@@ -32,6 +32,7 @@ public class GameCycle  extends BukkitRunnable {
                     uhcRun.ajouterNoFall(player);
                     player.teleport(new Location(Bukkit.getWorld("world"),0,100,0,12f,17f));
                     uhcRun.checkWin(uhcRun);
+                    uhcRun.createPVPBoard(player);
                 }
                 cancel();
                 Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
@@ -50,9 +51,6 @@ public class GameCycle  extends BukkitRunnable {
         for (Player presentPlayer : uhcRun.getPlayers()){
             uhcRun.createBoard(presentPlayer);
         }
-
-
-
         timer--;
     }
 

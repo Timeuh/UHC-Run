@@ -121,4 +121,20 @@ public final class UHCRun extends JavaPlugin {
         player.setScoreboard(board);
     }
 
+    public void createPVPBoard(Player player) {
+        ScoreboardManager manager2 = Bukkit.getScoreboardManager();
+        Scoreboard boardPVP = manager2.getNewScoreboard();
+        Objective obj = boardPVP.registerNewObjective("UHCRun","dummy");
+        obj.setDisplayName("§5UHCRun §6by §4Timeuh");
+        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+        Score score = obj.getScore("§6--------------");
+        score.setScore(3);
+        Score score1 = obj.getScore("§6Joueurs en vie : §4"+alivePlayers.size());
+        score1.setScore(2);
+        Score score3 = obj.getScore("§6Kills : §4"+ player.getStatistic(Statistic.PLAYER_KILLS));
+        score3.setScore(1);
+        Score score4 = obj.getScore("§6Phase PvP §4débutée");
+        score4.setScore(0);
+        player.setScoreboard(boardPVP);
+    }
 }
