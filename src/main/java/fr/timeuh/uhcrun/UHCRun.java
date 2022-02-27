@@ -40,6 +40,7 @@ public final class UHCRun extends JavaPlugin {
 
         pluginManager.registerEvents(new GameListener(this), this);
         pluginManager.registerEvents(new GameDamageListener(this), this);
+        TabList.onTab(this);
     }
 
     @Override
