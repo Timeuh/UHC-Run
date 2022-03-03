@@ -5,7 +5,6 @@ import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.tasks.GameCycle;
 import fr.timeuh.uhcrun.tasks.GameStop;
-import fr.timeuh.uhcrun.teamlists.TabList;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -41,7 +40,6 @@ public final class UHCRun extends JavaPlugin {
 
         pluginManager.registerEvents(new GameListener(this), this);
         pluginManager.registerEvents(new GameDamageListener(this), this);
-        TabList.onTab(this);
     }
 
     @Override
@@ -133,11 +131,11 @@ public final class UHCRun extends JavaPlugin {
         return pvp;
     }
 
-    public void ajouterNoFall(Player player){
+    public void addNoFall(Player player){
         cancelFallPlayer.add(player);
     }
 
-    public void supprimerNoFall(Player player) {
+    public void removeNoFall(Player player) {
         cancelFallPlayer.remove(player);
     }
 

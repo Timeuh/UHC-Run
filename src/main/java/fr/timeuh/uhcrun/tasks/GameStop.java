@@ -27,7 +27,7 @@ public class GameStop extends BukkitRunnable {
             Bukkit.broadcastMessage("§5[UHCRun] §6Arrêt de la partie");
             for (Player player : uhcRun.getPlayers()){
                 Location spawn = new Location(player.getWorld(), 0, 100, 0);
-                uhcRun.ajouterNoFall(player);
+                uhcRun.addNoFall(player);
                 player.teleport(spawn);
                 player.getInventory().clear();
                 player.setStatistic(Statistic.PLAYER_KILLS, 0);

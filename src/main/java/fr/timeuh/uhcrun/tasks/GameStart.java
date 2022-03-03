@@ -18,11 +18,6 @@ public class GameStart extends BukkitRunnable {
 
     @Override
     public void run() {
-
-        /*for (Player pls : UHCRun.getPlayers()){
-            pls.setLevel(timer);
-        }*/
-
         uhcRun.setState(GameState.STARTING);
         if (timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
             Bukkit.broadcastMessage("§5[UHCRun] §6Démarrage dans §4" + timer + " §6secondes");
@@ -39,7 +34,7 @@ public class GameStart extends BukkitRunnable {
             for (int i = 0 ; i < uhcRun.getAlivePlayers().size(); i++){
                 Player player = uhcRun.getAlivePlayers().get(i);
                 Location spawn = uhcRun.getSpawns().get(i);
-                uhcRun.ajouterNoFall(player);
+                uhcRun.addNoFall(player);
                 uhcRun.createBoard(player);
                 player.teleport(spawn);
                 player.getInventory().clear();

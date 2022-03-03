@@ -37,6 +37,11 @@ public class GameListener implements Listener {
         if (!uhcRun.getPlayers().contains(player)) {
             uhcRun.getPlayers().add(player);
         }
+        if (player.isOp()){
+            player.setPlayerListName("§4[OP] §6" + player.getName());
+        } else {
+            player.setPlayerListName("§3[Joueur] §6" + player.getName());
+        }
         if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage("§5[UHCRun] §6Le jeu est en cours");

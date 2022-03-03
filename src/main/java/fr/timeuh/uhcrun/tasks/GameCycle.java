@@ -48,7 +48,7 @@ public class GameCycle  extends BukkitRunnable {
                 int i = 0;
                 for (Player player : uhcRun.getAlivePlayers()){
                     uhcRun.createPVPBoard(player);
-                    uhcRun.ajouterNoFall(player);
+                    uhcRun.addNoFall(player);
                     player.teleport(uhcRun.getPvp().get(i));
                     uhcRun.checkWin(uhcRun);
                     i++;
