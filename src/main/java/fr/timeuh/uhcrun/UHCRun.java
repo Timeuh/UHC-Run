@@ -59,7 +59,7 @@ public final class UHCRun extends JavaPlugin {
         spawns.add(new Location(world,0,100,-1100,12f,17f));
         spawns.add(new Location(world,0,100,1100,12f,17f));
 
-        spawns.add(new Location(world,1000,100,1000,12f,17f));
+        spawns.add(new Location(world,1010,100,1000,12f,17f));
         spawns.add(new Location(world,1000,100,-1000,12f,17f));
         spawns.add(new Location(world,-1000,100,1000,12f,17f));
         spawns.add(new Location(world,-1000,100,-1000,12f,17f));

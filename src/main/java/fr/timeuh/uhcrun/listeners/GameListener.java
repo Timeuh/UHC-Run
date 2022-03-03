@@ -2,6 +2,8 @@ package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.GameState;
+import fr.timeuh.uhcrun.teamlists.PlayerTeam;
+import fr.timeuh.uhcrun.teamlists.TeamList;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -83,8 +85,7 @@ public class GameListener implements Listener {
 
         if (item == null) return;
 
-        if (item.getType() == Material.STICK && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
-                && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Sélection de l'équipe")) {
+        if (item.getType() == Material.STICK && item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Sélection de l'équipe")) {
             if (action == Action.RIGHT_CLICK_AIR) {
                 Inventory inv = Bukkit.createInventory(null, 9, "§6Menu Sélection d'équipe");
                 inv.setItem(4, new ItemStack(Material.WOOL));
@@ -103,7 +104,7 @@ public class GameListener implements Listener {
         if (inv.getName().equalsIgnoreCase("§6Menu Sélection d'équipe")){
             event.setCancelled(true);
             if (current.getType()== Material.WOOL){
-                player.getInventory().addItem(new ItemStack(Material.DIAMOND));
+                PlayerTeam.setPlayerTeam(player, TeamList.RED);
                 player.closeInventory();
             }
         }
@@ -113,7 +114,6 @@ public class GameListener implements Listener {
     public void onPlace(BlockPlaceEvent event){
             if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.FINISH)){
             event.setCancelled(true);
-            return;
         }
     }
 
@@ -121,7 +121,6 @@ public class GameListener implements Listener {
     public void onBreak(BlockBreakEvent event){
         if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.FINISH)){
             event.setCancelled(true);
-            return;
         }
     }
 }
