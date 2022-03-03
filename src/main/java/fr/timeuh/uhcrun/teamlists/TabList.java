@@ -1,5 +1,6 @@
-package fr.timeuh.uhcrun;
+package fr.timeuh.uhcrun.teamlists;
 
+import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

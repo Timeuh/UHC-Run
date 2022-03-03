@@ -34,30 +34,24 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
         player.getInventory().clear();
         player.setStatistic(Statistic.PLAYER_KILLS, 0);
-
+        if (!uhcRun.getPlayers().contains(player)) {
+            uhcRun.getPlayers().add(player);
+        }
         if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
-            if (!uhcRun.getPlayers().contains(player)) {
-                uhcRun.getPlayers().add(player);
-            }
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage("§5[UHCRun] §6Le jeu est en cours");
             event.setJoinMessage(null);
             return;
-        }
-
-        if (!uhcRun.getPlayers().contains(player)){
-            uhcRun.getPlayers().add(player);
+        } else {
+            player.setGameMode(GameMode.ADVENTURE);
+            ItemStack selectionEquipe = new ItemStack(Material.STICK);
+            ItemMeta selectionEquipeMeta = selectionEquipe.getItemMeta();
+            selectionEquipeMeta.setDisplayName("§6Sélection de l'équipe");
+            selectionEquipe.setItemMeta(selectionEquipeMeta);
+            player.getInventory().setItem(4, selectionEquipe);
+            player.updateInventory();
             event.setJoinMessage("§5[UHCRun] §4" + player.getName() + " §6Rejoint les runners");
         }
-
-        player.setGameMode(GameMode.ADVENTURE);
-        ItemStack selectionEquipe = new ItemStack(Material.STICK);
-        ItemMeta selectionEquipeMeta = selectionEquipe.getItemMeta();
-        selectionEquipeMeta.setDisplayName("§6Sélection de l'équipe");
-        selectionEquipe.setItemMeta(selectionEquipeMeta);
-        player.getInventory().setItem(4, selectionEquipe);
-        player.updateInventory();
-
         for (Player present : uhcRun.getPlayers()) {
             uhcRun.createLobbyBoard(present);
         }

@@ -5,6 +5,7 @@ import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.tasks.GameCycle;
 import fr.timeuh.uhcrun.tasks.GameStop;
+import fr.timeuh.uhcrun.teamlists.TabList;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
