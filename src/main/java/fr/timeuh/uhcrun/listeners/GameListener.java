@@ -3,7 +3,6 @@ package fr.timeuh.uhcrun.listeners;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.teamlists.PlayerTeam;
-import fr.timeuh.uhcrun.teamlists.TeamList;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -21,7 +20,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
 
 public class GameListener implements Listener {
 
@@ -73,7 +71,6 @@ public class GameListener implements Listener {
         } else if (uhcRun.getPlayers().contains(player)){
             uhcRun.getPlayers().remove(player);
         }
-
         event.setQuitMessage("§5[UHCRun] §4" +player.getName() + " §6Quitte les runners");
     }
 
@@ -104,7 +101,7 @@ public class GameListener implements Listener {
         if (inv.getName().equalsIgnoreCase("§6Menu Sélection d'équipe")){
             event.setCancelled(true);
             if (current.getType()== Material.WOOL){
-                PlayerTeam.setPlayerTeam(player, TeamList.RED);
+                PlayerTeam.setPlayerTeam(player, "RED");
                 player.closeInventory();
             }
         }
