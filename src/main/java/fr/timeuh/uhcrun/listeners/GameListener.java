@@ -2,6 +2,7 @@ package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.GameState;
+import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -33,6 +34,7 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
         player.getInventory().clear();
         player.setStatistic(Statistic.PLAYER_KILLS, 0);
+        player.setScoreboard(PlayerTeams.board);
         if (!uhcRun.getPlayers().contains(player)) {
             uhcRun.getPlayers().add(player);
         }
@@ -100,6 +102,7 @@ public class GameListener implements Listener {
         if (inv.getName().equalsIgnoreCase("§6Menu Sélection d'équipe")){
             event.setCancelled(true);
             if (current.getType()== Material.WOOL){
+                PlayerTeams.joinTeam(player, "RED");
                 player.closeInventory();
             }
         }

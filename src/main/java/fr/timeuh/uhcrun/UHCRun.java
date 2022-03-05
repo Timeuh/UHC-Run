@@ -5,6 +5,7 @@ import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.tasks.GameCycle;
 import fr.timeuh.uhcrun.tasks.GameStop;
+import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -40,6 +41,7 @@ public final class UHCRun extends JavaPlugin {
 
         pluginManager.registerEvents(new GameListener(this), this);
         pluginManager.registerEvents(new GameDamageListener(this), this);
+        PlayerTeams.createPlayerTeams();
     }
 
     @Override
