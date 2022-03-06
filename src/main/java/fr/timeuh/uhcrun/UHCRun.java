@@ -167,7 +167,7 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createBoard(Player player, PlayerTeams teams){
-        Objective obj = teams.board.registerNewObjective("UHCRun","dummy");
+        Objective obj = teams.board.getObjective("UHCRun");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");
@@ -180,7 +180,7 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createPVPBoard(Player player, PlayerTeams teams) {
-        Objective obj = teams.board.registerNewObjective("UHCRunPVP","dummy");
+        Objective obj = teams.board.getObjective("UHCRunPVP");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");
@@ -195,7 +195,7 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createLobbyBoard(Player player, PlayerTeams teams){
-        Objective obj = teams.board.registerNewObjective("UHCRunLobby","dummy");
+        Objective obj = teams.board.getObjective("UHCRunLobby");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");

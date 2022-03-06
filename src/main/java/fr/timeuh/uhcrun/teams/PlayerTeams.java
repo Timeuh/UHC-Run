@@ -10,6 +10,9 @@ public class PlayerTeams {
 
     public PlayerTeams(){
         this.board = Bukkit.getScoreboardManager().getNewScoreboard();
+        board.registerNewObjective("UHCRunLobby","dummy");
+        board.registerNewObjective("UHCRunPVP","dummy");
+        board.registerNewObjective("UHCRun","dummy");
 
         Team redTeam = board.registerNewTeam("redTeam");
         redTeam.setPrefix(ChatColor.RED + "");
