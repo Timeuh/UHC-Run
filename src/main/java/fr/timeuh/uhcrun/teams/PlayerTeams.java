@@ -2,7 +2,11 @@ package fr.timeuh.uhcrun.teams;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.*;
 
 public class PlayerTeams {
@@ -25,6 +29,18 @@ public class PlayerTeams {
             player.setDisplayName(ChatColor.RED + player.getName() + ChatColor.WHITE);
             player.setPlayerListName(ChatColor.RED + player.getName());
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'equipe " + ChatColor.RED + "ROUGE");
+        }
+    }
+
+    public ItemStack getTeamWool(String color){
+        if (color.equals("RED")) {
+            ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
+            ItemMeta metaRedWool = redWool.getItemMeta();
+            metaRedWool.setDisplayName(ChatColor.RED + "Equipe rouge");
+            redWool.setItemMeta(metaRedWool);
+            return redWool;
+        } else {
+            return null;
         }
     }
 

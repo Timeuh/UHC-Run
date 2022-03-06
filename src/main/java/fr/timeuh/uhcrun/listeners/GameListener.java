@@ -17,7 +17,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.Wool;
 
 public class GameListener implements Listener {
 
@@ -86,10 +85,7 @@ public class GameListener implements Listener {
         if (item.getType() == Material.BANNER && item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Sélection de l'équipe")) {
             if (action == Action.RIGHT_CLICK_AIR) {
                 Inventory inv = Bukkit.createInventory(null, 9, "§6Menu Sélection d'équipe");
-                ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
-                ItemMeta metaRedWool = redWool.getItemMeta();
-                metaRedWool.setDisplayName(ChatColor.RED + "Equipe rouge");
-                redWool.setItemMeta(metaRedWool);
+                ItemStack redWool = teams.getTeamWool("RED");
                 inv.setItem(4, redWool);
                 player.openInventory(inv);
             }
@@ -105,8 +101,7 @@ public class GameListener implements Listener {
 
         if (inv.getName().equalsIgnoreCase("§6Menu Sélection d'équipe")){
             event.setCancelled(true);
-            ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
-            if (current.isSimilar(redWool)){
+            if (current.isSimilar(teams.getTeamWool("RED"))){
                 teams.joinTeam(player, "RED");
                 player.closeInventory();
             }
