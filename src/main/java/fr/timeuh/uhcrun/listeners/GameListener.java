@@ -24,9 +24,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class GameListener implements Listener {
 
     private UHCRun uhcRun;
+    private PlayerTeams teams;
 
-    public GameListener(UHCRun UHCRun) {
+    public GameListener(UHCRun UHCRun, PlayerTeams teams) {
         this.uhcRun = UHCRun;
+        this.teams = teams;
     }
 
     @EventHandler
@@ -34,7 +36,7 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
         player.getInventory().clear();
         player.setStatistic(Statistic.PLAYER_KILLS, 0);
-        player.setScoreboard(PlayerTeams.board);
+        teams.joinScoreboard(player);
         if (!uhcRun.getPlayers().contains(player)) {
             uhcRun.getPlayers().add(player);
         }
@@ -59,7 +61,7 @@ public class GameListener implements Listener {
             event.setJoinMessage("§5[UHCRun] §4" + player.getName() + " §6Rejoint les runners");
         }
         for (Player present : uhcRun.getPlayers()) {
-            uhcRun.createLobbyBoard(present);
+            uhcRun.createLobbyBoard(present, teams);
         }
     }
 
@@ -102,7 +104,7 @@ public class GameListener implements Listener {
         if (inv.getName().equalsIgnoreCase("§6Menu Sélection d'équipe")){
             event.setCancelled(true);
             if (current.getType()== Material.WOOL){
-                PlayerTeams.joinTeam(player, "RED");
+                teams.joinTeam(player, "RED");
                 player.closeInventory();
             }
         }

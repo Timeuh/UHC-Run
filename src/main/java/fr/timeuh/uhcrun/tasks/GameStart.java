@@ -2,6 +2,7 @@ package fr.timeuh.uhcrun.tasks;
 
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.GameState;
+import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -9,11 +10,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameStart extends BukkitRunnable {
 
-    private int timer = 10;;
+    private int timer = 10;
     private UHCRun uhcRun;
+    private PlayerTeams teams;
 
-    public GameStart(UHCRun UHCRun){
+    public GameStart(UHCRun UHCRun, PlayerTeams teams){
         this.uhcRun = UHCRun;
+        this.teams = teams;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class GameStart extends BukkitRunnable {
                 Player player = uhcRun.getAlivePlayers().get(i);
                 Location spawn = uhcRun.getSpawns().get(i);
                 uhcRun.addNoFall(player);
-                uhcRun.createBoard(player);
+                uhcRun.createBoard(player, teams);
                 player.teleport(spawn);
                 player.getInventory().clear();
                 player.setGameMode(GameMode.SURVIVAL);
@@ -47,7 +50,7 @@ public class GameStart extends BukkitRunnable {
             border.setCenter(0,0);
             border.setSize(3000);
             GameCycle.resetTimer();
-            GameCycle cycle = new GameCycle(uhcRun);
+            GameCycle cycle = new GameCycle(uhcRun, teams);
             cycle.runTaskTimer(uhcRun,0,20);
 
             cancel();

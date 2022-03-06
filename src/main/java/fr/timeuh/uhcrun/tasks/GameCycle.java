@@ -2,6 +2,7 @@ package fr.timeuh.uhcrun.tasks;
 
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
+import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
@@ -10,10 +11,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class GameCycle  extends BukkitRunnable {
 
     private UHCRun uhcRun;
+    private PlayerTeams teams;
     private static int timer = 30;
 
-    public GameCycle(UHCRun uhcRun) {
+    public GameCycle(UHCRun uhcRun, PlayerTeams teams) {
         this.uhcRun = uhcRun;
+        this.teams = teams;
     }
 
 
@@ -47,10 +50,10 @@ public class GameCycle  extends BukkitRunnable {
             if (timer == 0){
                 int i = 0;
                 for (Player player : uhcRun.getAlivePlayers()){
-                    uhcRun.createPVPBoard(player);
+                    uhcRun.createPVPBoard(player, teams);
                     uhcRun.addNoFall(player);
                     player.teleport(uhcRun.getPvp().get(i));
-                    uhcRun.checkWin(uhcRun);
+                    uhcRun.checkWin(uhcRun, teams);
                     i++;
                 }
                 cancel();
@@ -59,7 +62,7 @@ public class GameCycle  extends BukkitRunnable {
             }
 
             for (Player player : uhcRun.getAlivePlayers()){
-                uhcRun.createBoard(player);
+                uhcRun.createBoard(player, teams);
             }
         }
 

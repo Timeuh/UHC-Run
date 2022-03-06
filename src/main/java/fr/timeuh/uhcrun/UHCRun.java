@@ -30,18 +30,19 @@ public final class UHCRun extends JavaPlugin {
         saveDefaultConfig();
         setState(GameState.WAITING);
         PluginManager pluginManager = getServer().getPluginManager();
+        PlayerTeams teams = new PlayerTeams();
 
         buildSpawns();
         buildPVP();
-        getCommand("test").setExecutor(new GameCommands(this));
+        getCommand("test").setExecutor(new GameCommands(this, teams));
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
-        getCommand("gamestop").setExecutor(new GameCommands(this));
-        getCommand("start").setExecutor(new GameCommands(this));
+        getCommand("gamestop").setExecutor(new GameCommands(this, teams));
+        getCommand("start").setExecutor(new GameCommands(this, teams));
 
-        pluginManager.registerEvents(new GameListener(this), this);
-        pluginManager.registerEvents(new GameDamageListener(this), this);
-        PlayerTeams.createPlayerTeams();
+        pluginManager.registerEvents(new GameListener(this, teams), this);
+        pluginManager.registerEvents(new GameDamageListener(this, teams), this);
+
     }
 
     @Override
@@ -141,34 +142,32 @@ public final class UHCRun extends JavaPlugin {
         cancelFallPlayer.remove(player);
     }
 
-    public void eliminate(Player player) {
+    public void eliminate(Player player, PlayerTeams teams) {
        if (alivePlayers.contains(player)) {
            alivePlayers.remove(player);
            player.setGameMode(GameMode.SPECTATOR);
            player.sendMessage("§5[UHCRun] §6Vous êtes mort, cheh !");
-           checkWin(this);
+           checkWin(this, teams);
        }
     }
 
-    public void checkWin(UHCRun uhcRun){
+    public void checkWin(UHCRun uhcRun, PlayerTeams teams){
         if (alivePlayers.size() == 1){
             Player winner = alivePlayers.get(0);
             Bukkit.broadcastMessage("§5[UHCRun] §4"+winner.getName() + " §6Gagne cette game !");
-            GameStop stop = new GameStop(this);
+            GameStop stop = new GameStop(this, teams);
             stop.runTaskTimer(uhcRun, 0, 20);
         }
 
         if (alivePlayers.size() == 0){
             Bukkit.broadcastMessage("§5[UHCRun] §6Tout le monde est mort ! Il n'y a pas de gagnant");
-            GameStop stop = new GameStop(this);
+            GameStop stop = new GameStop(this, teams);
             stop.runTaskTimer(uhcRun, 0, 20);
         }
     }
 
-    public void createBoard(Player player){
-        ScoreboardManager manager = Bukkit.getScoreboardManager();
-        Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("UHCRun","dummy");
+    public void createBoard(Player player, PlayerTeams teams){
+        Objective obj = teams.board.registerNewObjective("UHCRun","dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");
@@ -177,13 +176,11 @@ public final class UHCRun extends JavaPlugin {
         score1.setScore(2);
         Score score2 = obj.getScore("§6Phase PvP dans §4"+ GameCycle.getTimer() +"§6 secondes");
         score2.setScore(1);
-        player.setScoreboard(board);
+        player.setScoreboard(teams.board);
     }
 
-    public void createPVPBoard(Player player) {
-        ScoreboardManager manager2 = Bukkit.getScoreboardManager();
-        Scoreboard boardPVP = manager2.getNewScoreboard();
-        Objective obj = boardPVP.registerNewObjective("UHCRunPVP","dummy");
+    public void createPVPBoard(Player player, PlayerTeams teams) {
+        Objective obj = teams.board.registerNewObjective("UHCRunPVP","dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");
@@ -194,13 +191,11 @@ public final class UHCRun extends JavaPlugin {
         score3.setScore(1);
         Score score4 = obj.getScore("§6Phase PvP §4débutée");
         score4.setScore(0);
-        player.setScoreboard(boardPVP);
+        player.setScoreboard(teams.board);
     }
 
-    public void createLobbyBoard(Player player){
-        ScoreboardManager manager = Bukkit.getScoreboardManager();
-        Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("UHCRunLobby","dummy");
+    public void createLobbyBoard(Player player, PlayerTeams teams){
+        Objective obj = teams.board.registerNewObjective("UHCRunLobby","dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");
@@ -211,6 +206,6 @@ public final class UHCRun extends JavaPlugin {
         score2.setScore(1);
         Score score3 = obj.getScore("§6Joueurs en ligne : §4" + getPlayers().size() + "§6/§4" + Bukkit.getMaxPlayers());
         score3.setScore(0);
-        player.setScoreboard(board);
+        player.setScoreboard(teams.board);
     }
 }

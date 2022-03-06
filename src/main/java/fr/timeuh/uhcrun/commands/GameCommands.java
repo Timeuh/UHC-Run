@@ -3,6 +3,7 @@ package fr.timeuh.uhcrun.commands;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.tasks.GameStart;
 import fr.timeuh.uhcrun.tasks.GameStop;
+import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -14,9 +15,11 @@ import org.bukkit.entity.Player;
 public class GameCommands implements CommandExecutor {
 
     private UHCRun uhcRun;
+    private PlayerTeams teams;
 
-    public GameCommands(UHCRun uhcRun) {
+    public GameCommands(UHCRun uhcRun, PlayerTeams teams) {
         this.uhcRun = uhcRun;
+        this.teams = teams;
     }
 
     public GameCommands() {
@@ -54,12 +57,12 @@ public class GameCommands implements CommandExecutor {
                     return true;
 
                 case "gamestop":
-                    GameStop stop = new GameStop(uhcRun);
+                    GameStop stop = new GameStop(uhcRun, teams);
                     stop.runTaskTimer(uhcRun, 0, 20);
                     return true;
 
                 case "start":
-                    GameStart start = new GameStart(uhcRun);
+                    GameStart start = new GameStart(uhcRun, teams);
                     start.runTaskTimer(uhcRun, 0, 20);
                     return true;
 
