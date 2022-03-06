@@ -3,10 +3,7 @@ package fr.timeuh.uhcrun.listeners;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Statistic;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +17,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Wool;
 
 public class GameListener implements Listener {
 
@@ -52,7 +50,7 @@ public class GameListener implements Listener {
             return;
         } else {
             player.setGameMode(GameMode.ADVENTURE);
-            ItemStack selectionEquipe = new ItemStack(Material.STICK);
+            ItemStack selectionEquipe = new ItemStack(Material.BANNER);
             ItemMeta selectionEquipeMeta = selectionEquipe.getItemMeta();
             selectionEquipeMeta.setDisplayName("§6Sélection de l'équipe");
             selectionEquipe.setItemMeta(selectionEquipeMeta);
@@ -85,10 +83,14 @@ public class GameListener implements Listener {
 
         if (item == null) return;
 
-        if (item.getType() == Material.STICK && item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Sélection de l'équipe")) {
+        if (item.getType() == Material.BANNER && item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Sélection de l'équipe")) {
             if (action == Action.RIGHT_CLICK_AIR) {
                 Inventory inv = Bukkit.createInventory(null, 9, "§6Menu Sélection d'équipe");
-                inv.setItem(4, new ItemStack(Material.WOOL));
+                ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
+                ItemMeta metaRedWool = redWool.getItemMeta();
+                metaRedWool.setDisplayName(ChatColor.RED + "Equipe rouge");
+                redWool.setItemMeta(metaRedWool);
+                inv.setItem(4, redWool);
                 player.openInventory(inv);
             }
         }
@@ -103,7 +105,8 @@ public class GameListener implements Listener {
 
         if (inv.getName().equalsIgnoreCase("§6Menu Sélection d'équipe")){
             event.setCancelled(true);
-            if (current.getType()== Material.WOOL){
+            ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
+            if (current.isSimilar(redWool)){
                 teams.joinTeam(player, "RED");
                 player.closeInventory();
             }

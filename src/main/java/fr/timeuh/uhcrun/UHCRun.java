@@ -176,7 +176,6 @@ public final class UHCRun extends JavaPlugin {
         score1.setScore(2);
         Score score2 = obj.getScore("§6Phase PvP dans §4"+ GameCycle.getTimer() +"§6 secondes");
         score2.setScore(1);
-        player.setScoreboard(teams.board);
     }
 
     public void createPVPBoard(Player player, PlayerTeams teams) {
@@ -191,7 +190,6 @@ public final class UHCRun extends JavaPlugin {
         score3.setScore(1);
         Score score4 = obj.getScore("§6Phase PvP §4débutée");
         score4.setScore(0);
-        player.setScoreboard(teams.board);
     }
 
     public void createLobbyBoard(Player player, PlayerTeams teams){
@@ -206,6 +204,5 @@ public final class UHCRun extends JavaPlugin {
         score2.setScore(1);
         Score score3 = obj.getScore("§6Joueurs en ligne : §4" + getPlayers().size() + "§6/§4" + Bukkit.getMaxPlayers());
         score3.setScore(0);
-        player.setScoreboard(teams.board);
     }
 }

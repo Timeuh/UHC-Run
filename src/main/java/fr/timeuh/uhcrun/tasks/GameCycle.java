@@ -60,10 +60,6 @@ public class GameCycle  extends BukkitRunnable {
                 Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
                 uhcRun.setState(GameState.FIGHTING);
             }
-
-            for (Player player : uhcRun.getAlivePlayers()){
-                uhcRun.createBoard(player, teams);
-            }
         }
 
         if (uhcRun.isState(GameState.FIGHTING)) {
