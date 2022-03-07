@@ -220,7 +220,7 @@ public final class UHCRun extends JavaPlugin {
                 addCancelDamage(player);
                 if (timer == 30){
                     removeCancelDamage(player);
-                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Votre periode d'invincibilite est terminee");
+                    player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Votre periode d'invincibilite est terminee");
                 }
                 timer ++;
             }
