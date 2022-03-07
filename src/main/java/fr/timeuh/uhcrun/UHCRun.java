@@ -170,13 +170,13 @@ public final class UHCRun extends JavaPlugin {
         Objective obj = teams.board.getObjective("UHCRun");
         obj.unregister();
         obj = teams.board.registerNewObjective("UHCRun", "dummy");
-        obj.setDisplayName("§5UHCRun §6by §4Timeuh");
+        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore("§6-------------------------");
+        Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
         score.setScore(3);
-        Score score1 = obj.getScore("§6Joueurs en vie : §4"+alivePlayers.size());
+        Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED +alivePlayers.size());
         score1.setScore(2);
-        Score score2 = obj.getScore("§6Phase PvP dans §4"+ GameCycle.getTimer() +"§6 secondes");
+        Score score2 = obj.getScore(ChatColor.GOLD + "Phase PvP dans "+ ChatColor.DARK_RED + GameCycle.getTimer() + ChatColor.GOLD + " secondes");
         score2.setScore(1);
     }
 
@@ -184,15 +184,15 @@ public final class UHCRun extends JavaPlugin {
         Objective obj = teams.board.getObjective("UHCRunPVP");
         obj.unregister();
         obj = teams.board.registerNewObjective("UHCRunPVP", "dummy");
-        obj.setDisplayName("§5UHCRun §6by §4Timeuh");
+        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore("§6-------------------------");
+        Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
         score.setScore(3);
-        Score score1 = obj.getScore("§6Joueurs en vie : §4"+alivePlayers.size());
+        Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED +alivePlayers.size());
         score1.setScore(2);
-        Score score3 = obj.getScore("§6Kills : §4"+ player.getStatistic(Statistic.PLAYER_KILLS));
+        Score score3 = obj.getScore(ChatColor.GOLD + "Kills : "+ ChatColor.DARK_RED + player.getStatistic(Statistic.PLAYER_KILLS));
         score3.setScore(1);
-        Score score4 = obj.getScore("§6Phase PvP §4débutée");
+        Score score4 = obj.getScore(ChatColor.GOLD + "Phase PvP " + ChatColor.DARK_RED + "débutée");
         score4.setScore(0);
     }
 
@@ -200,15 +200,15 @@ public final class UHCRun extends JavaPlugin {
         Objective obj = teams.board.getObjective("UHCRunLobby");
         obj.unregister();
         obj = teams.board.registerNewObjective("UHCRunLobby", "dummy");
-        obj.setDisplayName("§5UHCRun §6by §4Timeuh");
+        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore("§6-------------------------");
+        Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
         score.setScore(3);
-        Score score1 = obj.getScore("§6Bienvenue dans cet UHC Run !");
+        Score score1 = obj.getScore(ChatColor.GOLD +"Bienvenue dans cet UHC Run !");
         score1.setScore(2);
-        Score score2 = obj.getScore("§6PVP : §4"+20 +"§6 minutes");
+        Score score2 = obj.getScore(ChatColor.GOLD + "PVP : " + ChatColor.DARK_RED + 20 + ChatColor.GOLD + " minutes");
         score2.setScore(1);
-        Score score3 = obj.getScore("§6Joueurs en ligne : §4" + getPlayers().size() + "§6/§4" + Bukkit.getMaxPlayers());
+        Score score3 = obj.getScore(ChatColor.GOLD + "Joueurs en ligne : " + ChatColor.DARK_RED + getPlayers().size() + ChatColor.GOLD + "/" + ChatColor.GOLD + Bukkit.getMaxPlayers());
         score3.setScore(0);
     }
 

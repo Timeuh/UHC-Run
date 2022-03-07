@@ -24,11 +24,11 @@ public class GameStop extends BukkitRunnable {
         uhcRun.setState(GameState.FINISH);
 
         if (timer == 20 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
-            Bukkit.broadcastMessage("§5[UHCRun] §6Arret dans §4" + timer + " §6secondes");
+            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Arret dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
         }
 
         if (timer == 0){
-            Bukkit.broadcastMessage("§5[UHCRun] §6Arret de la partie");
+            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Arret de la partie");
             for (Player player : uhcRun.getPlayers()){
                 Location spawn = new Location(player.getWorld(), 0, 100, 0);
                 uhcRun.beInsensible(player);

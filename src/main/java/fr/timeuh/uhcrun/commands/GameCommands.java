@@ -39,7 +39,7 @@ public class GameCommands implements CommandExecutor {
 
                 case "broadcast":
                     if(args.length == 0){
-                        player.sendMessage("§5[UHCRun] §6l'utilisation correcte de cette commande est : §4/broadcast <message>");
+                        player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "l'utilisation correcte de cette commande est : " + ChatColor.DARK_RED + "/broadcast <message>");
                     }
 
                     if(args.length > 1){
@@ -47,12 +47,12 @@ public class GameCommands implements CommandExecutor {
                         for (String partie : args){
                             broadcast.append(partie + " ");
                         }
-                        Bukkit.broadcastMessage(ChatColor.RED+"MESSAGE : "+ChatColor.DARK_RED+broadcast.toString());
+                        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED+ "MESSAGE : " + broadcast);
                     }
                     return true;
 
                 case "spawn":
-                    player.sendMessage("§5[UHCRun] §6Téléportation au spawn...");
+                    player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Téléportation au spawn...");
                     player.teleport(spawn);
                     return true;
 

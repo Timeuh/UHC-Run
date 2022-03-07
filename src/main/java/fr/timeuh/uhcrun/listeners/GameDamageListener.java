@@ -4,6 +4,7 @@ import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -34,7 +35,7 @@ public class GameDamageListener implements Listener {
                 event.setCancelled(true);
             } else if (player.getHealth() <= event.getDamage()){
                 if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK)
-                Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
                 uhcRun.eliminate(player, teams);
 
                 if (uhcRun.isState(GameState.FIGHTING)) {
@@ -54,7 +55,7 @@ public class GameDamageListener implements Listener {
             Player player = (Player) victim;
             if (player.getHealth() <= event.getDamage()){
                 uhcRun.eliminate(player, teams);
-                Bukkit.broadcastMessage("§5[UHCRun] §4" +player.getName()+ " §6 est mort");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
                 if (killer instanceof Player){
                     Player killerPlayer = (Player) killer;
                     killerPlayer.setStatistic(Statistic.PLAYER_KILLS, killerPlayer.getStatistic(Statistic.PLAYER_KILLS)+1);

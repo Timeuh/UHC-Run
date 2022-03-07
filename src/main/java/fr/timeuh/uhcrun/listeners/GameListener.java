@@ -38,24 +38,24 @@ public class GameListener implements Listener {
             uhcRun.getPlayers().add(player);
         }
         if (player.isOp()){
-            player.setPlayerListName("§4[OP] §6" + player.getName());
+            player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
         } else {
-            player.setPlayerListName("§3[Joueur] §6" + player.getName());
+            player.setPlayerListName(ChatColor.AQUA + "[Joueur] " + ChatColor.GOLD + player.getName());
         }
         if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
             player.setGameMode(GameMode.SPECTATOR);
-            player.sendMessage("§5[UHCRun] §6Le jeu est en cours");
+            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le jeu est en cours");
             event.setJoinMessage(null);
             return;
         } else {
             player.setGameMode(GameMode.ADVENTURE);
             ItemStack selectionEquipe = new ItemStack(Material.BANNER);
             ItemMeta selectionEquipeMeta = selectionEquipe.getItemMeta();
-            selectionEquipeMeta.setDisplayName("§6Sélection de l'équipe");
+            selectionEquipeMeta.setDisplayName(ChatColor.GOLD + "Selection de l'equipe");
             selectionEquipe.setItemMeta(selectionEquipeMeta);
             player.getInventory().setItem(4, selectionEquipe);
             player.updateInventory();
-            event.setJoinMessage("§5[UHCRun] §4" + player.getName() + " §6Rejoint les runners");
+            event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Rejoint les runners");
         }
         for (Player present : uhcRun.getPlayers()) {
             uhcRun.createLobbyBoard(teams);
@@ -71,7 +71,7 @@ public class GameListener implements Listener {
         } else if (uhcRun.getPlayers().contains(player)){
             uhcRun.getPlayers().remove(player);
         }
-        event.setQuitMessage("§5[UHCRun] §4" +player.getName() + " §6Quitte les runners");
+        event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Quitte les runners");
     }
 
     @EventHandler
@@ -82,9 +82,9 @@ public class GameListener implements Listener {
 
         if (item == null) return;
 
-        if (item.getType() == Material.BANNER && item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Sélection de l'équipe")) {
+        if (item.getType() == Material.BANNER && item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Selection de l'equipe")) {
             if (action == Action.RIGHT_CLICK_AIR) {
-                Inventory inv = Bukkit.createInventory(null, 9, "§6Menu Sélection d'équipe");
+                Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu Selection d'equipe");
                 ItemStack redWool = teams.getTeamWool("RED");
                 inv.setItem(4, redWool);
                 player.openInventory(inv);
@@ -99,7 +99,7 @@ public class GameListener implements Listener {
         ItemStack current = event.getCurrentItem();
         if (current == null) return;
 
-        if (inv.getName().equalsIgnoreCase("§6Menu Sélection d'équipe")){
+        if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu Selection d'equipe")){
             event.setCancelled(true);
             if (current.isSimilar(teams.getTeamWool("RED"))){
                 teams.joinTeam(player, "RED");

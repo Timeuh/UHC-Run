@@ -4,6 +4,7 @@ import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -26,26 +27,26 @@ public class GameCycle  extends BukkitRunnable {
 
         if (uhcRun.isState(GameState.PLAYING)){
             if (timer == 30 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
-                Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §4" + timer +" §6secondes");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
             }
             for (Player player : uhcRun.getAlivePlayers()) {
                 uhcRun.createBoard(player, teams);
             }
             switch(timer){
                 case 600:
-                    Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §410 §6minutes");
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + 10 + ChatColor.GOLD + " minutes");
                     break;
 
                 case 300:
-                    Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §45 §6minutes");
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + 5 + ChatColor.GOLD + " minutes");
                     break;
 
                 case 120:
-                    Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §42 §6minutes");
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + 2 + ChatColor.GOLD + " minutes");
                     break;
 
                 case 60:
-                    Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §41 §6minute");
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + 1 + ChatColor.GOLD + " minute");
                     break;
 
                 case 0:
@@ -57,7 +58,7 @@ public class GameCycle  extends BukkitRunnable {
                         uhcRun.checkWin(uhcRun, teams);
                         i++;
                     }
-                    Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Teleportation finale");
                     uhcRun.setState(GameState.FIGHTING);
                     break;
             }
