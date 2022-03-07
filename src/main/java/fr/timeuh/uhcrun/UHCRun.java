@@ -213,11 +213,11 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void beInsensible(Player player){
+        addCancelDamage(player);
         Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
             int timer = 0;
             @Override
             public void run() {
-                addCancelDamage(player);
                 if (timer == 30){
                     removeCancelDamage(player);
                     player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Votre periode d'invincibilite est terminee");
