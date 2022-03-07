@@ -71,6 +71,9 @@ public class GameListener implements Listener {
         } else if (uhcRun.getPlayers().contains(player)){
             uhcRun.getPlayers().remove(player);
         }
+        if (teams.hasTeam(player)){
+            teams.leaveTeam(player);
+        }
         event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Quitte les runners");
     }
 

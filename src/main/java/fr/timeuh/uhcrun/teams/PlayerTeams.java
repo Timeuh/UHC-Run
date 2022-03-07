@@ -9,17 +9,23 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlayerTeams {
     public Scoreboard board;
+    public List<Team> teamList;
 
     public PlayerTeams(){
         this.board = Bukkit.getScoreboardManager().getNewScoreboard();
+        this.teamList = new ArrayList<>();
         board.registerNewObjective("UHCRunLobby","dummy");
         board.registerNewObjective("UHCRunPVP","dummy");
         board.registerNewObjective("UHCRun","dummy");
 
         Team redTeam = board.registerNewTeam("redTeam");
         redTeam.setPrefix(ChatColor.DARK_RED + "");
+        teamList.add(redTeam);
     }
 
     public void joinTeam(Player player, String team){
@@ -30,6 +36,23 @@ public class PlayerTeams {
             player.setPlayerListName(ChatColor.DARK_RED + player.getName());
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'equipe " + ChatColor.DARK_RED + "ROUGE");
         }
+    }
+
+    public void leaveTeam(Player player){
+        for (Team team : teamList) {
+            if (team.hasEntry(player.getName())) {
+                team.removeEntry(player.getName());
+            }
+        }
+    }
+
+    public boolean hasTeam(Player player){
+        for (Team team : teamList){
+            if (team.hasEntry(player.getName())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public ItemStack getTeamWool(String color){
