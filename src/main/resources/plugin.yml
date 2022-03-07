@@ -6,10 +6,6 @@ load: STARTUP
 description: Un plugin de d'UHC run classique
 
 commands:
-  test:
-    description: commande de test
-    permission: test.use
-
   broadcast:
     description: broadcast de partie
     permission: gamebroadcast.use

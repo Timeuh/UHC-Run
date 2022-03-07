@@ -33,21 +33,17 @@ public class GameCommands implements CommandExecutor {
             Location spawn = new Location(player.getWorld(), 0, 100, 0);
 
             switch(command.getName()){
-                case "test":
-                    player.sendMessage(ChatColor.AQUA + uhcRun.getConfig().getString("messages.test"));
-                    return true;
-
                 case "broadcast":
                     if(args.length == 0){
-                        player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "l'utilisation correcte de cette commande est : " + ChatColor.DARK_RED + "/broadcast <message>");
+                        player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "l'utilisation correcte de cette commande est : " + ChatColor.DARK_RED + "/[broadcast][bc] <message>");
                     }
 
-                    if(args.length > 1){
+                    if(args.length >= 1){
                         StringBuilder broadcast = new StringBuilder();
                         for (String partie : args){
                             broadcast.append(partie + " ");
                         }
-                        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED+ "MESSAGE : " + broadcast);
+                        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + "MESSAGE : " + ChatColor.GOLD + broadcast);
                     }
                     return true;
 

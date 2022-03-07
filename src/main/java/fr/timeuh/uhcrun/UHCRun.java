@@ -26,7 +26,6 @@ public final class UHCRun extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
         saveDefaultConfig();
         setState(GameState.WAITING);
         PluginManager pluginManager = getServer().getPluginManager();
@@ -34,7 +33,6 @@ public final class UHCRun extends JavaPlugin {
 
         buildSpawns();
         buildPVP();
-        getCommand("test").setExecutor(new GameCommands(this, teams));
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
         getCommand("gamestop").setExecutor(new GameCommands(this, teams));
@@ -166,7 +164,7 @@ public final class UHCRun extends JavaPlugin {
         }
     }
 
-    public void createBoard(Player player, PlayerTeams teams){
+    public void createBoard(PlayerTeams teams){
         Objective obj = teams.board.getObjective("UHCRun");
         obj.unregister();
         obj = teams.board.registerNewObjective("UHCRun", "dummy");

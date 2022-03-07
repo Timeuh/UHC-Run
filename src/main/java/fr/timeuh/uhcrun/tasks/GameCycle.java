@@ -30,7 +30,7 @@ public class GameCycle  extends BukkitRunnable {
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
             }
             for (Player player : uhcRun.getAlivePlayers()) {
-                uhcRun.createBoard(player, teams);
+                uhcRun.createBoard(teams);
             }
             switch(timer){
                 case 600:
