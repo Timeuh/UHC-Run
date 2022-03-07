@@ -28,7 +28,9 @@ public class GameCycle  extends BukkitRunnable {
             if (timer == 30 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1){
                 Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §4" + timer +" §6secondes");
             }
-
+            for (Player player : uhcRun.getAlivePlayers()) {
+                uhcRun.createBoard(player, teams);
+            }
             switch(timer){
                 case 600:
                     Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §410 §6minutes");

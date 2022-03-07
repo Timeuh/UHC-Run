@@ -58,7 +58,7 @@ public class GameListener implements Listener {
             event.setJoinMessage("§5[UHCRun] §4" + player.getName() + " §6Rejoint les runners");
         }
         for (Player present : uhcRun.getPlayers()) {
-            uhcRun.createLobbyBoard(present, teams);
+            uhcRun.createLobbyBoard(teams);
         }
     }
 

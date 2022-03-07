@@ -168,6 +168,8 @@ public final class UHCRun extends JavaPlugin {
 
     public void createBoard(Player player, PlayerTeams teams){
         Objective obj = teams.board.getObjective("UHCRun");
+        obj.unregister();
+        obj = teams.board.registerNewObjective("UHCRun", "dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");
@@ -180,6 +182,8 @@ public final class UHCRun extends JavaPlugin {
 
     public void createPVPBoard(Player player, PlayerTeams teams) {
         Objective obj = teams.board.getObjective("UHCRunPVP");
+        obj.unregister();
+        obj = teams.board.registerNewObjective("UHCRunPVP", "dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");
@@ -192,8 +196,10 @@ public final class UHCRun extends JavaPlugin {
         score4.setScore(0);
     }
 
-    public void createLobbyBoard(Player player, PlayerTeams teams){
+    public void createLobbyBoard(PlayerTeams teams){
         Objective obj = teams.board.getObjective("UHCRunLobby");
+        obj.unregister();
+        obj = teams.board.registerNewObjective("UHCRunLobby", "dummy");
         obj.setDisplayName("§5UHCRun §6by §4Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore("§6-------------------------");
@@ -214,6 +220,7 @@ public final class UHCRun extends JavaPlugin {
                 addCancelDamage(player);
                 if (timer == 30){
                     removeCancelDamage(player);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Votre periode d'invincibilite est terminee");
                 }
                 timer ++;
             }

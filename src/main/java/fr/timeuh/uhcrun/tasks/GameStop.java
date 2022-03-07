@@ -35,7 +35,7 @@ public class GameStop extends BukkitRunnable {
                 player.teleport(spawn);
                 player.getInventory().clear();
                 player.setStatistic(Statistic.PLAYER_KILLS, 0);
-                uhcRun.createLobbyBoard(player, teams);
+                uhcRun.createLobbyBoard(teams);
 
                 if (player.getGameMode() == GameMode.SPECTATOR){
                     player.setGameMode(GameMode.SURVIVAL);
