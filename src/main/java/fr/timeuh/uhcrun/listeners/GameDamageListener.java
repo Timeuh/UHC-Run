@@ -30,10 +30,7 @@ public class GameDamageListener implements Listener {
         if (victim instanceof Player){
             Player player = (Player) victim;
 
-            if (event.getCause() == EntityDamageEvent.DamageCause.FALL && uhcRun.getNoFallPlayers().contains(player)){
-                uhcRun.removeNoFall(player);
-                player.setFallDistance(0f);
-                event.setDamage(0);
+            if (uhcRun.getCancelDamagePlayers().contains(player)){
                 event.setCancelled(true);
             } else if (player.getHealth() <= event.getDamage()){
                 if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK)

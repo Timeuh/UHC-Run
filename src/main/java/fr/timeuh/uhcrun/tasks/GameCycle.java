@@ -45,20 +45,19 @@ public class GameCycle  extends BukkitRunnable {
                 case 60:
                     Bukkit.broadcastMessage("§5[UHCRun] §6Combat final dans §41 §6minute");
                     break;
-            }
 
-            if (timer == 0){
-                int i = 0;
-                for (Player player : uhcRun.getAlivePlayers()){
-                    uhcRun.createPVPBoard(player, teams);
-                    uhcRun.addNoFall(player);
-                    player.teleport(uhcRun.getPvp().get(i));
-                    uhcRun.checkWin(uhcRun, teams);
-                    i++;
-                }
-                cancel();
-                Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
-                uhcRun.setState(GameState.FIGHTING);
+                case 0:
+                    int i = 0;
+                    for (Player player : uhcRun.getAlivePlayers()) {
+                        uhcRun.createPVPBoard(player, teams);
+                        player.teleport(uhcRun.getPvp().get(i));
+                        uhcRun.beInsensible(player);
+                        uhcRun.checkWin(uhcRun, teams);
+                        i++;
+                    }
+                    Bukkit.broadcastMessage("§5[UHCRun] §6Teleportation finale");
+                    uhcRun.setState(GameState.FIGHTING);
+                    break;
             }
         }
 

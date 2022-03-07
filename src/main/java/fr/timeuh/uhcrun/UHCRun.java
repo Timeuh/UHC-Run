@@ -20,7 +20,7 @@ public final class UHCRun extends JavaPlugin {
     private GameState state;
     private List<Player> players = new ArrayList<>();
     private List<Player> alivePlayers = new ArrayList<>();
-    private List<Player> cancelFallPlayer = new ArrayList<>();
+    private List<Player> cancelDamagePlayer = new ArrayList<>();
     private List<Location> spawns = new ArrayList<>();
     private List<Location> pvp = new ArrayList<>();
 
@@ -122,8 +122,8 @@ public final class UHCRun extends JavaPlugin {
         return alivePlayers;
     }
 
-    public List<Player> getNoFallPlayers() {
-        return cancelFallPlayer;
+    public List<Player> getCancelDamagePlayers() {
+        return cancelDamagePlayer;
     }
 
     public List<Location> getSpawns() {
@@ -134,12 +134,12 @@ public final class UHCRun extends JavaPlugin {
         return pvp;
     }
 
-    public void addNoFall(Player player){
-        cancelFallPlayer.add(player);
+    public void addCancelDamage(Player player){
+        cancelDamagePlayer.add(player);
     }
 
-    public void removeNoFall(Player player) {
-        cancelFallPlayer.remove(player);
+    public void removeCancelDamage(Player player) {
+        cancelDamagePlayer.remove(player);
     }
 
     public void eliminate(Player player, PlayerTeams teams) {
@@ -204,5 +204,19 @@ public final class UHCRun extends JavaPlugin {
         score2.setScore(1);
         Score score3 = obj.getScore("§6Joueurs en ligne : §4" + getPlayers().size() + "§6/§4" + Bukkit.getMaxPlayers());
         score3.setScore(0);
+    }
+
+    public void beInsensible(Player player){
+        Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+            int timer = 0;
+            @Override
+            public void run() {
+                addCancelDamage(player);
+                if (timer == 30){
+                    removeCancelDamage(player);
+                }
+                timer ++;
+            }
+        }, 0, 20);
     }
 }
