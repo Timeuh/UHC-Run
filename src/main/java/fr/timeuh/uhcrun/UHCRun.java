@@ -3,6 +3,7 @@ package fr.timeuh.uhcrun;
 import fr.timeuh.uhcrun.commands.GameCommands;
 import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
+import fr.timeuh.uhcrun.scenarios.Scenarios;
 import fr.timeuh.uhcrun.tasks.GameCycle;
 import fr.timeuh.uhcrun.tasks.GameStop;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
@@ -18,6 +19,7 @@ import java.util.List;
 public final class UHCRun extends JavaPlugin {
 
     private GameState state;
+    private Scenarios scenarios;
     private List<Player> players = new ArrayList<>();
     private List<Player> alivePlayers = new ArrayList<>();
     private List<Player> cancelDamagePlayer = new ArrayList<>();
@@ -28,6 +30,7 @@ public final class UHCRun extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         setState(GameState.WAITING);
+        setScenarios(Scenarios.NOTEAMS);
         PluginManager pluginManager = getServer().getPluginManager();
         PlayerTeams teams = new PlayerTeams();
 
@@ -110,6 +113,14 @@ public final class UHCRun extends JavaPlugin {
 
     public boolean isState(GameState state){
         return this.state == state;
+    }
+
+    public void setScenarios(Scenarios scenarios){
+        this.scenarios = scenarios;
+    }
+
+    public boolean isScenarios(Scenarios scenarios){
+        return this.scenarios == scenarios;
     }
 
     public List<Player> getPlayers() {
