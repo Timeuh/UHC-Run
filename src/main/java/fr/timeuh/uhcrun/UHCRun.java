@@ -19,23 +19,24 @@ import java.util.List;
 public final class UHCRun extends JavaPlugin {
 
     private GameState state;
-    private Scenarios scenarios;
     private List<Player> players = new ArrayList<>();
     private List<Player> alivePlayers = new ArrayList<>();
     private List<Player> cancelDamagePlayer = new ArrayList<>();
     private List<Location> spawns = new ArrayList<>();
     private List<Location> pvp = new ArrayList<>();
+    private List<Scenarios> enabledScenarios = new ArrayList<>();
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         setState(GameState.WAITING);
-        setScenarios(Scenarios.NOTEAMS);
         PluginManager pluginManager = getServer().getPluginManager();
         PlayerTeams teams = new PlayerTeams();
 
         buildSpawns();
         buildPVP();
+        enableScenarios(Scenarios.NOTEAMS);
+
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
         getCommand("gamestop").setExecutor(new GameCommands(this, teams));
@@ -113,14 +114,6 @@ public final class UHCRun extends JavaPlugin {
 
     public boolean isState(GameState state){
         return this.state == state;
-    }
-
-    public void setScenarios(Scenarios scenarios){
-        this.scenarios = scenarios;
-    }
-
-    public boolean isScenarios(Scenarios scenarios){
-        return this.scenarios == scenarios;
     }
 
     public List<Player> getPlayers() {
@@ -235,4 +228,38 @@ public final class UHCRun extends JavaPlugin {
             }
         }, 0, 20);
     }
+
+    public boolean checkEnabledScenario(Scenarios toCheck){
+        for (Scenarios scenario : enabledScenarios){
+            if (scenario.equals(toCheck)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void enableScenarios(Scenarios scenarioName){
+        boolean presence = false;
+        for (Scenarios scenario : enabledScenarios){
+            if (scenario.equals(scenarioName)){
+                presence = true;
+            }
+        }
+        if (!presence){
+            enabledScenarios.add(scenarioName);
+        }
+    }
+
+    public void disableScenario(Scenarios scenarioName){
+        boolean presence = false;
+        for (Scenarios scenario : enabledScenarios){
+            if (scenario.equals(scenarioName)){
+                presence = true;
+            }
+        }
+        if (presence){
+            enabledScenarios.remove(scenarioName);
+        }
+    }
+
 }
