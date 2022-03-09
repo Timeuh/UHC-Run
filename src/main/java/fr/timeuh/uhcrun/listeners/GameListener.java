@@ -25,9 +25,9 @@ import java.util.List;
 
 public class GameListener implements Listener {
 
-    private UHCRun uhcRun;
-    private PlayerTeams teams;
-    private List<ItemStack> usefulItems;
+    private final UHCRun uhcRun;
+    private final PlayerTeams teams;
+    private final List<ItemStack> usefulItems;
 
     public GameListener(UHCRun UHCRun, PlayerTeams teams) {
         this.uhcRun = UHCRun;
