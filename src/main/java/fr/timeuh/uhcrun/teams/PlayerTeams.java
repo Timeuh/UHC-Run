@@ -55,6 +55,46 @@ public class PlayerTeams {
         return false;
     }
 
+    public boolean isTeamEliminated(Team toCheck){
+        for (Team team : teamList){
+            if (team.equals(toCheck)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public Team getPlayerTeam(Player player){
+        for (Team team : teamList){
+            for (String name : team.getEntries()){
+                if (name.equals(player.getName())){
+                    return team;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void updateTeams(){
+        for (Team existingTeam : teamList){
+            if (existingTeam.getEntries().size() == 0){
+                teamList.remove(existingTeam);
+            }
+        }
+    }
+
+    public boolean oneTeamRemaining(){
+        return teamList.size() == 1;
+    }
+
+    public Team getLastTeam(){
+        if (oneTeamRemaining()){
+            return teamList.get(0);
+        } else {
+            return null;
+        }
+    }
+
     public ItemStack getTeamWool(String color){
         if (color.equals("RED")) {
             ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());

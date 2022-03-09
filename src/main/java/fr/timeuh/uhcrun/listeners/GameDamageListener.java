@@ -36,7 +36,7 @@ public class GameDamageListener implements Listener {
             } else if (player.getHealth() <= event.getDamage()){
                 if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK)
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
-                uhcRun.eliminate(player, teams);
+                uhcRun.eliminatePlayer(player, teams);
 
                 if (uhcRun.isState(GameState.FIGHTING)) {
                     for (Player sbPlayer : uhcRun.getPlayers()) {
@@ -54,7 +54,7 @@ public class GameDamageListener implements Listener {
         if (victim instanceof Player){
             Player player = (Player) victim;
             if (player.getHealth() <= event.getDamage()){
-                uhcRun.eliminate(player, teams);
+                uhcRun.eliminatePlayer(player, teams);
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
                 if (killer instanceof Player){
                     Player killerPlayer = (Player) killer;
