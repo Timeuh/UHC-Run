@@ -191,7 +191,7 @@ public class GameListener implements Listener {
 
         ItemStack scenarTeam = new ItemStack(Material.BANNER);
         ItemMeta scenarTeamMeta = scenarTeam.getItemMeta();
-        scenarTeamMeta.setDisplayName(ChatColor.GOLD + "Activer le scenario " + ChatColor.DARK_RED + "TEAMS");
+        scenarTeamMeta.setDisplayName(ChatColor.GOLD + "Activer/desactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
         scenarTeam.setItemMeta(scenarTeamMeta);
         itemList.add(scenarTeam);
 
