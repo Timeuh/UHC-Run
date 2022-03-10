@@ -3,7 +3,7 @@ version: 1.0
 main: fr.timeuh.uhcrun.UHCRun
 authors: [ Timeuh ]
 load: STARTUP
-description: Un plugin de d'UHC run classique
+description: Un plugin d'UHC run classique
 
 commands:
   broadcast:
@@ -21,3 +21,10 @@ commands:
   start:
     description: commence la partie
     permission: start.use
+
+  help:
+    description: affiche l'aide relative aux commandes
+
+  seeEnabledScenarios:
+    description: affiche la liste des plugins actifs
+    aliases: [scenarios, ses]

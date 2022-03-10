@@ -2,6 +2,7 @@ package fr.timeuh.uhcrun.listeners;
 
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
+import fr.timeuh.uhcrun.scenarios.Scenarios;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -60,10 +61,17 @@ public class GameDamageListener implements Listener {
                     Player killerPlayer = (Player) killer;
                     killerPlayer.setStatistic(Statistic.PLAYER_KILLS, killerPlayer.getStatistic(Statistic.PLAYER_KILLS)+1);
                 }
-
                 if (uhcRun.isState(GameState.FIGHTING)) {
                     for (Player sbPlayer : uhcRun.getPlayers()) {
                         uhcRun.createPVPBoard(sbPlayer, teams);
+                    }
+                }
+            }
+            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS) && !uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
+                if (killer instanceof Player){
+                    Player killerPlayer = (Player) killer;
+                    if (teams.getPlayerTeam(player).equals(teams.getPlayerTeam(killerPlayer))){
+                        event.setCancelled(true);
                     }
                 }
             }

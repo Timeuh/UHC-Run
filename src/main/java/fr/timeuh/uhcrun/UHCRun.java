@@ -25,6 +25,7 @@ public final class UHCRun extends JavaPlugin {
     private List<Location> spawns = new ArrayList<>();
     private List<Location> pvp = new ArrayList<>();
     private List<Scenarios> enabledScenarios = new ArrayList<>();
+    private List<Scenarios> allScenarios = new ArrayList<>();
     private PlayerTeams teams;
 
     @Override
@@ -36,10 +37,13 @@ public final class UHCRun extends JavaPlugin {
 
         buildSpawns();
         buildPVP();
+        createScenarios();
         enableScenarios(Scenarios.NOTEAMS);
 
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
+        getCommand("help").setExecutor(new GameCommands());
+        getCommand("seeEnabledScenarios").setExecutor(new GameCommands(this, teams));
         getCommand("gamestop").setExecutor(new GameCommands(this, teams));
         getCommand("start").setExecutor(new GameCommands(this, teams));
 
@@ -135,6 +139,10 @@ public final class UHCRun extends JavaPlugin {
 
     public List<Location> getPvp() {
         return pvp;
+    }
+
+    public List<Scenarios> getEnabledScenarios() {
+        return enabledScenarios;
     }
 
     public void addCancelDamage(Player player){
@@ -292,6 +300,38 @@ public final class UHCRun extends JavaPlugin {
         if (presence){
             enabledScenarios.remove(scenarioName);
         }
+    }
+
+    public String getScenarioName(Scenarios scenario){
+        switch (scenario){
+            case TEAMS:
+                return "Teams";
+            case NOTEAMS:
+                return "NoTeams";
+            case FRIENDLYFIRE:
+                return "FriendlyFire";
+            case TIMBER:
+                return "Timber";
+            case CUTCLEAN:
+                return "CutClean";
+            case HASTEYBOYS:
+                return "HasteyBoys";
+            default:
+                return null;
+        }
+    }
+
+    public void createScenarios(){
+        allScenarios.add(Scenarios.CUTCLEAN);
+        allScenarios.add(Scenarios.FRIENDLYFIRE);
+        allScenarios.add(Scenarios.HASTEYBOYS);
+        allScenarios.add(Scenarios.NOTEAMS);
+        allScenarios.add(Scenarios.TEAMS);
+        allScenarios.add(Scenarios.TIMBER);
+    }
+
+    public List<Scenarios> getAllScenarios(){
+        return allScenarios;
     }
 
 }
