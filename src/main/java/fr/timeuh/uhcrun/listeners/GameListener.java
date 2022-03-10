@@ -43,6 +43,7 @@ public class GameListener implements Listener {
         teams.joinScoreboard(player);
         ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Selection des scenarios");
         ItemStack teamSelection = findItem(ChatColor.GOLD + "Selection de l'equipe");
+        player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Salut ! si tu as besoin d'informations pense au" + ChatColor.DARK_RED + " /help");
 
         if (!uhcRun.getPlayers().contains(player)) {
             uhcRun.getPlayers().add(player);
@@ -125,16 +126,25 @@ public class GameListener implements Listener {
         if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu Selection d'equipe")){
             event.setCancelled(true);
             if (current.isSimilar(teams.getTeamWool("RED"))){
+                teams.leaveTeam(player);
                 teams.joinTeam(player, "RED");
                 player.closeInventory();
             }
         } else if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu Selection des scenarios")){
             event.setCancelled(true);
             if (current.isSimilar(teamScenario)){
-                uhcRun.enableScenarios(Scenarios.TEAMS);
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "active");
-                uhcRun.disableScenario(Scenarios.NOTEAMS);
-                player.closeInventory();
+                if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
+                    uhcRun.disableScenario(Scenarios.TEAMS);
+                    uhcRun.enableScenarios(Scenarios.NOTEAMS);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "desactive");
+                    teams.emptyTeams(uhcRun);
+                    player.closeInventory();
+                } else {
+                    uhcRun.enableScenarios(Scenarios.TEAMS);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "active");
+                    uhcRun.disableScenario(Scenarios.NOTEAMS);
+                    player.closeInventory();
+                }
             }
         }
     }

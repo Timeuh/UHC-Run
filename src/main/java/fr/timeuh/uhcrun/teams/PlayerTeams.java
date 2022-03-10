@@ -1,5 +1,6 @@
 package fr.timeuh.uhcrun.teams;
 
+import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -42,6 +43,11 @@ public class PlayerTeams {
         for (Team team : teamList) {
             if (team.hasEntry(player.getName())) {
                 team.removeEntry(player.getName());
+                if (player.isOp()){
+                    player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
+                } else {
+                    player.setPlayerListName(ChatColor.AQUA + "[Joueur] " + ChatColor.GOLD + player.getName());
+                }
             }
         }
     }
@@ -80,6 +86,12 @@ public class PlayerTeams {
             if (existingTeam.getEntries().size() == 0){
                 teamList.remove(existingTeam);
             }
+        }
+    }
+
+    public void emptyTeams(UHCRun uhcRun){
+        for (Player player : uhcRun.getPlayers()){
+            leaveTeam(player);
         }
     }
 
