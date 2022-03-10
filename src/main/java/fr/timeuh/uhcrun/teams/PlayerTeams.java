@@ -43,6 +43,7 @@ public class PlayerTeams {
         for (Team team : teamList) {
             if (team.hasEntry(player.getName())) {
                 team.removeEntry(player.getName());
+                player.setDisplayName(ChatColor.WHITE + player.getName());
                 if (player.isOp()){
                     player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
                 } else {

@@ -92,7 +92,7 @@ public class GameListener implements Listener {
         Action action = event.getAction();
         ItemStack item = event.getItem();
         ItemStack teamSelection = findItem(ChatColor.GOLD + "Selection de l'equipe");
-        ItemStack teamScenario = findItem(ChatColor.GOLD + "Activer le scenario " + ChatColor.DARK_RED + "TEAMS");
+        ItemStack teamScenario = findItem(ChatColor.GOLD + "Activer/desactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
 
         if (item == null) return;
 
