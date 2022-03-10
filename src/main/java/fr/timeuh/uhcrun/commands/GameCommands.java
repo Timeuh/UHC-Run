@@ -58,9 +58,14 @@ public class GameCommands implements CommandExecutor {
                     return true;
 
                 case "start":
-                    GameStart start = new GameStart(uhcRun, teams);
-                    start.runTaskTimer(uhcRun, 0, 20);
-                    return true;
+                    if (uhcRun.everyPlayerInTeam()) {
+                        GameStart start = new GameStart(uhcRun, teams);
+                        start.runTaskTimer(uhcRun, 0, 20);
+                        return true;
+                    } else {
+                        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Tous les joueurs doivent etre dans une equipe");
+                        return false;
+                    }
 
                 default: break;
             }

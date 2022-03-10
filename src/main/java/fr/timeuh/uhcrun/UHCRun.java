@@ -25,13 +25,14 @@ public final class UHCRun extends JavaPlugin {
     private List<Location> spawns = new ArrayList<>();
     private List<Location> pvp = new ArrayList<>();
     private List<Scenarios> enabledScenarios = new ArrayList<>();
+    private PlayerTeams teams;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         setState(GameState.WAITING);
         PluginManager pluginManager = getServer().getPluginManager();
-        PlayerTeams teams = new PlayerTeams();
+        this.teams = new PlayerTeams();
 
         buildSpawns();
         buildPVP();
@@ -149,12 +150,14 @@ public final class UHCRun extends JavaPlugin {
            alivePlayers.remove(player);
            player.setGameMode(GameMode.SPECTATOR);
            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Vous êtes mort, cheh !");
-           teams.leaveTeam(player);
-           teams.updateTeams();
-           Team playerTeam = teams.getPlayerTeam(player);
-           if (teams.isTeamEliminated(playerTeam)){
-               ChatColor color = teams.getTeamColor(playerTeam);
-               Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'equipe " + color + playerTeam.getName() + ChatColor.GOLD + " est eliminee !");
+           if (checkEnabledScenario(Scenarios.TEAMS)) {
+               teams.leaveTeam(player);
+               teams.updateTeams();
+               Team playerTeam = teams.getPlayerTeam(player);
+               if (teams.isTeamEliminated(playerTeam)) {
+                   ChatColor color = teams.getTeamColor(playerTeam);
+                   Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'equipe " + color + playerTeam.getName() + ChatColor.GOLD + " est eliminee !");
+               }
            }
            checkWin(this, teams);
        }
@@ -180,6 +183,20 @@ public final class UHCRun extends JavaPlugin {
                 GameStop stop = new GameStop(this, teams);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }
+        }
+    }
+
+    public boolean everyPlayerInTeam(){
+        if (checkEnabledScenario(Scenarios.TEAMS)){
+            int counter = 0;
+            for (Player player : getPlayers()){
+                if (teams.hasTeam(player)){
+                    counter++;
+                }
+            }
+            return (counter == getPlayers().size());
+        } else {
+            return true;
         }
     }
 
