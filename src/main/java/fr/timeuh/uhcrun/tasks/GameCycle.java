@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Team;
 
 public class GameCycle  extends BukkitRunnable {
 
@@ -55,9 +56,9 @@ public class GameCycle  extends BukkitRunnable {
                         uhcRun.createPVPBoard(player, teams);
                         player.teleport(uhcRun.getPvp().get(i));
                         uhcRun.beInsensible(player);
-                        uhcRun.checkWin(uhcRun, teams);
                         i++;
                     }
+                    uhcRun.checkWin(uhcRun, teams);
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Teleportation finale");
                     uhcRun.setState(GameState.FIGHTING);
                     break;

@@ -148,9 +148,14 @@ public final class UHCRun extends JavaPlugin {
        if (alivePlayers.contains(player)) {
            alivePlayers.remove(player);
            player.setGameMode(GameMode.SPECTATOR);
-           player.sendMessage("§5[UHCRun] §6Vous êtes mort, cheh !");
+           player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Vous êtes mort, cheh !");
            teams.leaveTeam(player);
            teams.updateTeams();
+           Team playerTeam = teams.getPlayerTeam(player);
+           if (teams.isTeamEliminated(playerTeam)){
+               ChatColor color = teams.getTeamColor(playerTeam);
+               Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'equipe " + color + playerTeam.getName() + ChatColor.GOLD + " est eliminee !");
+           }
            checkWin(this, teams);
        }
     }
@@ -159,18 +164,19 @@ public final class UHCRun extends JavaPlugin {
         if (checkEnabledScenario(Scenarios.NOTEAMS)) {
             if (alivePlayers.size() == 1) {
                 Player winner = alivePlayers.get(0);
-                Bukkit.broadcastMessage("§5[UHCRun] §4" + winner.getName() + " §6Gagne cette game !");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + winner.getName() + ChatColor.GOLD + " gagne cette partie !");
                 GameStop stop = new GameStop(this, teams);
                 stop.runTaskTimer(uhcRun, 0, 20);
             } else if (alivePlayers.size() == 0) {
-                Bukkit.broadcastMessage("§5[UHCRun] §6Tout le monde est mort ! Il n'y a pas de gagnant");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Tout le monde est mort ! Il n'y a pas de gagnant");
                 GameStop stop = new GameStop(this, teams);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }
         } else if (checkEnabledScenario(Scenarios.TEAMS)){
             if (teams.oneTeamRemaining()){
-                String winnerName = teams.getLastTeam().getDisplayName();
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + " l'equipe " + winnerName + ChatColor.GOLD + " Gagne cette game !");
+                String winnerName = teams.getLastTeam().getName();
+                ChatColor color = teams.getTeamColor(teams.getLastTeam());
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'equipe " + color + winnerName + ChatColor.GOLD + " gagne cette game !");
                 GameStop stop = new GameStop(this, teams);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }

@@ -23,14 +23,14 @@ public class PlayerTeams {
         board.registerNewObjective("UHCRunPVP","dummy");
         board.registerNewObjective("UHCRun","dummy");
 
-        Team redTeam = board.registerNewTeam("redTeam");
+        Team redTeam = board.registerNewTeam("Rouge");
         redTeam.setPrefix(ChatColor.DARK_RED + "");
         teamList.add(redTeam);
     }
 
     public void joinTeam(Player player, String team){
         if (team.equals("RED")){
-            Team join = board.getTeam("redTeam");
+            Team join = board.getTeam("Rouge");
             join.addEntry(player.getName());
             player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
             player.setPlayerListName(ChatColor.DARK_RED + player.getName());
@@ -93,6 +93,17 @@ public class PlayerTeams {
         } else {
             return null;
         }
+    }
+
+    public ChatColor getTeamColor(Team toCheck){
+        String name = toCheck.getName();
+        switch (name){
+            case "Rouge":
+                return ChatColor.DARK_RED;
+            default:
+                break;
+        }
+        return ChatColor.WHITE;
     }
 
     public ItemStack getTeamWool(String color){
