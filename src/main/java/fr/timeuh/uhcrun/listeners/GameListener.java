@@ -17,8 +17,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +43,8 @@ public class GameListener implements Listener {
         player.getInventory().clear();
         player.setStatistic(Statistic.PLAYER_KILLS, 0);
         teams.joinScoreboard(player);
-        ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Selection des scenarios");
-        ItemStack teamSelection = findItem(ChatColor.GOLD + "Selection de l'equipe");
+        ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Sélection des scenarios");
+        ItemStack teamSelection = findItem(ChatColor.GOLD + "Sélection de l'équipe");
         player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Salut ! si tu as besoin d'informations pense au" + ChatColor.DARK_RED + " /help");
 
         if (!uhcRun.getPlayers().contains(player)) {
@@ -91,26 +93,33 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
         Action action = event.getAction();
         ItemStack item = event.getItem();
-        ItemStack teamSelection = findItem(ChatColor.GOLD + "Selection de l'equipe");
-        ItemStack teamScenario = findItem(ChatColor.GOLD + "Activer/desactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
+        ItemStack teamSelection = findItem(ChatColor.GOLD + "Sélection de l'équipe");
+        ItemStack teamScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
+        ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Sélection des scenarios");
+        ItemStack friendlyFireScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "FRIENDLYFIRE");
+        ItemStack cutcleanScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "CUTCLEAN");
 
         if (item == null) return;
 
-        if (item.isSimilar(teamSelection) && uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
+        if (item.isSimilar(teamSelection) && uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
             if (action == Action.RIGHT_CLICK_AIR) {
-                Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu Selection d'equipe");
+                Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu sélection d'équipe");
+                ItemStack blueWool = teams.getTeamWool("BLUE");
                 ItemStack redWool = teams.getTeamWool("RED");
                 inv.setItem(4, redWool);
+                inv.setItem(5, blueWool);
                 player.openInventory(inv);
             }
-        } else if (item.getType().equals(Material.BOOK) && item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Selection des scenarios")) {
+        } else if (item.isSimilar(scenarioSelection)){
             if (action == Action.RIGHT_CLICK_AIR) {
-                Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu Selection des scenarios");
+                Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu sélection des scenarios");
                 inv.setItem(0, teamScenario);
+                inv.setItem(1, friendlyFireScenario);
+                inv.setItem(2,cutcleanScenario);
                 player.openInventory(inv);
             }
         } else if (item.isSimilar(teamSelection) && uhcRun.checkEnabledScenario(Scenarios.NOTEAMS)){
-            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "est desactive");
+            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "est désactivé");
         }
     }
 
@@ -119,30 +128,65 @@ public class GameListener implements Listener {
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
         ItemStack current = event.getCurrentItem();
-        ItemStack teamScenario = findItem(ChatColor.GOLD + "Activer le scenario " + ChatColor.DARK_RED + "TEAMS");
+        ItemStack teamScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
+        ItemStack friendlyFireScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "FRIENDLYFIRE");
+        ItemStack cutcleanScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "CUTCLEAN");
 
         if (current == null) return;
 
-        if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu Selection d'equipe")){
+        if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu sélection d'équipe")){
             event.setCancelled(true);
             if (current.isSimilar(teams.getTeamWool("RED"))){
                 teams.leaveTeam(player);
                 teams.joinTeam(player, "RED");
                 player.closeInventory();
+            } else if (current.isSimilar(teams.getTeamWool("BLUE"))){
+                teams.leaveTeam(player);
+                teams.joinTeam(player, "BLUE");
+                player.closeInventory();
             }
-        } else if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu Selection des scenarios")){
+        } else if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu sélection des scenarios")){
             event.setCancelled(true);
             if (current.isSimilar(teamScenario)){
                 if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
+                    if (uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
+                        uhcRun.disableScenario(Scenarios.FRIENDLYFIRE);
+                    }
                     uhcRun.disableScenario(Scenarios.TEAMS);
                     uhcRun.enableScenarios(Scenarios.NOTEAMS);
-                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "desactive");
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "désactivé");
                     teams.emptyTeams(uhcRun);
                     player.closeInventory();
                 } else {
                     uhcRun.enableScenarios(Scenarios.TEAMS);
-                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "active");
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TEAMS " + ChatColor.GOLD + "activé");
                     uhcRun.disableScenario(Scenarios.NOTEAMS);
+                    player.closeInventory();
+                }
+
+            } else if (current.isSimilar(friendlyFireScenario)){
+                if (uhcRun.checkEnabledScenario(Scenarios.TEAMS) && !uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
+                    uhcRun.enableScenarios(Scenarios.FRIENDLYFIRE);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "FRIENDLYFIRE " + ChatColor.GOLD + "activé");
+                    player.closeInventory();
+                } else if (uhcRun.checkEnabledScenario(Scenarios.NOTEAMS)){
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le scenario " + ChatColor.DARK_RED + "NOTEAMS " + ChatColor.GOLD + " est activé, veuillez activer" +
+                            " les teams avant d'activer le scénario " + ChatColor.DARK_RED + "FRIENDLYFIRE");
+                    player.closeInventory();
+                } else if (uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
+                    uhcRun.disableScenario(Scenarios.FRIENDLYFIRE);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "FRIENDLYFIRE " + ChatColor.GOLD + "désactivé");
+                    player.closeInventory();
+                }
+
+            } else if (current.isSimilar(cutcleanScenario)){
+                if (uhcRun.checkEnabledScenario(Scenarios.CUTCLEAN)){
+                    uhcRun.disableScenario(Scenarios.CUTCLEAN);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "CUTCLEAN " + ChatColor.GOLD + "désactivé");
+                    player.closeInventory();
+                } else {
+                    uhcRun.enableScenarios(Scenarios.CUTCLEAN);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "CUTCLEAN " + ChatColor.GOLD + "activé");
                     player.closeInventory();
                 }
             }
@@ -166,8 +210,8 @@ public class GameListener implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent event){
         ItemStack item = event.getItemDrop().getItemStack();
-        ItemStack teamSelection = findItem(ChatColor.GOLD + "Selection de l'equipe");
-        ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Selection des scenarios");
+        ItemStack teamSelection = findItem(ChatColor.GOLD + "Sélection de l'équipe");
+        ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Sélection des scenarios");
 
         if ((item.isSimilar(teamSelection) || item.isSimilar(scenarioSelection)) && uhcRun.isState(GameState.WAITING)){
             event.setCancelled(true);
@@ -179,21 +223,34 @@ public class GameListener implements Listener {
 
         ItemStack teamSelection = new ItemStack(Material.BANNER);
         ItemMeta teamSelectionMeta = teamSelection.getItemMeta();
-        teamSelectionMeta.setDisplayName(ChatColor.GOLD + "Selection de l'equipe");
+        teamSelectionMeta.setDisplayName(ChatColor.GOLD + "Sélection de l'équipe");
         teamSelection.setItemMeta(teamSelectionMeta);
         itemList.add(teamSelection);
 
         ItemStack scenarioSelection = new ItemStack(Material.BOOK);
         ItemMeta scenarioSelectionMeta = scenarioSelection.getItemMeta();
-        scenarioSelectionMeta.setDisplayName(ChatColor.GOLD + "Selection des scenarios");
+        scenarioSelectionMeta.setDisplayName(ChatColor.GOLD + "Sélection des scenarios");
         scenarioSelection.setItemMeta(scenarioSelectionMeta);
         itemList.add(scenarioSelection);
 
         ItemStack scenarTeam = new ItemStack(Material.BANNER);
         ItemMeta scenarTeamMeta = scenarTeam.getItemMeta();
-        scenarTeamMeta.setDisplayName(ChatColor.GOLD + "Activer/desactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
+        scenarTeamMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
         scenarTeam.setItemMeta(scenarTeamMeta);
         itemList.add(scenarTeam);
+
+        ItemStack scenarFirendlyFire = new ItemStack(Material.FIREBALL);
+        ItemMeta scenarFirendlyFireMeta = scenarFirendlyFire.getItemMeta();
+        scenarFirendlyFireMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "FRIENDLYFIRE");
+        scenarFirendlyFire.setItemMeta(scenarFirendlyFireMeta);
+        itemList.add(scenarFirendlyFire);
+
+        ItemStack scenarCutClean = new ItemStack(Material.DIAMOND_PICKAXE);
+        ItemMeta scenarCutCleanMeta = scenarCutClean.getItemMeta();
+        scenarCutCleanMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "CUTCLEAN");
+        scenarCutCleanMeta.getItemFlags().add(ItemFlag.HIDE_ATTRIBUTES);
+        scenarCutClean.setItemMeta(scenarCutCleanMeta);
+        itemList.add(scenarCutClean);
 
         return itemList;
     }

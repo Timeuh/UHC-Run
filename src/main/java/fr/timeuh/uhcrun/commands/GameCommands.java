@@ -89,7 +89,8 @@ public class GameCommands implements CommandExecutor {
                         player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Usage : " + ChatColor.DARK_RED + "[/help]");
                         return false;
                     } else {
-                        String displayHelp = ChatColor.DARK_PURPLE + "[HELP]" + ChatColor.GOLD + " Bienvenue dans ce mode de jeu UHC Run !\nSi vous ne savez pas ce que c'est, le principe est simple : " +
+                        String displayHelp = ChatColor.GOLD + "-----------------------------------------------------\n" + ChatColor.DARK_PURPLE + "[HELP]" + ChatColor.GOLD +
+                                " Bienvenue dans ce mode de jeu UHC Run !\nSi vous ne savez pas ce que c'est, le principe est simple : " +
                                 "vous avez 20 minutes pour faire votre stuff, sachant que le spawn de minerais est plus frequent et les couches sont adaptees, tout comme certains loots. Au bout de 20 minutes" +
                                 " tous les joueurs sont tp et la phase de pvp commence : le but etant d'etre le dernier joueur/team survivant\n \n" + ChatColor.DARK_RED + "Voici une liste des commandes : "
                                 + ChatColor.GOLD + "(le symbole " + ChatColor.DARK_PURPLE + "[OP]" + ChatColor.GOLD + " signife que la commande est disponible" + " uniquement pour les joueurs op)\n" +
@@ -103,7 +104,8 @@ public class GameCommands implements CommandExecutor {
                                 ChatColor.DARK_RED + ChatColor.UNDERLINE + "CutClean" + ChatColor.GOLD + " - Scenario qui permet d'obtenir directement les lingots sans avoir a faire cuire les minerais\n" +
                                 ChatColor.DARK_RED + ChatColor.UNDERLINE + "HasteyBoys" + ChatColor.GOLD + " - Scenario qui donne les outils directement enchantes au craft avec unbreaking et efficiency\n" +
                                 ChatColor.DARK_RED + ChatColor.UNDERLINE + "Timber" + ChatColor.GOLD + " - Scenario pour que les arbres cassent instantannement apres avoir casse une de leurs buches\n" +
-                                ChatColor.DARK_RED + ChatColor.UNDERLINE + "FriendlyFire" + ChatColor.GOLD + " - Scenario activable uniquement avec les teams, active les degats entre coequipiers";
+                                ChatColor.DARK_RED + ChatColor.UNDERLINE + "FriendlyFire" + ChatColor.GOLD + " - Scenario activable uniquement avec les teams, active les degats entre coequipiers\n" +
+                                "-----------------------------------------------------\n";
                         player.sendMessage(displayHelp);
                         return true;
                     }
@@ -113,19 +115,17 @@ public class GameCommands implements CommandExecutor {
                         player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Usage : " + ChatColor.DARK_RED + "[/seeEnabledScenarios, scenarios, ses]");
                         return false;
                     } else {
-                        String display = ChatColor.GOLD + "Voici la liste des scenarios :";
-                        String name = "";
+                        String display = ChatColor.GOLD + "-----------------------------------------------------\nVoici la liste des scenarios :\n";
                         List<Scenarios> allScenarios = uhcRun.getAllScenarios();
-                        for (Scenarios scenario : allScenarios) {
-                            for (Scenarios secondScenario : uhcRun.getEnabledScenarios()) {
-                                if (scenario.equals(secondScenario)) {
-                                    name = ChatColor.DARK_PURPLE + "Scenario " + ChatColor.GOLD + uhcRun.getScenarioName(scenario) + ChatColor.GREEN + " √";
-                                } else {
-                                    name = ChatColor.DARK_PURPLE + "Scenario " + ChatColor.GOLD + uhcRun.getScenarioName(scenario) + ChatColor.RED + " ✗";
-                                }
-                                display += "\n" + name;
+                        List<Scenarios> enabledScenarios = uhcRun.getEnabledScenarios();
+                        for (Scenarios actif : allScenarios){
+                            if (enabledScenarios.contains(actif)){
+                                display += ChatColor.GOLD + "Scenario : " + ChatColor.DARK_RED + uhcRun.getScenarioName(actif) + ChatColor.GREEN + " ✔\n";
+                            } else {
+                                display += ChatColor.GOLD + "Scenario : " + ChatColor.DARK_RED + uhcRun.getScenarioName(actif) + ChatColor.RED + " ✘\n";
                             }
                         }
+                        display += ChatColor.GOLD + "-----------------------------------------------------\n";
                         player.sendMessage(display);
                         return true;
                     }

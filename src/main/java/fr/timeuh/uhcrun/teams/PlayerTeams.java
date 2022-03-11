@@ -27,15 +27,29 @@ public class PlayerTeams {
         Team redTeam = board.registerNewTeam("Rouge");
         redTeam.setPrefix(ChatColor.DARK_RED + "");
         teamList.add(redTeam);
+
+        Team blueTeam = board.registerNewTeam("Bleue");
+        blueTeam.setPrefix(ChatColor.BLUE + "");
+        teamList.add(blueTeam);
     }
 
     public void joinTeam(Player player, String team){
-        if (team.equals("RED")){
-            Team join = board.getTeam("Rouge");
-            join.addEntry(player.getName());
-            player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
-            player.setPlayerListName(ChatColor.DARK_RED + player.getName());
-            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'equipe " + ChatColor.DARK_RED + "ROUGE");
+        switch (team){
+            case "RED":
+                Team redTeam = board.getTeam("Rouge");
+                redTeam.addEntry(player.getName());
+                player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
+                player.setPlayerListName(ChatColor.DARK_RED + player.getName());
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.DARK_RED + "ROUGE");
+                break;
+
+            case "BLUE":
+                Team blueTeam = board.getTeam("Bleue");
+                blueTeam.addEntry(player.getName());
+                player.setDisplayName(ChatColor.BLUE + player.getName() + ChatColor.WHITE);
+                player.setPlayerListName(ChatColor.BLUE + player.getName());
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.BLUE + "ROUGE");
+                break;
         }
     }
 
@@ -113,6 +127,8 @@ public class PlayerTeams {
         switch (name){
             case "Rouge":
                 return ChatColor.DARK_RED;
+            case "Bleue":
+                return ChatColor.BLUE;
             default:
                 break;
         }
@@ -120,14 +136,23 @@ public class PlayerTeams {
     }
 
     public ItemStack getTeamWool(String color){
-        if (color.equals("RED")) {
-            ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
-            ItemMeta metaRedWool = redWool.getItemMeta();
-            metaRedWool.setDisplayName(ChatColor.DARK_RED + "Equipe rouge");
-            redWool.setItemMeta(metaRedWool);
-            return redWool;
-        } else {
-            return null;
+        switch (color){
+            case "RED":
+                ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
+                ItemMeta metaRedWool = redWool.getItemMeta();
+                metaRedWool.setDisplayName(ChatColor.DARK_RED + "Equipe rouge");
+                redWool.setItemMeta(metaRedWool);
+                return redWool;
+
+            case "BLUE":
+                ItemStack blueWool = new ItemStack(Material.WOOL, 1, DyeColor.BLUE.getData());
+                ItemMeta metaBlueWool = blueWool.getItemMeta();
+                metaBlueWool.setDisplayName(ChatColor.BLUE + "Equipe bleue");
+                blueWool.setItemMeta(metaBlueWool);
+                return blueWool;
+
+            default:
+                return null;
         }
     }
 
