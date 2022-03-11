@@ -54,6 +54,19 @@ public class GameDamageListener implements Listener {
         Entity killer = event.getDamager();
         if (victim instanceof Player){
             Player player = (Player) victim;
+            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
+                if (killer instanceof Player){
+                    Player killerPlayer = (Player) killer;
+                    String equipeVictime = teams.getPlayerTeam(player).getName();
+                    String equipeAttaquant = teams.getPlayerTeam(killerPlayer).getName();
+                    if (equipeAttaquant.equals(equipeVictime) && !uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
+                        event.setCancelled(true);
+                    }
+                }
+            }
+            if (uhcRun.isState(GameState.WAITING)){
+                event.setCancelled(true);
+            }
             if (player.getHealth() <= event.getDamage()){
                 uhcRun.eliminatePlayer(player, teams);
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
@@ -66,17 +79,6 @@ public class GameDamageListener implements Listener {
                         uhcRun.createPVPBoard(sbPlayer, teams);
                     }
                 }
-            }
-            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
-                if (killer instanceof Player){
-                    Player killerPlayer = (Player) killer;
-                    if (teams.getPlayerTeam(player).equals(teams.getPlayerTeam(killerPlayer)) && !uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
-                        event.setCancelled(true);
-                    }
-                }
-            }
-            if (uhcRun.isState(GameState.WAITING)){
-                event.setCancelled(true);
             }
         }
     }

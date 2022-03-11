@@ -47,7 +47,7 @@ public class PlayerTeams {
                 blueTeam.addEntry(player.getName());
                 player.setDisplayName(ChatColor.BLUE + player.getName() + ChatColor.WHITE);
                 player.setPlayerListName(ChatColor.BLUE + player.getName());
-                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.BLUE + "ROUGE");
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.BLUE + "BLEUE");
                 break;
         }
     }
@@ -86,21 +86,15 @@ public class PlayerTeams {
 
     public Team getPlayerTeam(Player player){
         for (Team team : teamList){
-            for (String name : team.getEntries()){
-                if (name.equals(player.getName())){
-                    return team;
-                }
+            if (team.getEntries().contains(player.getName())){
+                return team;
             }
         }
         return null;
     }
 
     public void updateTeams(){
-        for (Team existingTeam : teamList){
-            if (existingTeam.getEntries().size() == 0){
-                teamList.remove(existingTeam);
-            }
-        }
+        teamList.removeIf(existingTeam -> existingTeam.getEntries().size() == 0);
     }
 
     public void emptyTeams(UHCRun uhcRun){
