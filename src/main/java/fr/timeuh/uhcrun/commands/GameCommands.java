@@ -79,7 +79,7 @@ public class GameCommands implements CommandExecutor {
                             start.runTaskTimer(uhcRun, 0, 20);
                             return true;
                         } else {
-                            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Tous les joueurs doivent etre dans une equipe");
+                            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Tous les joueurs doivent être dans une équipe");
                             return false;
                         }
                     }
