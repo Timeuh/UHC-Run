@@ -15,11 +15,10 @@ import java.util.List;
 
 public class PlayerTeams {
     public Scoreboard board;
-    public List<Team> teamList;
+    public List<Team> teamList =  new ArrayList<>();
 
     public PlayerTeams(){
         this.board = Bukkit.getScoreboardManager().getNewScoreboard();
-        this.teamList = new ArrayList<>();
         board.registerNewObjective("UHCRunLobby","dummy");
         board.registerNewObjective("UHCRunPVP","dummy");
         board.registerNewObjective("UHCRun","dummy");

@@ -67,13 +67,16 @@ public class GameDamageListener implements Listener {
                     }
                 }
             }
-            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS) && !uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
+            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
                 if (killer instanceof Player){
                     Player killerPlayer = (Player) killer;
-                    if (teams.getPlayerTeam(player).equals(teams.getPlayerTeam(killerPlayer)) || uhcRun.isState(GameState.WAITING)){
+                    if (teams.getPlayerTeam(player).equals(teams.getPlayerTeam(killerPlayer)) && !uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
                         event.setCancelled(true);
                     }
                 }
+            }
+            if (uhcRun.isState(GameState.WAITING)){
+                event.setCancelled(true);
             }
         }
     }
