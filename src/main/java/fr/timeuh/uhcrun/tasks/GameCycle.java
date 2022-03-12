@@ -58,9 +58,9 @@ public class GameCycle  extends BukkitRunnable {
                         uhcRun.beInsensible(player);
                         i++;
                     }
-                    uhcRun.checkWin(uhcRun, teams);
-                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Teleportation finale");
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Téléportation finale");
                     uhcRun.setState(GameState.FIGHTING);
+                    uhcRun.checkWin(uhcRun, teams);
                     break;
             }
         }

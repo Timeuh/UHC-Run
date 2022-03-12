@@ -164,7 +164,7 @@ public final class UHCRun extends JavaPlugin {
                teams.updateTeams();
                if (teams.isTeamEliminated(playerTeam)) {
                    ChatColor color = teams.getTeamColor(playerTeam);
-                   Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'equipe " + color + playerTeam.getName() + ChatColor.GOLD + " est eliminee !");
+                   Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'équipe " + color + playerTeam.getName() + ChatColor.GOLD + " est éliminée !");
                }
            }
            checkWin(this, teams);
@@ -187,7 +187,7 @@ public final class UHCRun extends JavaPlugin {
             if (teams.oneTeamRemaining()){
                 String winnerName = teams.getLastTeam().getName();
                 ChatColor color = teams.getTeamColor(teams.getLastTeam());
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'equipe " + color + winnerName + ChatColor.GOLD + " gagne cette game !");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'équipe " + color + winnerName + ChatColor.GOLD + " gagne cette game !");
                 GameStop stop = new GameStop(this, teams);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }
@@ -262,7 +262,7 @@ public final class UHCRun extends JavaPlugin {
             public void run() {
                 if (timer == 30){
                     removeCancelDamage(player);
-                    player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Votre periode d'invincibilite est terminee");
+                    player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Votre période d'invincibilite est terminée");
                 }
                 timer ++;
             }

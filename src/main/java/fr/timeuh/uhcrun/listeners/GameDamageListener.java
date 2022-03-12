@@ -68,12 +68,12 @@ public class GameDamageListener implements Listener {
                 event.setCancelled(true);
             }
             if (player.getHealth() <= event.getDamage()){
-                uhcRun.eliminatePlayer(player, teams);
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
                 if (killer instanceof Player){
                     Player killerPlayer = (Player) killer;
                     killerPlayer.setStatistic(Statistic.PLAYER_KILLS, killerPlayer.getStatistic(Statistic.PLAYER_KILLS)+1);
                 }
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
+                uhcRun.eliminatePlayer(player, teams);
                 if (uhcRun.isState(GameState.FIGHTING)) {
                     for (Player sbPlayer : uhcRun.getPlayers()) {
                         uhcRun.createPVPBoard(sbPlayer, teams);
