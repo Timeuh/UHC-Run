@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -68,24 +67,21 @@ public class GameDamageListener implements Listener {
             if (uhcRun.isState(GameState.WAITING)){
                 event.setCancelled(true);
             }
-            if (player.getHealth() <= event.getDamage()){
-                if (killer instanceof Player){
-                    Player killerPlayer = (Player) killer;
-                    killerPlayer.setStatistic(Statistic.PLAYER_KILLS, player.getStatistic(Statistic.PLAYER_KILLS)+1);
-                }
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
-                uhcRun.eliminatePlayer(player, teams);
-                if (uhcRun.isState(GameState.FIGHTING)) {
-                    for (Player sbPlayer : uhcRun.getPlayers()) {
-                        uhcRun.createPVPBoard(sbPlayer, teams);
-                    }
-                }
-            }
         }
     }
-
+    
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
-        event.setDeathMessage(null);
+        Player player = event.getEntity();
+        Player killer = player.getKiller();
+        event.setDeathMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
+        uhcRun.eliminatePlayer(player, teams);
+        killer.setStatistic(Statistic.PLAYER_KILLS, (killer.getStatistic(Statistic.PLAYER_KILLS)) +1);
+        killer.sendMessage("vos kills : " + killer.getStatistic(Statistic.PLAYER_KILLS));
+        if (uhcRun.isState(GameState.FIGHTING)) {
+            for (Player sbPlayer : uhcRun.getPlayers()) {
+                uhcRun.createPVPBoard(sbPlayer, teams);
+            }
+        }
     }
 }
