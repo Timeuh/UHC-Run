@@ -209,10 +209,10 @@ public final class UHCRun extends JavaPlugin {
         }
     }
 
-    public void createBoard(PlayerTeams teams){
-        Objective obj = teams.board.getObjective("UHCRun");
+    public void createBoard(Player player, PlayerTeams teams){
+        Objective obj = player.getScoreboard().getObjective("UHCRun");
         obj.unregister();
-        obj = teams.board.registerNewObjective("UHCRun", "dummy");
+        obj = player.getScoreboard().registerNewObjective("UHCRun", "dummy");
         obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
@@ -224,9 +224,9 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createPVPBoard(Player player, PlayerTeams teams) {
-        Objective obj = teams.board.getObjective("UHCRunPVP");
+        Objective obj = player.getScoreboard().getObjective("UHCRunPVP");
         obj.unregister();
-        obj = teams.board.registerNewObjective("UHCRunPVP", "dummy");
+        obj = player.getScoreboard().registerNewObjective("UHCRunPVP", "dummy");
         obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
@@ -239,10 +239,10 @@ public final class UHCRun extends JavaPlugin {
         score4.setScore(0);
     }
 
-    public void createLobbyBoard(PlayerTeams teams){
-        Objective obj = teams.board.getObjective("UHCRunLobby");
+    public void createLobbyBoard(Player player, PlayerTeams teams){
+        Objective obj = player.getScoreboard().getObjective("UHCRunLobby");
         obj.unregister();
-        obj = teams.board.registerNewObjective("UHCRunLobby", "dummy");
+        obj = player.getScoreboard().registerNewObjective("UHCRunLobby", "dummy");
         obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore(ChatColor.GOLD + "-------------------------");

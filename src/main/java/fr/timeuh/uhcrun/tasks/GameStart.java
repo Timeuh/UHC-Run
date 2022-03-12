@@ -38,7 +38,7 @@ public class GameStart extends BukkitRunnable {
                 Player player = uhcRun.getAlivePlayers().get(i);
                 Location spawn = uhcRun.getSpawns().get(i);
                 uhcRun.beInsensible(player);
-                uhcRun.createBoard(teams);
+                uhcRun.createBoard(player, teams);
                 player.teleport(spawn);
                 player.getInventory().clear();
                 player.setGameMode(GameMode.SURVIVAL);

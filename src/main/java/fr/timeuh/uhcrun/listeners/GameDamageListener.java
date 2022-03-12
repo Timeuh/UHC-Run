@@ -79,6 +79,8 @@ public class GameDamageListener implements Listener {
         uhcRun.eliminatePlayer(player, teams);
         killer.setStatistic(Statistic.PLAYER_KILLS, (killer.getStatistic(Statistic.PLAYER_KILLS)) +1);
         killer.sendMessage("vos kills : " + killer.getStatistic(Statistic.PLAYER_KILLS));
-        uhcRun.createPVPBoard(killer, teams);
+        for (Player playerSb : uhcRun.getPlayers()){
+            uhcRun.createPVPBoard(playerSb, teams);
+        }
     }
 }

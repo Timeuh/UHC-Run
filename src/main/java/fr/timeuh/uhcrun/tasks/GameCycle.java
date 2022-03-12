@@ -8,7 +8,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.Team;
 
 public class GameCycle  extends BukkitRunnable {
 
@@ -31,7 +30,7 @@ public class GameCycle  extends BukkitRunnable {
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
             }
             for (Player player : uhcRun.getAlivePlayers()) {
-                uhcRun.createBoard(teams);
+                uhcRun.createBoard(player, teams);
             }
             switch(timer){
                 case 600:

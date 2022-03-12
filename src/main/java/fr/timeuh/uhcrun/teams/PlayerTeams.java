@@ -11,14 +11,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class PlayerTeams {
     public Scoreboard board;
     public List<Team> teamList =  new ArrayList<>();
 
     public PlayerTeams(){
-        this.board = Bukkit.getScoreboardManager().getNewScoreboard();
+        board = Bukkit.getScoreboardManager().getNewScoreboard();
         board.registerNewObjective("UHCRunLobby","dummy");
         board.registerNewObjective("UHCRunPVP","dummy");
         board.registerNewObjective("UHCRun","dummy");
