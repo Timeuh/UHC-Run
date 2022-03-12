@@ -233,7 +233,7 @@ public final class UHCRun extends JavaPlugin {
         score.setScore(3);
         Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED +alivePlayers.size());
         score1.setScore(2);
-        Score score3 = obj.getScore(ChatColor.GOLD + "Kills : "+ ChatColor.DARK_RED + player.getStatistic(Statistic.PLAYER_KILLS));
+        Score score3 = obj.getScore(ChatColor.GOLD + "Kills : "+ ChatColor.DARK_RED + (player.getStatistic(Statistic.PLAYER_KILLS)));
         score3.setScore(1);
         Score score4 = obj.getScore(ChatColor.GOLD + "Phase PvP " + ChatColor.DARK_RED + "débutée");
         score4.setScore(0);

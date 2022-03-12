@@ -45,10 +45,8 @@ public class GameListener implements Listener {
         ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Sélection des scenarios");
         ItemStack teamSelection = findItem(ChatColor.GOLD + "Sélection de l'équipe");
         player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Salut ! si tu as besoin d'informations pense au" + ChatColor.DARK_RED + " /help");
+        uhcRun.getPlayers().add(player);
 
-        if (!uhcRun.getPlayers().contains(player)) {
-            uhcRun.getPlayers().add(player);
-        }
         if (player.isOp()){
             player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
             player.getInventory().setItem(0, scenarioSelection);
@@ -60,7 +58,6 @@ public class GameListener implements Listener {
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le jeu est en cours");
             event.setJoinMessage(null);
-            return;
         } else {
             player.setGameMode(GameMode.ADVENTURE);
             player.getInventory().setItem(4, teamSelection);

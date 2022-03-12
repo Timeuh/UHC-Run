@@ -54,7 +54,7 @@ public class GameDamageListener implements Listener {
         Entity killer = event.getDamager();
         if (victim instanceof Player){
             Player player = (Player) victim;
-            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
+            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS) && !uhcRun.isState(GameState.WAITING)){
                 if (killer instanceof Player){
                     Player killerPlayer = (Player) killer;
                     String equipeVictime = teams.getPlayerTeam(player).getName();
@@ -72,16 +72,13 @@ public class GameDamageListener implements Listener {
     
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
+        event.setDeathMessage(null);
         Player player = event.getEntity();
         Player killer = player.getKiller();
-        event.setDeathMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
+        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
         uhcRun.eliminatePlayer(player, teams);
         killer.setStatistic(Statistic.PLAYER_KILLS, (killer.getStatistic(Statistic.PLAYER_KILLS)) +1);
         killer.sendMessage("vos kills : " + killer.getStatistic(Statistic.PLAYER_KILLS));
-        if (uhcRun.isState(GameState.FIGHTING)) {
-            for (Player sbPlayer : uhcRun.getPlayers()) {
-                uhcRun.createPVPBoard(sbPlayer, teams);
-            }
-        }
+        uhcRun.createPVPBoard(killer, teams);
     }
 }
