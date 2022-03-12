@@ -4,6 +4,7 @@ import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 

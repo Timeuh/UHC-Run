@@ -8,6 +8,7 @@ import fr.timeuh.uhcrun.tasks.GameCycle;
 import fr.timeuh.uhcrun.tasks.GameStop;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;

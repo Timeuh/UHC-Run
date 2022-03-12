@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -70,7 +71,7 @@ public class GameDamageListener implements Listener {
             if (player.getHealth() <= event.getDamage()){
                 if (killer instanceof Player){
                     Player killerPlayer = (Player) killer;
-                    killerPlayer.setStatistic(Statistic.PLAYER_KILLS, killerPlayer.getStatistic(Statistic.PLAYER_KILLS)+1);
+                    killerPlayer.setStatistic(Statistic.PLAYER_KILLS, player.getStatistic(Statistic.PLAYER_KILLS)+1);
                 }
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
                 uhcRun.eliminatePlayer(player, teams);
