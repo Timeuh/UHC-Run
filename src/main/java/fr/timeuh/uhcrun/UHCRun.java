@@ -8,7 +8,6 @@ import fr.timeuh.uhcrun.tasks.GameCycle;
 import fr.timeuh.uhcrun.tasks.GameStop;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,14 +26,12 @@ public final class UHCRun extends JavaPlugin {
     private List<Location> pvp = new ArrayList<>();
     private List<Scenarios> enabledScenarios = new ArrayList<>();
     private List<Scenarios> allScenarios = new ArrayList<>();
-    private PlayerTeams teams;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         setState(GameState.WAITING);
         PluginManager pluginManager = getServer().getPluginManager();
-        this.teams = new PlayerTeams();
 
         buildSpawns();
         buildPVP();
@@ -44,13 +41,12 @@ public final class UHCRun extends JavaPlugin {
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
         getCommand("help").setExecutor(new GameCommands());
-        getCommand("seeEnabledScenarios").setExecutor(new GameCommands(this, teams));
-        getCommand("gamestop").setExecutor(new GameCommands(this, teams));
-        getCommand("start").setExecutor(new GameCommands(this, teams));
+        getCommand("seeEnabledScenarios").setExecutor(new GameCommands(this));
+        getCommand("gamestop").setExecutor(new GameCommands(this));
+        getCommand("start").setExecutor(new GameCommands(this));
 
-        pluginManager.registerEvents(new GameListener(this, teams), this);
-        pluginManager.registerEvents(new GameDamageListener(this, teams), this);
-
+        pluginManager.registerEvents(new GameListener(this), this);
+        pluginManager.registerEvents(new GameDamageListener(this), this);
     }
 
     @Override
@@ -154,42 +150,42 @@ public final class UHCRun extends JavaPlugin {
         cancelDamagePlayer.remove(player);
     }
 
-    public void eliminatePlayer(Player player, PlayerTeams teams) {
+    public void eliminatePlayer(Player player) {
        if (alivePlayers.contains(player)) {
            alivePlayers.remove(player);
            player.setGameMode(GameMode.SPECTATOR);
            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Vous êtes mort, cheh !");
            if (checkEnabledScenario(Scenarios.TEAMS)) {
-               Team playerTeam = teams.getPlayerTeam(player);
-               teams.leaveTeam(player);
-               teams.updateTeams();
-               if (teams.isTeamEliminated(playerTeam)) {
-                   ChatColor color = teams.getTeamColor(playerTeam);
+               Team playerTeam = player.getScoreboard().getEntryTeam(player.getName());
+               PlayerTeams.leaveTeam(player, this);
+               PlayerTeams.updateTeams(this);
+               if (PlayerTeams.isTeamEliminated(player, playerTeam)) {
+                   ChatColor color = PlayerTeams.getTeamColor(playerTeam);
                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'équipe " + color + playerTeam.getName() + ChatColor.GOLD + " est éliminée !");
                }
            }
-           checkWin(this, teams);
+           checkWin(this, player);
        }
     }
 
-    public void checkWin(UHCRun uhcRun, PlayerTeams teams){
+    public void checkWin(UHCRun uhcRun, Player player){
         if (checkEnabledScenario(Scenarios.NOTEAMS)) {
             if (alivePlayers.size() == 1) {
                 Player winner = alivePlayers.get(0);
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + winner.getName() + ChatColor.GOLD + " gagne cette partie !");
-                GameStop stop = new GameStop(this, teams);
+                GameStop stop = new GameStop(this);
                 stop.runTaskTimer(uhcRun, 0, 20);
             } else if (alivePlayers.size() == 0) {
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Tout le monde est mort ! Il n'y a pas de gagnant");
-                GameStop stop = new GameStop(this, teams);
+                GameStop stop = new GameStop(this);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }
         } else if (checkEnabledScenario(Scenarios.TEAMS)){
-            if (teams.oneTeamRemaining()){
-                String winnerName = teams.getLastTeam().getName();
-                ChatColor color = teams.getTeamColor(teams.getLastTeam());
+            if (PlayerTeams.oneTeamRemaining(player)){
+                String winnerName = PlayerTeams.getLastTeam(player).getName();
+                ChatColor color = PlayerTeams.getTeamColor(PlayerTeams.getLastTeam(player));
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'équipe " + color + winnerName + ChatColor.GOLD + " gagne cette game !");
-                GameStop stop = new GameStop(this, teams);
+                GameStop stop = new GameStop(this);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }
         }
@@ -199,7 +195,7 @@ public final class UHCRun extends JavaPlugin {
         if (checkEnabledScenario(Scenarios.TEAMS)){
             int counter = 0;
             for (Player player : getPlayers()){
-                if (teams.hasTeam(player)){
+                if (PlayerTeams.hasTeam(player)){
                     counter++;
                 }
             }
@@ -209,7 +205,7 @@ public final class UHCRun extends JavaPlugin {
         }
     }
 
-    public void createBoard(Player player, PlayerTeams teams){
+    public void createBoard(Player player){
         Objective obj = player.getScoreboard().getObjective("UHCRun");
         obj.unregister();
         obj = player.getScoreboard().registerNewObjective("UHCRun", "dummy");
@@ -223,7 +219,7 @@ public final class UHCRun extends JavaPlugin {
         score2.setScore(1);
     }
 
-    public void createPVPBoard(Player player, PlayerTeams teams) {
+    public void createPVPBoard(Player player) {
         Objective obj = player.getScoreboard().getObjective("UHCRunPVP");
         obj.unregister();
         obj = player.getScoreboard().registerNewObjective("UHCRunPVP", "dummy");
@@ -239,8 +235,8 @@ public final class UHCRun extends JavaPlugin {
         score4.setScore(0);
     }
 
-    public void createLobbyBoard(Player player, PlayerTeams teams){
-        Objective obj = teams.board.registerNewObjective("UHCRunLobby", "dummy"); //player.getScoreboard().getObjective("UHCRunLobby");
+    public void createLobbyBoard(Player player){
+        Objective obj = player.getScoreboard().getObjective("UHCRunLobby");
         obj.unregister();
         obj = player.getScoreboard().registerNewObjective("UHCRunLobby", "dummy");
         obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");

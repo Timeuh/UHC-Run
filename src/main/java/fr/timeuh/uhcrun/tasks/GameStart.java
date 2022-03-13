@@ -12,11 +12,9 @@ public class GameStart extends BukkitRunnable {
 
     private int timer = 10;
     private UHCRun uhcRun;
-    private PlayerTeams teams;
 
-    public GameStart(UHCRun UHCRun, PlayerTeams teams){
+    public GameStart(UHCRun UHCRun){
         this.uhcRun = UHCRun;
-        this.teams = teams;
     }
 
     @Override
@@ -38,7 +36,7 @@ public class GameStart extends BukkitRunnable {
                 Player player = uhcRun.getAlivePlayers().get(i);
                 Location spawn = uhcRun.getSpawns().get(i);
                 uhcRun.beInsensible(player);
-                uhcRun.createBoard(player, teams);
+                uhcRun.createBoard(player);
                 player.teleport(spawn);
                 player.getInventory().clear();
                 player.setGameMode(GameMode.SURVIVAL);
@@ -50,9 +48,9 @@ public class GameStart extends BukkitRunnable {
             border.setCenter(0,0);
             border.setSize(3000);
             GameCycle.resetTimer();
-            GameCycle cycle = new GameCycle(uhcRun, teams);
+            GameCycle cycle = new GameCycle(uhcRun);
             cycle.runTaskTimer(uhcRun,0,20);
-            teams.updateTeams();
+            PlayerTeams.updateTeams(uhcRun);
 
             cancel();
         }

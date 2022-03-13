@@ -4,7 +4,6 @@ import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.scenarios.Scenarios;
 import fr.timeuh.uhcrun.tasks.GameStart;
 import fr.timeuh.uhcrun.tasks.GameStop;
-import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -18,11 +17,9 @@ import java.util.List;
 public class GameCommands implements CommandExecutor {
 
     private UHCRun uhcRun;
-    private PlayerTeams teams;
 
-    public GameCommands(UHCRun uhcRun, PlayerTeams teams) {
+    public GameCommands(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
-        this.teams = teams;
     }
 
     public GameCommands() {
@@ -64,7 +61,7 @@ public class GameCommands implements CommandExecutor {
                         player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Usage : " + ChatColor.DARK_RED + "[/gamestop]");
                         return false;
                     } else {
-                        GameStop stop = new GameStop(uhcRun, teams);
+                        GameStop stop = new GameStop(uhcRun);
                         stop.runTaskTimer(uhcRun, 0, 20);
                         return true;
                     }
@@ -75,7 +72,7 @@ public class GameCommands implements CommandExecutor {
                         return false;
                     } else {
                         if (uhcRun.everyPlayerInTeam()) {
-                            GameStart start = new GameStart(uhcRun, teams);
+                            GameStart start = new GameStart(uhcRun);
                             start.runTaskTimer(uhcRun, 0, 20);
                             return true;
                         } else {

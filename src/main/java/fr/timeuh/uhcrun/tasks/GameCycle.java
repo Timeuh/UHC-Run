@@ -2,7 +2,6 @@ package fr.timeuh.uhcrun.tasks;
 
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
-import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.WorldBorder;
@@ -12,12 +11,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class GameCycle  extends BukkitRunnable {
 
     private UHCRun uhcRun;
-    private PlayerTeams teams;
     private static int timer = 30;
 
-    public GameCycle(UHCRun uhcRun, PlayerTeams teams) {
+    public GameCycle(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
-        this.teams = teams;
     }
 
 
@@ -30,7 +27,7 @@ public class GameCycle  extends BukkitRunnable {
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
             }
             for (Player player : uhcRun.getAlivePlayers()) {
-                uhcRun.createBoard(player, teams);
+                uhcRun.createBoard(player);
             }
             switch(timer){
                 case 600:
@@ -52,14 +49,14 @@ public class GameCycle  extends BukkitRunnable {
                 case 0:
                     int i = 0;
                     for (Player player : uhcRun.getAlivePlayers()) {
-                        uhcRun.createPVPBoard(player, teams);
+                        uhcRun.createPVPBoard(player);
                         player.teleport(uhcRun.getPvp().get(i));
                         uhcRun.beInsensible(player);
+                        uhcRun.checkWin(uhcRun, player);
                         i++;
                     }
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Téléportation finale");
                     uhcRun.setState(GameState.FIGHTING);
-                    uhcRun.checkWin(uhcRun, teams);
                     break;
             }
         }

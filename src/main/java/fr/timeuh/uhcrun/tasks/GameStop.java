@@ -4,20 +4,16 @@ import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameStop extends BukkitRunnable {
 
     private UHCRun uhcRun;
-    private PlayerTeams teams;
     private int timer = 20;
 
-    public GameStop(UHCRun UHCRun, PlayerTeams teams){
+    public GameStop(UHCRun UHCRun){
         this.uhcRun = UHCRun;
-        this.teams = teams;
-
     }
 
     @Override
@@ -36,8 +32,8 @@ public class GameStop extends BukkitRunnable {
                 player.teleport(spawn);
                 player.getInventory().clear();
                 player.setStatistic(Statistic.PLAYER_KILLS, 0);
-                uhcRun.createLobbyBoard(player, teams);
-                teams.leaveTeam(player);
+                uhcRun.createLobbyBoard(player);
+                PlayerTeams.leaveTeam(player, uhcRun);
 
                 if (player.getGameMode() == GameMode.SPECTATOR){
                     player.setGameMode(GameMode.SURVIVAL);
