@@ -3,7 +3,6 @@ package fr.timeuh.uhcrun.listeners;
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.scenarios.Scenarios;
-import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
@@ -67,7 +66,6 @@ public class GameDamageListener implements Listener {
         Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
         uhcRun.eliminatePlayer(player);
         killer.setStatistic(Statistic.PLAYER_KILLS, (killer.getStatistic(Statistic.PLAYER_KILLS)) +1);
-        killer.sendMessage("vos kills : " + killer.getStatistic(Statistic.PLAYER_KILLS));
         for (Player playerSb : uhcRun.getPlayers()){
             uhcRun.createPVPBoard(playerSb);
         }

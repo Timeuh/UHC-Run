@@ -74,7 +74,7 @@ public class PlayerTeams {
 
     public static void leaveTeam(Player player, UHCRun uhcRun){
         for (Player sbPlayer : uhcRun.getPlayers()) {
-            List<Team> teamList = playerTeamsMap.get(player.getUniqueId());
+            List<Team> teamList = playerTeamsMap.get(sbPlayer.getUniqueId());
             for (Team team : teamList ) {
                 if (team.hasEntry(player.getName())) {
                     team.removeEntry(player.getName());
@@ -105,7 +105,7 @@ public class PlayerTeams {
     }
 
     public static boolean isTeamEliminated(Player player,Team toCheck){
-        for (Team team : player.getScoreboard().getTeams()){
+        for (Team team : playerTeamsMap.get(player.getUniqueId())){
             if (team.equals(toCheck)){
                 return false;
             }

@@ -52,9 +52,9 @@ public class GameCycle  extends BukkitRunnable {
                         uhcRun.createPVPBoard(player);
                         player.teleport(uhcRun.getPvp().get(i));
                         uhcRun.beInsensible(player);
-                        uhcRun.checkWin(uhcRun, player);
                         i++;
                     }
+                    uhcRun.checkWin(uhcRun, uhcRun.getAlivePlayers().get(0));
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Téléportation finale");
                     uhcRun.setState(GameState.FIGHTING);
                     break;
