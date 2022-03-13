@@ -11,23 +11,29 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.*;
 
-import java.util.Set;
+import java.util.*;
 
 public class PlayerTeams {
 
+    public static Map<UUID, List<Team>> playerTeamsMap = new HashMap<>();
+
     public static void joinScoreboard(Player player){
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+        List<Team> playerTeamList = new ArrayList<>();
         board.registerNewObjective("UHCRunLobby","dummy");
         board.registerNewObjective("UHCRunPVP","dummy");
         board.registerNewObjective("UHCRun","dummy");
 
         Team redTeam = board.registerNewTeam("Rouge");
         redTeam.setPrefix(ChatColor.DARK_RED + "");
+        playerTeamList.add(redTeam);
 
         Team blueTeam = board.registerNewTeam("Bleue");
         blueTeam.setPrefix(ChatColor.BLUE + "");
+        playerTeamList.add(blueTeam);
 
         player.setScoreboard(board);
+        playerTeamsMap.put(player.getUniqueId(), playerTeamList);
     }
 
     public static void joinTeam(Player player, String team, UHCRun uhcRun){
@@ -68,7 +74,7 @@ public class PlayerTeams {
 
     public static void leaveTeam(Player player, UHCRun uhcRun){
         for (Player sbPlayer : uhcRun.getPlayers()) {
-            Set<Team> teamList = sbPlayer.getScoreboard().getTeams();
+            List<Team> teamList = playerTeamsMap.get(player.getUniqueId());
             for (Team team : teamList ) {
                 if (team.hasEntry(player.getName())) {
                     team.removeEntry(player.getName());
@@ -110,23 +116,19 @@ public class PlayerTeams {
     public static void updateTeams(UHCRun uhcRun){
         if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
             for (Player player : uhcRun.getPlayers()) {
-                Set<Team> teamList = player.getScoreboard().getTeams();
-                for (Team team : teamList) {
-                    if (team.getSize() == 0) {
-                        teamList.iterator().remove();
-                    }
-                }
+                List<Team> teamList = playerTeamsMap.get(player.getUniqueId());
+                teamList.removeIf(team -> team.getSize() == 0);
             }
         }
     }
 
     public static boolean oneTeamRemaining(Player player){
-        return player.getScoreboard().getTeams().size() == 1;
+        return playerTeamsMap.get(player.getUniqueId()).size() == 1;
     }
 
     public static Team getLastTeam(Player player){
         if (oneTeamRemaining(player)){
-            return player.getScoreboard().getTeams().iterator().next();
+            return playerTeamsMap.get(player.getUniqueId()).get(0);
         } else {
             return null;
         }
