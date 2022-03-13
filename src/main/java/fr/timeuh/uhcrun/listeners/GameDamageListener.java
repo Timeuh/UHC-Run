@@ -63,6 +63,7 @@ public class GameDamageListener implements Listener {
         event.setDeathMessage(null);
         Player player = event.getEntity();
         Player killer = player.getKiller();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(uhcRun, () -> player.spigot().respawn());
         Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
         uhcRun.eliminatePlayer(player);
         killer.setStatistic(Statistic.PLAYER_KILLS, (killer.getStatistic(Statistic.PLAYER_KILLS)) +1);

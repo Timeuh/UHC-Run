@@ -1,6 +1,7 @@
 package fr.timeuh.uhcrun.teams;
 
 import fr.timeuh.uhcrun.UHCRun;
+import fr.timeuh.uhcrun.scenarios.Scenarios;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -10,8 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 public class PlayerTeams {
 
@@ -39,7 +39,6 @@ public class PlayerTeams {
                     redTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.DARK_RED + player.getName());
-                    player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.DARK_RED + "ROUGE");
                     break;
 
                 case "BLUE":
@@ -47,7 +46,6 @@ public class PlayerTeams {
                     blueTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.BLUE + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.BLUE + player.getName());
-                    player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.BLUE + "BLEUE");
                     break;
 
                 default:
@@ -70,7 +68,8 @@ public class PlayerTeams {
 
     public static void leaveTeam(Player player, UHCRun uhcRun){
         for (Player sbPlayer : uhcRun.getPlayers()) {
-            for (Team team : getPlayerTeamList(sbPlayer)) {
+            Set<Team> teamList = sbPlayer.getScoreboard().getTeams();
+            for (Team team : teamList ) {
                 if (team.hasEntry(player.getName())) {
                     team.removeEntry(player.getName());
                     player.setDisplayName(ChatColor.WHITE + player.getName());
@@ -91,7 +90,7 @@ public class PlayerTeams {
     }
 
     public static boolean hasTeam(Player player){
-        for (Team team : getPlayerTeamList(player)){
+        for (Team team : player.getScoreboard().getTeams()){
             if (team.hasEntry(player.getName())){
                 return true;
             }
@@ -100,7 +99,7 @@ public class PlayerTeams {
     }
 
     public static boolean isTeamEliminated(Player player,Team toCheck){
-        for (Team team : getPlayerTeamList(player)){
+        for (Team team : player.getScoreboard().getTeams()){
             if (team.equals(toCheck)){
                 return false;
             }
@@ -109,26 +108,28 @@ public class PlayerTeams {
     }
 
     public static void updateTeams(UHCRun uhcRun){
-        for (Player player : uhcRun.getPlayers()) {
-            List<Team> teamList = getPlayerTeamList(player);
-            teamList.removeIf(team -> team.getEntries().size() == 0);
+        if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
+            for (Player player : uhcRun.getPlayers()) {
+                Set<Team> teamList = player.getScoreboard().getTeams();
+                for (Team team : teamList) {
+                    if (team.getSize() == 0) {
+                        teamList.iterator().remove();
+                    }
+                }
+            }
         }
     }
 
     public static boolean oneTeamRemaining(Player player){
-        return getPlayerTeamList(player).size() == 1;
+        return player.getScoreboard().getTeams().size() == 1;
     }
 
     public static Team getLastTeam(Player player){
         if (oneTeamRemaining(player)){
-            return getPlayerTeamList(player).get(0);
+            return player.getScoreboard().getTeams().iterator().next();
         } else {
             return null;
         }
-    }
-
-    public static List<Team> getPlayerTeamList(Player player){
-        return new ArrayList<>(player.getScoreboard().getTeams());
     }
 
     public static ChatColor getTeamColor(Team toCheck){
