@@ -240,7 +240,7 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createLobbyBoard(Player player, PlayerTeams teams){
-        Objective obj = player.getScoreboard().getObjective("UHCRunLobby");
+        Objective obj = teams.board.registerNewObjective("UHCRunLobby", "dummy"); //player.getScoreboard().getObjective("UHCRunLobby");
         obj.unregister();
         obj = player.getScoreboard().registerNewObjective("UHCRunLobby", "dummy");
         obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
