@@ -245,6 +245,18 @@ public class PlayerTeams {
         }
     }
 
+    public static void leaveTeamIngame(Player player, UHCRun uhcRun){
+        for (Player sbPlayer : uhcRun.getPlayers()) {
+            List<Team> teamList = playerTeamsMap.get(sbPlayer.getUniqueId());
+            for (Team team : teamList ) {
+                if (team.hasEntry(player.getName())) {
+                    team.removeEntry(player.getName());
+                    player.setDisplayName(ChatColor.WHITE + "[MORT] " + player.getName());
+                }
+            }
+        }
+    }
+
     public static void emptyTeams(UHCRun uhcRun){
         for (Player player : uhcRun.getPlayers()){
             leaveTeam(player, uhcRun);

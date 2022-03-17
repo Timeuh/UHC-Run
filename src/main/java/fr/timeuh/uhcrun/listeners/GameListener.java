@@ -27,11 +27,11 @@ import java.util.List;
 public class GameListener implements Listener {
 
     private final UHCRun uhcRun;
-    private final List<ItemStack> usefulItems;
+    private static List<ItemStack> usefulItems = new ArrayList<>();
 
     public GameListener(UHCRun UHCRun) {
         this.uhcRun = UHCRun;
-        this.usefulItems = createUsefulItems();
+        createUsefulItems();
     }
 
     @EventHandler
@@ -243,44 +243,40 @@ public class GameListener implements Listener {
         }
     }
 
-    public List<ItemStack> createUsefulItems(){
-        List<ItemStack> itemList = new ArrayList<>();
-
+    public void createUsefulItems(){
         ItemStack teamSelection = new ItemStack(Material.BANNER);
         ItemMeta teamSelectionMeta = teamSelection.getItemMeta();
         teamSelectionMeta.setDisplayName(ChatColor.GOLD + "Sélection de l'équipe");
         teamSelection.setItemMeta(teamSelectionMeta);
-        itemList.add(teamSelection);
+        usefulItems.add(teamSelection);
 
         ItemStack scenarioSelection = new ItemStack(Material.BOOK);
         ItemMeta scenarioSelectionMeta = scenarioSelection.getItemMeta();
         scenarioSelectionMeta.setDisplayName(ChatColor.GOLD + "Sélection des scenarios");
         scenarioSelection.setItemMeta(scenarioSelectionMeta);
-        itemList.add(scenarioSelection);
+        usefulItems.add(scenarioSelection);
 
         ItemStack scenarTeam = new ItemStack(Material.BANNER);
         ItemMeta scenarTeamMeta = scenarTeam.getItemMeta();
         scenarTeamMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
         scenarTeam.setItemMeta(scenarTeamMeta);
-        itemList.add(scenarTeam);
+        usefulItems.add(scenarTeam);
 
         ItemStack scenarFirendlyFire = new ItemStack(Material.FIREBALL);
         ItemMeta scenarFirendlyFireMeta = scenarFirendlyFire.getItemMeta();
         scenarFirendlyFireMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "FRIENDLYFIRE");
         scenarFirendlyFire.setItemMeta(scenarFirendlyFireMeta);
-        itemList.add(scenarFirendlyFire);
+        usefulItems.add(scenarFirendlyFire);
 
         ItemStack scenarCutClean = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta scenarCutCleanMeta = scenarCutClean.getItemMeta();
         scenarCutCleanMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "CUTCLEAN");
         scenarCutCleanMeta.getItemFlags().add(ItemFlag.HIDE_ATTRIBUTES);
         scenarCutClean.setItemMeta(scenarCutCleanMeta);
-        itemList.add(scenarCutClean);
-
-        return itemList;
+        usefulItems.add(scenarCutClean);
     }
 
-    public ItemStack findItem(String name){
+    public static ItemStack findItem(String name){
         for (ItemStack item : usefulItems){
             if (item.getItemMeta().getDisplayName().equalsIgnoreCase(name)){
                 return item;

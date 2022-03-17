@@ -2,6 +2,7 @@ package fr.timeuh.uhcrun.tasks;
 
 import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
+import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -34,6 +35,15 @@ public class GameStop extends BukkitRunnable {
                 player.setStatistic(Statistic.PLAYER_KILLS, 0);
                 uhcRun.createLobbyBoard(player);
                 PlayerTeams.leaveTeam(player, uhcRun);
+                player.getInventory().setItem(4, GameListener.findItem(ChatColor.GOLD + "Sélection de l'équipe"));
+                player.updateInventory();
+                player.setDisplayName(ChatColor.WHITE + player.getName());
+                if (player.isOp()){
+                    player.getInventory().setItem(0, GameListener.findItem(ChatColor.GOLD + "Sélection des scenarios"));
+                    player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
+                } else {
+                    player.setPlayerListName(ChatColor.AQUA + "[Joueur] " + ChatColor.GOLD + player.getName());
+                }
 
                 if (player.getGameMode() == GameMode.SPECTATOR){
                     player.setGameMode(GameMode.SURVIVAL);

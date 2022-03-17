@@ -157,7 +157,7 @@ public final class UHCRun extends JavaPlugin {
            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Vous êtes mort, cheh !");
            if (checkEnabledScenario(Scenarios.TEAMS)) {
                Team playerTeam = player.getScoreboard().getEntryTeam(player.getName());
-               PlayerTeams.leaveTeam(player, this);
+               PlayerTeams.leaveTeamIngame(player, this);
                PlayerTeams.updateTeams(this);
                if (PlayerTeams.isTeamEliminated(player, playerTeam)) {
                    ChatColor color = PlayerTeams.getTeamColor(playerTeam);
