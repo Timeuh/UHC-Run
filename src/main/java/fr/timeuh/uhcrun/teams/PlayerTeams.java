@@ -48,6 +48,18 @@ public class PlayerTeams {
         purpleTeam.setPrefix(ChatColor.DARK_PURPLE + "");
         playerTeamList.add(purpleTeam);
 
+        Team yellowTeam = board.registerNewTeam("Jaune");
+        yellowTeam.setPrefix(ChatColor.YELLOW + "");
+        playerTeamList.add(yellowTeam);
+
+        Team grayTeam = board.registerNewTeam("Grise");
+        grayTeam.setPrefix(ChatColor.DARK_GRAY + "");
+        playerTeamList.add(grayTeam);
+
+        Team blackTeam = board.registerNewTeam("Noire");
+        blackTeam.setPrefix(ChatColor.BLACK + "");
+        playerTeamList.add(blackTeam);
+
         player.setScoreboard(board);
         playerTeamsMap.put(player.getUniqueId(), playerTeamList);
     }
@@ -80,6 +92,18 @@ public class PlayerTeams {
 
                         case "Violette":
                             joinTeam(player, "PURPLE", uhcRun);
+                            break;
+
+                        case "Jaune":
+                            joinTeam(player, "YELLOW", uhcRun);
+                            break;
+
+                        case "Grise":
+                            joinTeam(player, "GRAY", uhcRun);
+                            break;
+
+                        case "Noire":
+                            joinTeam(player, "BLACK", uhcRun);
                             break;
 
                         default:
@@ -137,6 +161,27 @@ public class PlayerTeams {
                     player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
                     break;
 
+                case "YELLOW":
+                    Team yellowTeam = board.getTeam("Jaune");
+                    yellowTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.YELLOW + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.YELLOW + player.getName());
+                    break;
+
+                case "GRAY":
+                    Team grayTeam = board.getTeam("Grise");
+                    grayTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.DARK_GRAY + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_GRAY + player.getName());
+                    break;
+
+                case "BLACK":
+                    Team blackTeam = board.getTeam("Noire");
+                    blackTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.BLACK + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.BLACK + player.getName());
+                    break;
+
                 default:
                     break;
             }
@@ -164,6 +209,18 @@ public class PlayerTeams {
 
             case "PURPLE":
                 player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.DARK_PURPLE + "VIOLETTE");
+                break;
+
+            case "YELLOW":
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.YELLOW + "JAUNE");
+                break;
+
+            case "GRAY":
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.DARK_GRAY + "GRISE");
+                break;
+
+            case "BLACK":
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.BLACK + "NOIRE");
                 break;
 
             default:
@@ -257,6 +314,12 @@ public class PlayerTeams {
                 return ChatColor.LIGHT_PURPLE;
             case "Violette":
                 return ChatColor.DARK_PURPLE;
+            case "Jaune":
+                return ChatColor.YELLOW;
+            case "Grise":
+                return ChatColor.DARK_GRAY;
+            case "Noire":
+                return ChatColor.BLACK;
             default:
                 break;
         }
@@ -306,6 +369,27 @@ public class PlayerTeams {
                 metaPurpleWool.setDisplayName(ChatColor.DARK_PURPLE + "Équipe violette");
                 purpleWool.setItemMeta(metaPurpleWool);
                 return purpleWool;
+
+            case "YELLOW":
+                ItemStack yellowWool = new ItemStack(Material.WOOL, 1, DyeColor.YELLOW.getData());
+                ItemMeta metaYellowWool = yellowWool.getItemMeta();
+                metaYellowWool.setDisplayName(ChatColor.YELLOW + "Équipe jaune");
+                yellowWool.setItemMeta(metaYellowWool);
+                return yellowWool;
+
+            case "GRAY":
+                ItemStack grayWool = new ItemStack(Material.WOOL, 1, DyeColor.GRAY.getData());
+                ItemMeta metaGrayWool = grayWool.getItemMeta();
+                metaGrayWool.setDisplayName(ChatColor.DARK_GRAY + "Équipe grise");
+                grayWool.setItemMeta(metaGrayWool);
+                return grayWool;
+
+            case "BLACK":
+                ItemStack blackWool = new ItemStack(Material.WOOL, 1, DyeColor.BLACK.getData());
+                ItemMeta metaBlackWool = blackWool.getItemMeta();
+                metaBlackWool.setDisplayName(ChatColor.BLACK + "Équipe noire");
+                blackWool.setItemMeta(metaBlackWool);
+                return blackWool;
 
             default:
                 return null;

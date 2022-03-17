@@ -96,12 +96,15 @@ public class GameListener implements Listener {
         if (item.isSimilar(teamSelection) && uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
             if (action == Action.RIGHT_CLICK_AIR) {
                 Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu sélection d'équipe");
-                inv.setItem(4, PlayerTeams.getTeamWool("RED"));
-                inv.setItem(5, PlayerTeams.getTeamWool("BLUE"));
-                inv.setItem(6, PlayerTeams.getTeamWool("ORANGE"));
-                inv.setItem(7, PlayerTeams.getTeamWool("GREEN"));
-                inv.setItem(8, PlayerTeams.getTeamWool("PINK"));
-                inv.setItem(3, PlayerTeams.getTeamWool("PURPLE"));
+                inv.setItem(0, PlayerTeams.getTeamWool("RED"));
+                inv.setItem(1, PlayerTeams.getTeamWool("ORANGE"));
+                inv.setItem(2, PlayerTeams.getTeamWool("YELLOW"));
+                inv.setItem(3, PlayerTeams.getTeamWool("GREEN"));
+                inv.setItem(4, PlayerTeams.getTeamWool("BLUE"));
+                inv.setItem(5, PlayerTeams.getTeamWool("PINK"));
+                inv.setItem(6, PlayerTeams.getTeamWool("PURPLE"));
+                inv.setItem(7, PlayerTeams.getTeamWool("GRAY"));
+                inv.setItem(8, PlayerTeams.getTeamWool("BLACK"));
                 player.openInventory(inv);
             }
         } else if (item.isSimilar(scenarioSelection)){
@@ -153,6 +156,18 @@ public class GameListener implements Listener {
             } else if (current.isSimilar(PlayerTeams.getTeamWool("PURPLE"))){
                 PlayerTeams.leaveTeam(player, uhcRun);
                 PlayerTeams.joinTeam(player, "PURPLE", uhcRun);
+                player.closeInventory();
+            } else if (current.isSimilar(PlayerTeams.getTeamWool("YELLOW"))){
+                PlayerTeams.leaveTeam(player, uhcRun);
+                PlayerTeams.joinTeam(player, "YELLOW", uhcRun);
+                player.closeInventory();
+            } else if (current.isSimilar(PlayerTeams.getTeamWool("GRAY"))){
+                PlayerTeams.leaveTeam(player, uhcRun);
+                PlayerTeams.joinTeam(player, "GRAY", uhcRun);
+                player.closeInventory();
+            } else if (current.isSimilar(PlayerTeams.getTeamWool("BLACK"))){
+                PlayerTeams.leaveTeam(player, uhcRun);
+                PlayerTeams.joinTeam(player, "BLACK", uhcRun);
                 player.closeInventory();
             }
         } else if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu sélection des scenarios")){

@@ -161,7 +161,7 @@ public final class UHCRun extends JavaPlugin {
                PlayerTeams.updateTeams(this);
                if (PlayerTeams.isTeamEliminated(player, playerTeam)) {
                    ChatColor color = PlayerTeams.getTeamColor(playerTeam);
-                   Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'équipe " + color + playerTeam.getName() + ChatColor.GOLD + " est éliminée !");
+                   Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'équipe " + color + ChatColor.BOLD+ playerTeam.getName() + ChatColor.GOLD + " est éliminée !");
                }
            }
            checkWin(this, player);
