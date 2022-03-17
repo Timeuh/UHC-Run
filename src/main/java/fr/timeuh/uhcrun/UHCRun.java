@@ -172,7 +172,7 @@ public final class UHCRun extends JavaPlugin {
         if (checkEnabledScenario(Scenarios.NOTEAMS)) {
             if (alivePlayers.size() == 1) {
                 Player winner = alivePlayers.get(0);
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + winner.getName() + ChatColor.GOLD + " gagne cette partie !");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.BOLD + ChatColor.DARK_RED + winner.getName() + ChatColor.GOLD + " gagne cette partie !");
                 GameStop stop = new GameStop(this);
                 stop.runTaskTimer(uhcRun, 0, 20);
             } else if (alivePlayers.size() == 0) {
@@ -184,7 +184,7 @@ public final class UHCRun extends JavaPlugin {
             if (PlayerTeams.oneTeamRemaining(player)){
                 String winnerName = PlayerTeams.getLastTeam(player).getName();
                 ChatColor color = PlayerTeams.getTeamColor(PlayerTeams.getLastTeam(player));
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'équipe " + color + winnerName + ChatColor.GOLD + " gagne cette game !");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "L'équipe " + color + ChatColor.BOLD + winnerName + ChatColor.GOLD + " gagne cette game !");
                 GameStop stop = new GameStop(this);
                 stop.runTaskTimer(uhcRun, 0, 20);
             }

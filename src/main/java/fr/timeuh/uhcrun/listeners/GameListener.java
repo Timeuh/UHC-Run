@@ -96,10 +96,10 @@ public class GameListener implements Listener {
         if (item.isSimilar(teamSelection) && uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
             if (action == Action.RIGHT_CLICK_AIR) {
                 Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu sélection d'équipe");
-                ItemStack blueWool = PlayerTeams.getTeamWool("BLUE");
-                ItemStack redWool = PlayerTeams.getTeamWool("RED");
-                inv.setItem(4, redWool);
-                inv.setItem(5, blueWool);
+                inv.setItem(4, PlayerTeams.getTeamWool("RED"));
+                inv.setItem(5, PlayerTeams.getTeamWool("BLUE"));
+                inv.setItem(6, PlayerTeams.getTeamWool("ORANGE"));
+                inv.setItem(7, PlayerTeams.getTeamWool("GREEN"));
                 player.openInventory(inv);
             }
         } else if (item.isSimilar(scenarioSelection)){
@@ -135,6 +135,14 @@ public class GameListener implements Listener {
             } else if (current.isSimilar(PlayerTeams.getTeamWool("BLUE"))){
                 PlayerTeams.leaveTeam(player, uhcRun);
                 PlayerTeams.joinTeam(player, "BLUE", uhcRun);
+                player.closeInventory();
+            } else if (current.isSimilar(PlayerTeams.getTeamWool("ORANGE"))){
+                PlayerTeams.leaveTeam(player, uhcRun);
+                PlayerTeams.joinTeam(player, "ORANGE", uhcRun);
+                player.closeInventory();
+            } else if (current.isSimilar(PlayerTeams.getTeamWool("GREEN"))){
+                PlayerTeams.leaveTeam(player, uhcRun);
+                PlayerTeams.joinTeam(player, "GREEN", uhcRun);
                 player.closeInventory();
             }
         } else if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu sélection des scenarios")){

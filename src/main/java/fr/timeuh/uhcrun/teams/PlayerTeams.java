@@ -32,6 +32,14 @@ public class PlayerTeams {
         blueTeam.setPrefix(ChatColor.BLUE + "");
         playerTeamList.add(blueTeam);
 
+        Team orangeTeam = board.registerNewTeam("Orange");
+        orangeTeam.setPrefix(ChatColor.GOLD + "");
+        playerTeamList.add(orangeTeam);
+
+        Team greenTeam = board.registerNewTeam("Verte");
+        greenTeam.setPrefix(ChatColor.DARK_GREEN + "");
+        playerTeamList.add(greenTeam);
+
         player.setScoreboard(board);
         playerTeamsMap.put(player.getUniqueId(), playerTeamList);
     }
@@ -48,6 +56,14 @@ public class PlayerTeams {
 
                         case "Bleue":
                             joinTeam(player, "BLUE", uhcRun);
+                            break;
+
+                        case "Orange":
+                            joinTeam(player, "ORANGE", uhcRun);
+                            break;
+
+                        case "Verte":
+                            joinTeam(player, "GREEN", uhcRun);
                             break;
 
                         default:
@@ -77,6 +93,20 @@ public class PlayerTeams {
                     player.setPlayerListName(ChatColor.BLUE + player.getName());
                     break;
 
+                case "ORANGE":
+                    Team orangeTeam = board.getTeam("Orange");
+                    orangeTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.GOLD + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.GOLD + player.getName());
+                    break;
+
+                case "GREEN":
+                    Team greenTeam = board.getTeam("Verte");
+                    greenTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.DARK_GREEN + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_GREEN + player.getName());
+                    break;
+
                 default:
                     break;
             }
@@ -88,6 +118,14 @@ public class PlayerTeams {
 
             case "BLUE":
                 player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.BLUE + "BLEUE");
+                break;
+
+            case "ORANGE":
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe ORANGE");
+                break;
+
+            case "GREEN":
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.DARK_GREEN + "VERTE");
                 break;
 
             default:
@@ -173,6 +211,10 @@ public class PlayerTeams {
                 return ChatColor.DARK_RED;
             case "Bleue":
                 return ChatColor.BLUE;
+            case "Orange":
+                return ChatColor.GOLD;
+            case "Verte":
+                return ChatColor.DARK_GREEN;
             default:
                 break;
         }
@@ -184,16 +226,30 @@ public class PlayerTeams {
             case "RED":
                 ItemStack redWool = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
                 ItemMeta metaRedWool = redWool.getItemMeta();
-                metaRedWool.setDisplayName(ChatColor.DARK_RED + "Equipe rouge");
+                metaRedWool.setDisplayName(ChatColor.DARK_RED + "Équipe rouge");
                 redWool.setItemMeta(metaRedWool);
                 return redWool;
 
             case "BLUE":
                 ItemStack blueWool = new ItemStack(Material.WOOL, 1, DyeColor.BLUE.getData());
                 ItemMeta metaBlueWool = blueWool.getItemMeta();
-                metaBlueWool.setDisplayName(ChatColor.BLUE + "Equipe bleue");
+                metaBlueWool.setDisplayName(ChatColor.BLUE + "Équipe bleue");
                 blueWool.setItemMeta(metaBlueWool);
                 return blueWool;
+
+            case "ORANGE":
+                ItemStack orangeWool = new ItemStack(Material.WOOL, 1, DyeColor.ORANGE.getData());
+                ItemMeta metaOrangeWool = orangeWool.getItemMeta();
+                metaOrangeWool.setDisplayName(ChatColor.GOLD + "Équipe orange");
+                orangeWool.setItemMeta(metaOrangeWool);
+                return orangeWool;
+
+            case "GREEN":
+                ItemStack greenWool = new ItemStack(Material.WOOL, 1, DyeColor.GREEN.getData());
+                ItemMeta metaGreenWool = greenWool.getItemMeta();
+                metaGreenWool.setDisplayName(ChatColor.DARK_GREEN + "Équipe verte");
+                greenWool.setItemMeta(metaGreenWool);
+                return greenWool;
 
             default:
                 return null;
