@@ -36,6 +36,29 @@ public class PlayerTeams {
         playerTeamsMap.put(player.getUniqueId(), playerTeamList);
     }
 
+    public static void updateScoreboard(UHCRun uhcRun){
+        for (Player player : uhcRun.getPlayers()) {
+            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
+                if (hasTeam(player)) {
+                    String playerTeamName = getPlayerTeam(player).getName();
+                    switch (playerTeamName) {
+                        case "Rouge":
+                            joinTeam(player, "RED", uhcRun);
+                            break;
+
+                        case "Bleue":
+                            joinTeam(player, "BLUE", uhcRun);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+            uhcRun.createLobbyBoard(player);
+        }
+    }
+
     public static void joinTeam(Player player, String team, UHCRun uhcRun){
         for (Player sbPlayer : uhcRun.getPlayers()) {
             Scoreboard board = sbPlayer.getScoreboard();
@@ -102,6 +125,15 @@ public class PlayerTeams {
             }
         }
         return false;
+    }
+
+    public static Team getPlayerTeam(Player player){
+        for (Team team : player.getScoreboard().getTeams()){
+            if (team.hasEntry(player.getName())){
+                return team;
+            }
+        }
+        return null;
     }
 
     public static boolean isTeamEliminated(Player player,Team toCheck){

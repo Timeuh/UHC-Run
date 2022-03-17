@@ -62,9 +62,7 @@ public class GameListener implements Listener {
             player.updateInventory();
             event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Rejoint les runners");
         }
-        for (Player present : uhcRun.getPlayers()) {
-            uhcRun.createLobbyBoard(player);
-        }
+        PlayerTeams.updateScoreboard(uhcRun);
     }
 
     @EventHandler
