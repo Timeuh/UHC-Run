@@ -172,7 +172,7 @@ public final class UHCRun extends JavaPlugin {
         if (checkEnabledScenario(Scenarios.NOTEAMS)) {
             if (alivePlayers.size() == 1) {
                 Player winner = alivePlayers.get(0);
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.BOLD + ChatColor.DARK_RED + winner.getName() + ChatColor.GOLD + " gagne cette partie !");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + ChatColor.BOLD + winner.getName() + ChatColor.GOLD + " gagne cette partie !");
                 GameStop stop = new GameStop(this);
                 stop.runTaskTimer(uhcRun, 0, 20);
             } else if (alivePlayers.size() == 0) {

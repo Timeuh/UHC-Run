@@ -40,6 +40,14 @@ public class PlayerTeams {
         greenTeam.setPrefix(ChatColor.DARK_GREEN + "");
         playerTeamList.add(greenTeam);
 
+        Team pinkTeam = board.registerNewTeam("Rose");
+        pinkTeam.setPrefix(ChatColor.LIGHT_PURPLE + "");
+        playerTeamList.add(pinkTeam);
+
+        Team purpleTeam = board.registerNewTeam("Violette");
+        purpleTeam.setPrefix(ChatColor.DARK_PURPLE + "");
+        playerTeamList.add(purpleTeam);
+
         player.setScoreboard(board);
         playerTeamsMap.put(player.getUniqueId(), playerTeamList);
     }
@@ -64,6 +72,14 @@ public class PlayerTeams {
 
                         case "Verte":
                             joinTeam(player, "GREEN", uhcRun);
+                            break;
+
+                        case "Rose":
+                            joinTeam(player, "PINK", uhcRun);
+                            break;
+
+                        case "Violette":
+                            joinTeam(player, "PURPLE", uhcRun);
                             break;
 
                         default:
@@ -107,6 +123,20 @@ public class PlayerTeams {
                     player.setPlayerListName(ChatColor.DARK_GREEN + player.getName());
                     break;
 
+                case "PINK":
+                    Team pinkTeam = board.getTeam("Rose");
+                    pinkTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.LIGHT_PURPLE + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.LIGHT_PURPLE + player.getName());
+                    break;
+
+                case "PURPLE":
+                    Team purpleTeam = board.getTeam("Violette");
+                    purpleTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.DARK_PURPLE + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
+                    break;
+
                 default:
                     break;
             }
@@ -126,6 +156,14 @@ public class PlayerTeams {
 
             case "GREEN":
                 player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.DARK_GREEN + "VERTE");
+                break;
+
+            case "PINK":
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.LIGHT_PURPLE + "ROSE");
+                break;
+
+            case "PURPLE":
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous venez de rejoindre l'équipe " + ChatColor.DARK_PURPLE + "VIOLETTE");
                 break;
 
             default:
@@ -215,6 +253,10 @@ public class PlayerTeams {
                 return ChatColor.GOLD;
             case "Verte":
                 return ChatColor.DARK_GREEN;
+            case "Rose":
+                return ChatColor.LIGHT_PURPLE;
+            case "Violette":
+                return ChatColor.DARK_PURPLE;
             default:
                 break;
         }
@@ -250,6 +292,20 @@ public class PlayerTeams {
                 metaGreenWool.setDisplayName(ChatColor.DARK_GREEN + "Équipe verte");
                 greenWool.setItemMeta(metaGreenWool);
                 return greenWool;
+
+            case "PINK":
+                ItemStack pinkWool = new ItemStack(Material.WOOL, 1, DyeColor.PINK.getData());
+                ItemMeta metaPinkWool = pinkWool.getItemMeta();
+                metaPinkWool.setDisplayName(ChatColor.LIGHT_PURPLE + "Équipe rose");
+                pinkWool.setItemMeta(metaPinkWool);
+                return pinkWool;
+
+            case "PURPLE":
+                ItemStack purpleWool = new ItemStack(Material.WOOL, 1, DyeColor.PURPLE.getData());
+                ItemMeta metaPurpleWool = purpleWool.getItemMeta();
+                metaPurpleWool.setDisplayName(ChatColor.DARK_PURPLE + "Équipe violette");
+                purpleWool.setItemMeta(metaPurpleWool);
+                return purpleWool;
 
             default:
                 return null;

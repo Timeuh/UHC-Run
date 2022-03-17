@@ -100,6 +100,8 @@ public class GameListener implements Listener {
                 inv.setItem(5, PlayerTeams.getTeamWool("BLUE"));
                 inv.setItem(6, PlayerTeams.getTeamWool("ORANGE"));
                 inv.setItem(7, PlayerTeams.getTeamWool("GREEN"));
+                inv.setItem(8, PlayerTeams.getTeamWool("PINK"));
+                inv.setItem(3, PlayerTeams.getTeamWool("PURPLE"));
                 player.openInventory(inv);
             }
         } else if (item.isSimilar(scenarioSelection)){
@@ -143,6 +145,14 @@ public class GameListener implements Listener {
             } else if (current.isSimilar(PlayerTeams.getTeamWool("GREEN"))){
                 PlayerTeams.leaveTeam(player, uhcRun);
                 PlayerTeams.joinTeam(player, "GREEN", uhcRun);
+                player.closeInventory();
+            } else if (current.isSimilar(PlayerTeams.getTeamWool("PINK"))){
+                PlayerTeams.leaveTeam(player, uhcRun);
+                PlayerTeams.joinTeam(player, "PINK", uhcRun);
+                player.closeInventory();
+            } else if (current.isSimilar(PlayerTeams.getTeamWool("PURPLE"))){
+                PlayerTeams.leaveTeam(player, uhcRun);
+                PlayerTeams.joinTeam(player, "PURPLE", uhcRun);
                 player.closeInventory();
             }
         } else if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu sélection des scenarios")){
