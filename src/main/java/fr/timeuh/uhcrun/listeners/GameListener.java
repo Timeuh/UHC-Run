@@ -90,6 +90,8 @@ public class GameListener implements Listener {
         ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Sélection des scenarios");
         ItemStack friendlyFireScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "FRIENDLYFIRE");
         ItemStack cutcleanScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "CUTCLEAN");
+        ItemStack hasteyBoysScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "HASTEYBOYS");
+        ItemStack timberScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "TIMBER");
 
         if (item == null) return;
 
@@ -110,9 +112,11 @@ public class GameListener implements Listener {
         } else if (item.isSimilar(scenarioSelection)){
             if (action == Action.RIGHT_CLICK_AIR) {
                 Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu sélection des scenarios");
-                inv.setItem(0, teamScenario);
-                inv.setItem(1, friendlyFireScenario);
-                inv.setItem(2,cutcleanScenario);
+                inv.setItem(2, teamScenario);
+                inv.setItem(3, friendlyFireScenario);
+                inv.setItem(4,cutcleanScenario);
+                inv.setItem(5, hasteyBoysScenario);
+                inv.setItem(6, timberScenario);
                 player.openInventory(inv);
             }
         } else if (item.isSimilar(teamSelection) && uhcRun.checkEnabledScenario(Scenarios.NOTEAMS)){
@@ -128,6 +132,8 @@ public class GameListener implements Listener {
         ItemStack teamScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "TEAMS");
         ItemStack friendlyFireScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "FRIENDLYFIRE");
         ItemStack cutcleanScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "CUTCLEAN");
+        ItemStack hasteyBoysScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "HASTEYBOYS");
+        ItemStack timberScenario = findItem(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "TIMBER");
 
         if (current == null) return;
 
@@ -214,6 +220,26 @@ public class GameListener implements Listener {
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "CUTCLEAN " + ChatColor.GOLD + "activé");
                     player.closeInventory();
                 }
+            } else if (current.isSimilar(hasteyBoysScenario)){
+                if (uhcRun.checkEnabledScenario(Scenarios.HASTEYBOYS)){
+                    uhcRun.disableScenario(Scenarios.HASTEYBOYS);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "HASTEYBOYS " + ChatColor.GOLD + "désactivé");
+                    player.closeInventory();
+                } else {
+                    uhcRun.enableScenarios(Scenarios.HASTEYBOYS);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "HASTEYBOYS " + ChatColor.GOLD + "activé");
+                    player.closeInventory();
+                }
+            } else if (current.isSimilar(timberScenario)){
+                if (uhcRun.checkEnabledScenario(Scenarios.TIMBER)){
+                    uhcRun.disableScenario(Scenarios.TIMBER);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TIMBER " + ChatColor.GOLD + "désactivé");
+                    player.closeInventory();
+                } else {
+                    uhcRun.enableScenarios(Scenarios.TIMBER);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "TIMBER " + ChatColor.GOLD + "activé");
+                    player.closeInventory();
+                }
             }
         }
     }
@@ -268,12 +294,25 @@ public class GameListener implements Listener {
         scenarFirendlyFire.setItemMeta(scenarFirendlyFireMeta);
         usefulItems.add(scenarFirendlyFire);
 
-        ItemStack scenarCutClean = new ItemStack(Material.DIAMOND_PICKAXE);
+        ItemStack scenarCutClean = new ItemStack(Material.FURNACE);
         ItemMeta scenarCutCleanMeta = scenarCutClean.getItemMeta();
         scenarCutCleanMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "CUTCLEAN");
-        scenarCutCleanMeta.getItemFlags().add(ItemFlag.HIDE_ATTRIBUTES);
         scenarCutClean.setItemMeta(scenarCutCleanMeta);
         usefulItems.add(scenarCutClean);
+
+        ItemStack scenarHasteyBoys = new ItemStack(Material.DIAMOND_PICKAXE);
+        ItemMeta scenarHasteyBoysMeta = scenarHasteyBoys.getItemMeta();
+        scenarHasteyBoysMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "HASTEYBOYS");
+        scenarHasteyBoysMeta.getItemFlags().add(ItemFlag.HIDE_ATTRIBUTES);
+        scenarHasteyBoys.setItemMeta(scenarHasteyBoysMeta);
+        usefulItems.add(scenarHasteyBoys);
+
+        ItemStack scenarTimber = new ItemStack(Material.DIAMOND_AXE);
+        ItemMeta scenarTimberMeta = scenarTimber.getItemMeta();
+        scenarTimberMeta.setDisplayName(ChatColor.GOLD + "Activer/désactiver le scenario " + ChatColor.DARK_RED + "TIMBER");
+        scenarTimberMeta.getItemFlags().add(ItemFlag.HIDE_ATTRIBUTES);
+        scenarTimber.setItemMeta(scenarTimberMeta);
+        usefulItems.add(scenarTimber);
     }
 
     public static ItemStack findItem(String name){
