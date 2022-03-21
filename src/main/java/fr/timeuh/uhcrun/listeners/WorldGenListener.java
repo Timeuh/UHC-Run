@@ -25,8 +25,10 @@ public class WorldGenListener implements Listener {
         World world = event.getWorld();
         BlockPopulator goldOreModifier = createCustomOrePopulator(60,9, Material.GOLD_ORE);
         BlockPopulator ironOreModifier = createCustomOrePopulator(60,9, Material.IRON_ORE);
+        BlockPopulator diamondOreModifier = createCustomOrePopulator(50,9, Material.DIAMOND_ORE);
         world.getPopulators().add(goldOreModifier);
         world.getPopulators().add(ironOreModifier);
+        world.getPopulators().add(diamondOreModifier);
     }
 
     public BlockPopulator createCustomOrePopulator(int maxLayer, int minChance, Material oreMaterial) {
@@ -104,6 +106,7 @@ public class WorldGenListener implements Listener {
         List<Material> list = new ArrayList<>();
         list.add(Material.STONE);
         list.add(Material.SANDSTONE);
+        list.add(Material.OBSIDIAN);
         return list;
     }
 }
