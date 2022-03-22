@@ -3,6 +3,8 @@ package fr.timeuh.uhcrun.listeners;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldInitEvent;
@@ -26,9 +28,11 @@ public class WorldGenListener implements Listener {
         BlockPopulator goldOreModifier = createCustomOrePopulator(60,9, Material.GOLD_ORE);
         BlockPopulator ironOreModifier = createCustomOrePopulator(60,9, Material.IRON_ORE);
         BlockPopulator diamondOreModifier = createCustomOrePopulator(50,9, Material.DIAMOND_ORE);
+        BlockPopulator sugarCaneModifier = createCustomSugarCanePopulator();
         world.getPopulators().add(goldOreModifier);
         world.getPopulators().add(ironOreModifier);
         world.getPopulators().add(diamondOreModifier);
+        world.getPopulators().add(sugarCaneModifier);
     }
 
     public BlockPopulator createCustomOrePopulator(int maxLayer, int minChance, Material oreMaterial) {
@@ -101,6 +105,42 @@ public class WorldGenListener implements Listener {
             }
         };
     }
+
+    public BlockPopulator createCustomSugarCanePopulator() {
+        return new BlockPopulator() {
+            @Override
+            public void populate(World world, Random random, Chunk source) {
+                int chance;
+                for (int yLayer = 50; yLayer < 90; yLayer++){
+                    for (int xLayer = 1; xLayer < 15; xLayer++){
+                        for (int zLayer = 1; zLayer < 15; zLayer++){
+                            if (checkSurroundings(source, xLayer, yLayer, zLayer)){
+                                chance = random.nextInt(10) + 1;
+                                if (chance >= 10){
+                                    source.getBlock(xLayer, yLayer +1, zLayer).setType(Material.SUGAR_CANE_BLOCK);
+                                    source.getBlock(xLayer, yLayer +2, zLayer).setType(Material.SUGAR_CANE_BLOCK);
+                                    source.getBlock(xLayer, yLayer +3, zLayer).setType(Material.SUGAR_CANE_BLOCK);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    public boolean checkSurroundings(Chunk source, int xLayer, int yLayer, int zLayer){
+        Block toCheck = source.getBlock(xLayer, yLayer, zLayer);
+        if (toCheck.getType().equals(Material.SAND) && toCheck.getRelative(BlockFace.UP).getType().equals(Material.AIR)){
+            for (BlockFace face : BlockFace.values()){
+                if (toCheck.getRelative(face).getType().equals(Material.STATIONARY_WATER)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public List<Material> createMaterialList() {
         List<Material> list = new ArrayList<>();
