@@ -10,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.MetadataValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +66,8 @@ public class Timber implements Listener {
         int zLayer = current.getZ();
 
         for (int y = yLayer; y <= yLayer + 40; y++){
-            for (int x = xLayer -5; x <= xLayer +5; x++){
-                for (int z = zLayer -5; z <= zLayer +5; z++){
+            for (int x = xLayer -2; x <= xLayer +2; x++){
+                for (int z = zLayer -2; z <= zLayer +2; z++){
                     Block move = source.getBlock(x, y, z);
                     if (leavesList.contains(move.getType())) leaveBreak.add(move);
                 }
