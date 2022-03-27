@@ -1,5 +1,6 @@
 package fr.timeuh.uhcrun.listeners;
 
+import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -17,9 +18,11 @@ import java.util.Random;
 
 public class WorldGenListener implements Listener {
     private List<Material> materialList;
+    private UHCRun uhcRun;
 
-    public WorldGenListener() {
+    public WorldGenListener(UHCRun uhcRun) {
         this.materialList = createMaterialList();
+        this.uhcRun = uhcRun;
     }
 
     @EventHandler
