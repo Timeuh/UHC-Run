@@ -12,14 +12,14 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +57,11 @@ public class GameListener implements Listener {
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le jeu est en cours");
             event.setJoinMessage(null);
         } else {
-            player.setGameMode(GameMode.ADVENTURE);
+            //player.setGameMode(GameMode.ADVENTURE);
+            player.getInventory().setItem(2, new ItemStack(Material.DIAMOND_AXE));
             player.getInventory().setItem(4, teamSelection);
             player.updateInventory();
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 99999, 1, true, false));
             event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Rejoint les runners");
         }
         PlayerTeams.updateScoreboard(uhcRun);
@@ -322,5 +324,14 @@ public class GameListener implements Listener {
             }
         }
         return null;
+    }
+
+    @EventHandler
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        if (event.getCause().equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)) {
+            Player player = event.getPlayer();
+            player.sendMessage(ChatColor.RED + "Le nether est désactivé  !");
+            event.setCancelled(true);
+        }
     }
 }
