@@ -1,6 +1,6 @@
 package fr.timeuh.uhcrun.listeners;
 
-import fr.timeuh.uhcrun.GameState;
+import fr.timeuh.uhcrun.tasks.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.scenarios.Scenarios;
 import org.bukkit.Bukkit;

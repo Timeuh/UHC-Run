@@ -1,6 +1,5 @@
 package fr.timeuh.uhcrun.tasks;
 
-import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

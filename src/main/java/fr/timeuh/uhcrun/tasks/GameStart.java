@@ -1,7 +1,6 @@
 package fr.timeuh.uhcrun.tasks;
 
 import fr.timeuh.uhcrun.UHCRun;
-import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
 import org.bukkit.entity.Player;

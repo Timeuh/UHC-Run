@@ -4,10 +4,11 @@ import fr.timeuh.uhcrun.commands.GameCommands;
 import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.listeners.ModifiedDropsListener;
-import fr.timeuh.uhcrun.listeners.WorldGenListener;
+import fr.timeuh.uhcrun.worldgeneration.WorldGenModifier;
 import fr.timeuh.uhcrun.scenarios.Scenarios;
 import fr.timeuh.uhcrun.scenarios.Timber;
 import fr.timeuh.uhcrun.tasks.GameCycle;
+import fr.timeuh.uhcrun.tasks.GameState;
 import fr.timeuh.uhcrun.tasks.GameStop;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
@@ -49,7 +50,7 @@ public final class UHCRun extends JavaPlugin {
         getCommand("gamestop").setExecutor(new GameCommands(this));
         getCommand("start").setExecutor(new GameCommands(this));
 
-        pluginManager.registerEvents(new WorldGenListener(this), this);
+        pluginManager.registerEvents(new WorldGenModifier(this), this);
         pluginManager.registerEvents(new GameListener(this), this);
         pluginManager.registerEvents(new GameDamageListener(this), this);
         pluginManager.registerEvents(new ModifiedDropsListener(this), this);

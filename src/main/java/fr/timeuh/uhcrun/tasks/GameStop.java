@@ -1,6 +1,5 @@
 package fr.timeuh.uhcrun.tasks;
 
-import fr.timeuh.uhcrun.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
