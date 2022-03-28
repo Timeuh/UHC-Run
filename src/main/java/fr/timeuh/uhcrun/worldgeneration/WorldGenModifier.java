@@ -36,6 +36,7 @@ public class WorldGenModifier implements Listener {
         world.getPopulators().add(ironOreModifier);
         world.getPopulators().add(diamondOreModifier);
         world.getPopulators().add(sugarCaneModifier);
+        world.getPopulators().add(new NetherChunk(uhcRun));
     }
 
     public BlockPopulator createCustomOrePopulator(int maxLayer, int minChance, Material oreMaterial) {
