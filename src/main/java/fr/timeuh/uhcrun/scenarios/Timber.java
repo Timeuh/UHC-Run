@@ -33,13 +33,13 @@ public class Timber implements Listener {
             Block current = event.getBlock();
             Chunk source = Bukkit.getWorld("world").getChunkAt(current);
             if (logList.contains(current.getType())){
-                breakTree(current, source);
+                breakTree(current, source, world);
                 Bukkit.getScheduler().runTaskLater(uhcRun, () -> breakLeaves(current, source, world), 10);
             }
         }
     }
 
-    public void breakTree(Block current, Chunk source){
+    public void breakTree(Block current, Chunk source, World world){
         List<Block> blockBreak = new ArrayList<>();
         int minYLayer = current.getY() - 10;
         int yLayer = current.getY();
@@ -55,7 +55,9 @@ public class Timber implements Listener {
             }
         }
         for (Block block : blockBreak){
-            block.breakNaturally();
+            block.setType(Material.AIR);
+            block.getDrops().removeAll(block.getDrops());
+            world.dropItemNaturally(block.getLocation(), new ItemStack(Material.LOG));
         }
     }
 
