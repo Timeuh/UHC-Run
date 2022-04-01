@@ -5,6 +5,7 @@ import fr.timeuh.uhcrun.listeners.ForbiddenActions;
 import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.listeners.ModifiedDropsListener;
+import fr.timeuh.uhcrun.teams.TeamChat;
 import fr.timeuh.uhcrun.worldgeneration.WorldGenModifier;
 import fr.timeuh.uhcrun.scenarios.Scenarios;
 import fr.timeuh.uhcrun.scenarios.Timber;
@@ -57,6 +58,8 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new ModifiedDropsListener(this), this);
         pluginManager.registerEvents(new Timber(this), this);
         pluginManager.registerEvents(new ForbiddenActions(this), this);
+        pluginManager.registerEvents(new TeamChat(this), this);
+
     }
 
     @Override
