@@ -325,13 +325,4 @@ public class GameListener implements Listener {
         }
         return null;
     }
-
-    @EventHandler
-    public void onPlayerTeleport(PlayerTeleportEvent event) {
-        if (event.getCause().equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)) {
-            Player player = event.getPlayer();
-            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le nether est " + ChatColor.DARK_RED + "désactivé");
-            event.setCancelled(true);
-        }
-    }
 }

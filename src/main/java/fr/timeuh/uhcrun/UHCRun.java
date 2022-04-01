@@ -1,6 +1,7 @@
 package fr.timeuh.uhcrun;
 
 import fr.timeuh.uhcrun.commands.GameCommands;
+import fr.timeuh.uhcrun.listeners.ForbiddenActions;
 import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.listeners.ModifiedDropsListener;
@@ -55,6 +56,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new GameDamageListener(this), this);
         pluginManager.registerEvents(new ModifiedDropsListener(this), this);
         pluginManager.registerEvents(new Timber(this), this);
+        pluginManager.registerEvents(new ForbiddenActions(this), this);
     }
 
     @Override
