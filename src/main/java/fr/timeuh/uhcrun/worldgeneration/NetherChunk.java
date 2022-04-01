@@ -1,6 +1,5 @@
 package fr.timeuh.uhcrun.worldgeneration;
 
-import fr.timeuh.uhcrun.UHCRun;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -9,7 +8,6 @@ import org.bukkit.block.Chest;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -18,11 +16,10 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import java.util.Random;
 
 public class NetherChunk extends BlockPopulator {
-    private UHCRun uhcRun;
-
-    public NetherChunk(UHCRun uhcRun) {
-        this.uhcRun = uhcRun;
-    }
+    private final int CHEST_SLOTS = 27;
+    private final int RARE_QUANTITY = 3;
+    private final int NORMAL_QUANTITY = 8;
+    private final int ENCHANTMENT_LEVEL = 2;
 
 
     @Override
@@ -48,36 +45,36 @@ public class NetherChunk extends BlockPopulator {
                         } else if (state instanceof Chest) {
                             Inventory chest = ((Chest) state).getInventory();
                             if (!chest1Filled) {
-                                chest.setItem(slot.nextInt(27), getChestItem(1, 1));
-                                chest.setItem(slot.nextInt(27), getChestItem(1, 2));
-                                chest.setItem(slot.nextInt(27), getChestItem(1, 3));
-                                chest.setItem(slot.nextInt(27), getChestItem(1, 4));
-                                chest.setItem(slot.nextInt(27), getChestItem(1, 5));
-                                chest.setItem(slot.nextInt(27), getChestItem(1, 6));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(1, 1));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(1, 2));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(1, 3));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(1, 4));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(1, 5));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(1, 6));
                                 chest1Filled = true;
                             } else if (!chest2Filled) {
-                                chest.setItem(slot.nextInt(27), getChestItem(2, 1));
-                                chest.setItem(slot.nextInt(27), getChestItem(2, 2));
-                                chest.setItem(slot.nextInt(27), getChestItem(2, 3));
-                                chest.setItem(slot.nextInt(27), getChestItem(2, 4));
-                                chest.setItem(slot.nextInt(27), getChestItem(2, 5));
-                                chest.setItem(slot.nextInt(27), getChestItem(2, 6));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(2, 1));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(2, 2));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(2, 3));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(2, 4));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(2, 5));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(2, 6));
                                 chest2Filled = true;
                             } else if (!chest3Filled) {
-                                chest.setItem(slot.nextInt(27), getChestItem(3, 1));
-                                chest.setItem(slot.nextInt(27), getChestItem(3, 2));
-                                chest.setItem(slot.nextInt(27), getChestItem(3, 3));
-                                chest.setItem(slot.nextInt(27), getChestItem(3, 4));
-                                chest.setItem(slot.nextInt(27), getChestItem(3, 5));
-                                chest.setItem(slot.nextInt(27), getChestItem(3, 6));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(3, 1));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(3, 2));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(3, 3));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(3, 4));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(3, 5));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(3, 6));
                                 chest3Filled = true;
                             } else if (!chest4Filled) {
-                                chest.setItem(slot.nextInt(27), getChestItem(4, 1));
-                                chest.setItem(slot.nextInt(27), getChestItem(4, 2));
-                                chest.setItem(slot.nextInt(27), getChestItem(4, 3));
-                                chest.setItem(slot.nextInt(27), getChestItem(4, 4));
-                                chest.setItem(slot.nextInt(27), getChestItem(4, 5));
-                                chest.setItem(slot.nextInt(27), getChestItem(4, 6));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(4, 1));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(4, 2));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(4, 3));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(4, 4));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(4, 5));
+                                chest.setItem(slot.nextInt(CHEST_SLOTS), getChestItem(4, 6));
                                 chest4Filled = true;
                             }
                         }
@@ -125,6 +122,11 @@ public class NetherChunk extends BlockPopulator {
                     return Material.CHEST;
                 }
             }
+            if (y == 26 || y == 27 || y == 28){
+                if (x % 2 == 0 || z % 2 == 0){
+                    return Material.GLOWSTONE;
+                }
+            }
         }
         return Material.AIR;
     }
@@ -135,17 +137,17 @@ public class NetherChunk extends BlockPopulator {
         if (chestId == 1 || chestId == 2){
             switch (slotId){
                 case 1:
-                    return new ItemStack(Material.NETHER_WARTS, itemCount.nextInt(5) +1);
+                    return new ItemStack(Material.NETHER_WARTS, itemCount.nextInt(NORMAL_QUANTITY) +1);
                 case 2:
-                    return new ItemStack(Material.GOLD_INGOT, itemCount.nextInt(8) +1);
+                    return new ItemStack(Material.GOLD_INGOT, itemCount.nextInt(NORMAL_QUANTITY) +1);
                 case 3:
-                    return new ItemStack(Material.DIAMOND, itemCount.nextInt(3) +1);
+                    return new ItemStack(Material.DIAMOND, itemCount.nextInt(RARE_QUANTITY) +1);
                 case 4:
-                    return new ItemStack(Material.SUGAR, itemCount.nextInt(2) +1);
+                    return new ItemStack(Material.SUGAR, itemCount.nextInt(RARE_QUANTITY) +1);
                 case 5:
-                    return new ItemStack(Material.REDSTONE, itemCount.nextInt(5) +1);
+                    return new ItemStack(Material.REDSTONE, itemCount.nextInt(NORMAL_QUANTITY) +1);
                 case 6:
-                    return new ItemStack(Material.SPIDER_EYE, itemCount.nextInt(2) +1);
+                    return new ItemStack(Material.SPIDER_EYE, itemCount.nextInt(RARE_QUANTITY) +1);
                 default: break;
             }
         } else if (chestId == 3 || chestId == 4){
@@ -153,31 +155,31 @@ public class NetherChunk extends BlockPopulator {
                 case 1:
                     ItemStack enchantedBook1 = new ItemStack(Material.ENCHANTED_BOOK);
                     EnchantmentStorageMeta metaBook1 = (EnchantmentStorageMeta) enchantedBook1.getItemMeta();
-                    metaBook1.addStoredEnchant(getBookEnchantment(), enchantLevel.nextInt(2) +1, false);
+                    metaBook1.addStoredEnchant(getBookEnchantment(), enchantLevel.nextInt(ENCHANTMENT_LEVEL) +1, false);
                     enchantedBook1.setItemMeta(metaBook1);
                     return enchantedBook1;
                 case 2:
                     ItemStack enchantedBook2 = new ItemStack(Material.ENCHANTED_BOOK);
                     EnchantmentStorageMeta metaBook2 = (EnchantmentStorageMeta) enchantedBook2.getItemMeta();
-                    metaBook2.addStoredEnchant(getBookEnchantment(), enchantLevel.nextInt(2) +1, false);
+                    metaBook2.addStoredEnchant(getBookEnchantment(), enchantLevel.nextInt(ENCHANTMENT_LEVEL) +1, false);
                     enchantedBook2.setItemMeta(metaBook2);
                     return enchantedBook2;
                 case 3:
                     ItemStack enchantedBook3 = new ItemStack(Material.ENCHANTED_BOOK);
                     EnchantmentStorageMeta metaBook3 = (EnchantmentStorageMeta) enchantedBook3.getItemMeta();
-                    metaBook3.addStoredEnchant(getBookEnchantment(), enchantLevel.nextInt(2) +1, false);
+                    metaBook3.addStoredEnchant(getBookEnchantment(), enchantLevel.nextInt(ENCHANTMENT_LEVEL) +1, false);
                     enchantedBook3.setItemMeta(metaBook3);
                     return enchantedBook3;
                 case 4:
                     ItemStack enchantedBook4 = new ItemStack(Material.ENCHANTED_BOOK);
                     EnchantmentStorageMeta metaBook4 = (EnchantmentStorageMeta) enchantedBook4.getItemMeta();
-                    metaBook4.addStoredEnchant(getBookEnchantment(), enchantLevel.nextInt(2) +1, false);
+                    metaBook4.addStoredEnchant(getBookEnchantment(), enchantLevel.nextInt(ENCHANTMENT_LEVEL) +1, false);
                     enchantedBook4.setItemMeta(metaBook4);
                     return enchantedBook4;
                 case 5:
-                    return new ItemStack(Material.GLASS_BOTTLE, itemCount.nextInt(3) +1);
+                    return new ItemStack(Material.GLASS_BOTTLE, itemCount.nextInt(RARE_QUANTITY) +1);
                 case 6:
-                    return new ItemStack(Material.EXP_BOTTLE, itemCount.nextInt(8) +1);
+                    return new ItemStack(Material.EXP_BOTTLE, itemCount.nextInt(NORMAL_QUANTITY) +1);
                 default: break;
             }
         }
@@ -188,8 +190,8 @@ public class NetherChunk extends BlockPopulator {
         int enchantId = new Random().nextInt(30)+1;
         if (enchantId <= 10) return Enchantment.DAMAGE_ALL;
         if (enchantId <= 20) return Enchantment.PROTECTION_ENVIRONMENTAL;
+        if (enchantId <= 28) return Enchantment.KNOCKBACK;
         if (enchantId == 29) return Enchantment.ARROW_FIRE;
-        if (enchantId == 30) return Enchantment.FIRE_ASPECT;
-        return Enchantment.KNOCKBACK;
+        return Enchantment.FIRE_ASPECT;
     }
 }
