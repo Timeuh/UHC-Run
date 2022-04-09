@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CutClean implements Listener {
-    private List<Material> duplicateOres;
-    private List<Material> stoneToCobble;
-    private UHCRun uhcRun;
+    private final List<Material> duplicateOres;
+    private final List<Material> stoneToCobble;
+    private final UHCRun uhcRun;
 
     public CutClean(UHCRun uhcRun) {
         this.duplicateOres = getDuplicateOres();
