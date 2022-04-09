@@ -5,6 +5,7 @@ import fr.timeuh.uhcrun.listeners.ForbiddenActions;
 import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.listeners.ModifiedDropsListener;
+import fr.timeuh.uhcrun.scenarios.CutClean;
 import fr.timeuh.uhcrun.teams.TeamChat;
 import fr.timeuh.uhcrun.worldgeneration.WorldGenModifier;
 import fr.timeuh.uhcrun.scenarios.Scenarios;
@@ -43,7 +44,7 @@ public final class UHCRun extends JavaPlugin {
         buildPVP();
         createScenarios();
         enableScenarios(Scenarios.NOTEAMS);
-        enableScenarios(Scenarios.TIMBER);
+        enableScenarios(Scenarios.CUTCLEAN);
 
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
@@ -59,6 +60,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new Timber(this), this);
         pluginManager.registerEvents(new ForbiddenActions(this), this);
         pluginManager.registerEvents(new TeamChat(this), this);
+        pluginManager.registerEvents(new CutClean(this), this);
 
     }
 
