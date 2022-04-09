@@ -6,6 +6,7 @@ import fr.timeuh.uhcrun.listeners.GameDamageListener;
 import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.listeners.ModifiedDropsListener;
 import fr.timeuh.uhcrun.scenarios.CutClean;
+import fr.timeuh.uhcrun.scenarios.HasteyBoys;
 import fr.timeuh.uhcrun.teams.TeamChat;
 import fr.timeuh.uhcrun.worldgeneration.WorldGenModifier;
 import fr.timeuh.uhcrun.scenarios.Scenarios;
@@ -45,6 +46,7 @@ public final class UHCRun extends JavaPlugin {
         createScenarios();
         enableScenarios(Scenarios.NOTEAMS);
         enableScenarios(Scenarios.CUTCLEAN);
+        enableScenarios(Scenarios.HASTEYBOYS);
 
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
@@ -61,6 +63,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new ForbiddenActions(this), this);
         pluginManager.registerEvents(new TeamChat(this), this);
         pluginManager.registerEvents(new CutClean(this), this);
+        pluginManager.registerEvents(new HasteyBoys(this), this);
 
     }
 
