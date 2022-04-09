@@ -5,11 +5,13 @@ import fr.timeuh.uhcrun.listeners.GameListener;
 import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameStop extends BukkitRunnable {
 
-    private UHCRun uhcRun;
+    private final UHCRun uhcRun;
     private int timer = 20;
 
     public GameStop(UHCRun UHCRun){
@@ -37,6 +39,8 @@ public class GameStop extends BukkitRunnable {
                 player.getInventory().setItem(4, GameListener.findItem(ChatColor.GOLD + "Sélection de l'équipe"));
                 player.updateInventory();
                 player.setDisplayName(ChatColor.WHITE + player.getName());
+                for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 99999, 1, true, false));
                 if (player.isOp()){
                     player.getInventory().setItem(0, GameListener.findItem(ChatColor.GOLD + "Sélection des scenarios"));
                     player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());

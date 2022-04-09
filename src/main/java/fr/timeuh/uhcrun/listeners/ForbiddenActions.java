@@ -8,6 +8,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -53,5 +54,13 @@ public class ForbiddenActions implements Listener {
     public void onEnchantment(EnchantItemEvent event){
         event.getEnchantsToAdd().remove(Enchantment.FIRE_ASPECT);
         event.getEnchantsToAdd().remove(Enchantment.ARROW_FIRE);
+    }
+
+    @EventHandler
+    public void onRegen(EntityRegainHealthEvent event){
+        EntityRegainHealthEvent.RegainReason healReson = event.getRegainReason();
+        if (healReson.equals(EntityRegainHealthEvent.RegainReason.SATIATED)){
+            event.setCancelled(true);
+        }
     }
 }

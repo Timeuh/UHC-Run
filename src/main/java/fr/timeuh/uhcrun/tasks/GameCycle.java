@@ -5,12 +5,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameCycle  extends BukkitRunnable {
 
-    private UHCRun uhcRun;
-    private static int timer = 30;
+    private final UHCRun uhcRun;
+    private static int timer = 1200;
 
     public GameCycle(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
@@ -29,6 +30,10 @@ public class GameCycle  extends BukkitRunnable {
                 uhcRun.createBoard(player);
             }
             switch(timer){
+                case 900:
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + 15 + ChatColor.GOLD + " minutes");
+                    break;
+
                 case 600:
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Combat final dans " + ChatColor.DARK_RED + 10 + ChatColor.GOLD + " minutes");
                     break;
@@ -51,6 +56,7 @@ public class GameCycle  extends BukkitRunnable {
                         uhcRun.createPVPBoard(player);
                         player.teleport(uhcRun.getPvp().get(i));
                         uhcRun.beInsensible(player);
+                        for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
                         i++;
                     }
                     uhcRun.checkWin(uhcRun, uhcRun.getAlivePlayers().get(0));
@@ -75,6 +81,6 @@ public class GameCycle  extends BukkitRunnable {
     }
 
     public static void resetTimer(){
-        timer = 30;
+        timer = 1200;
     }
 }

@@ -5,12 +5,14 @@ import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameStart extends BukkitRunnable {
 
     private int timer = 10;
-    private UHCRun uhcRun;
+    private final UHCRun uhcRun;
 
     public GameStart(UHCRun UHCRun){
         this.uhcRun = UHCRun;
@@ -41,6 +43,7 @@ public class GameStart extends BukkitRunnable {
                 player.setGameMode(GameMode.SURVIVAL);
                 player.getInventory().setItem(0, new ItemStack(Material.COOKED_BEEF, 64));
                 player.getInventory().setItem(1, new ItemStack(Material.GOLDEN_APPLE, 4));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 1, true, false));
                 player.updateInventory();
             }
             WorldBorder border = Bukkit.getWorld("world").getWorldBorder();

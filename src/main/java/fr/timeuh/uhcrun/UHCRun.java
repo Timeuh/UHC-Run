@@ -30,23 +30,21 @@ public final class UHCRun extends JavaPlugin {
     private List<Player> players = new ArrayList<>();
     private List<Player> alivePlayers = new ArrayList<>();
     private List<Player> cancelDamagePlayer = new ArrayList<>();
-    private List<Location> spawns = new ArrayList<>();
-    private List<Location> pvp = new ArrayList<>();
+    private final List<Location> spawns = new ArrayList<>();
+    private final List<Location> pvp = new ArrayList<>();
     private List<Scenarios> enabledScenarios = new ArrayList<>();
-    private List<Scenarios> allScenarios = new ArrayList<>();
+    private final List<Scenarios> allScenarios = new ArrayList<>();
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        //setState(GameState.WAITING);
+        setState(GameState.WAITING);
         PluginManager pluginManager = getServer().getPluginManager();
 
         buildSpawns();
         buildPVP();
         createScenarios();
         enableScenarios(Scenarios.NOTEAMS);
-        enableScenarios(Scenarios.CUTCLEAN);
-        enableScenarios(Scenarios.HASTEYBOYS);
 
         getCommand("broadcast").setExecutor(new GameCommands());
         getCommand("spawn").setExecutor(new GameCommands());
@@ -59,8 +57,8 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new GameListener(this), this);
         pluginManager.registerEvents(new GameDamageListener(this), this);
         pluginManager.registerEvents(new ModifiedDropsListener(this), this);
-        pluginManager.registerEvents(new Timber(this), this);
         pluginManager.registerEvents(new ForbiddenActions(this), this);
+        pluginManager.registerEvents(new Timber(this), this);
         pluginManager.registerEvents(new TeamChat(this), this);
         pluginManager.registerEvents(new CutClean(this), this);
         pluginManager.registerEvents(new HasteyBoys(this), this);
@@ -69,7 +67,6 @@ public final class UHCRun extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 
     public void buildSpawns(){
@@ -224,6 +221,8 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createBoard(Player player){
+        ChatColor gold = ChatColor.GOLD;
+        ChatColor red = ChatColor.DARK_RED;
         Objective obj = player.getScoreboard().getObjective("UHCRun");
         obj.unregister();
         obj = player.getScoreboard().registerNewObjective("UHCRun", "dummy");
@@ -233,7 +232,10 @@ public final class UHCRun extends JavaPlugin {
         score.setScore(3);
         Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED +alivePlayers.size());
         score1.setScore(2);
-        Score score2 = obj.getScore(ChatColor.GOLD + "Phase PvP dans "+ ChatColor.DARK_RED + GameCycle.getTimer() + ChatColor.GOLD + " secondes");
+        int currentTimer = GameCycle.getTimer();
+        int seconds = currentTimer % 60;
+        int minutes = currentTimer / 60;
+        Score score2 = obj.getScore(gold + "Phase PvP dans "+ red + minutes + ":" + seconds);
         score2.setScore(1);
     }
 

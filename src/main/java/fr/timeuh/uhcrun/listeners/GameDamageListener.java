@@ -32,6 +32,9 @@ public class GameDamageListener implements Listener {
             if (uhcRun.getCancelDamagePlayers().contains(player)){
                 event.setCancelled(true);
             }
+            if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.FINISH)){
+                event.setCancelled(true);
+            }
         }
     }
 
