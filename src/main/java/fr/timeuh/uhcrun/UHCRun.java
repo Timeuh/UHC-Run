@@ -28,18 +28,25 @@ import java.util.List;
 public final class UHCRun extends JavaPlugin {
 
     private GameState state;
-    private static List<Player> players = new ArrayList<>();
-    private static List<Player> alivePlayers = new ArrayList<>();
-    private static List<Player> cancelDamagePlayer = new ArrayList<>();
-    private static List<Location> spawns = new ArrayList<>();
-    private static List<Location> pvp = new ArrayList<>();
-    private static List<Scenarios> enabledScenarios = new ArrayList<>();
-    private static List<Scenarios> allScenarios = new ArrayList<>();
+    private static List<Player> players;
+    private static List<Player> alivePlayers;
+    private static List<Player> cancelDamagePlayer;
+    private static List<Location> spawns;
+    private static List<Location> pvp;
+    private static List<Scenarios> enabledScenarios;
+    private static List<Scenarios> allScenarios;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         PluginManager pluginManager = getServer().getPluginManager();
+        players = new ArrayList<>();
+        alivePlayers = new ArrayList<>();
+        cancelDamagePlayer = new ArrayList<>();
+        spawns = new ArrayList<>();
+        pvp = new ArrayList<>();
+        enabledScenarios = new ArrayList<>();
+        allScenarios = new ArrayList<>();
 
         buildSpawns();
         buildPVP();
@@ -222,7 +229,7 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createBoard(Player player){
-        if (player != null) {
+        if (player.getScoreboard().getObjective("UHCRun") != null) {
             ChatColor gold = ChatColor.GOLD;
             ChatColor red = ChatColor.DARK_RED;
             Objective obj = player.getScoreboard().getObjective("UHCRun");
