@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameStop extends BukkitRunnable {
 
-    private final UHCRun uhcRun;
+    private UHCRun uhcRun;
     private int timer = 20;
 
     public GameStop(UHCRun UHCRun){

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HasteyBoys implements Listener {
-    private final UHCRun uhcRun;
+    private UHCRun uhcRun;
     private final List<Material> enchantToolsDiamond;
     private final List<Material> enchantToolsGold;
     private final List<Material> enchantToolsIron;

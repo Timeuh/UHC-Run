@@ -16,7 +16,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class GameDamageListener implements Listener {
 
-    private UHCRun uhcRun;
+    private final UHCRun uhcRun;
 
     public GameDamageListener(UHCRun uhcRun) {
         this.uhcRun = uhcRun;

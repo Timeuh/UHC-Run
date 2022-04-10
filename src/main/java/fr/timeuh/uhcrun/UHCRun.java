@@ -22,28 +22,29 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public final class UHCRun extends JavaPlugin {
 
     private GameState state;
-    private List<Player> players = new ArrayList<>();
-    private List<Player> alivePlayers = new ArrayList<>();
-    private List<Player> cancelDamagePlayer = new ArrayList<>();
-    private final List<Location> spawns = new ArrayList<>();
-    private final List<Location> pvp = new ArrayList<>();
-    private List<Scenarios> enabledScenarios = new ArrayList<>();
-    private final List<Scenarios> allScenarios = new ArrayList<>();
+    private static List<Player> players = new ArrayList<>();
+    private static List<Player> alivePlayers = new ArrayList<>();
+    private static List<Player> cancelDamagePlayer = new ArrayList<>();
+    private static List<Location> spawns = new ArrayList<>();
+    private static List<Location> pvp = new ArrayList<>();
+    private static List<Scenarios> enabledScenarios = new ArrayList<>();
+    private static List<Scenarios> allScenarios = new ArrayList<>();
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        setState(GameState.WAITING);
         PluginManager pluginManager = getServer().getPluginManager();
 
         buildSpawns();
         buildPVP();
         createScenarios();
+        setState(GameState.WAITING);
         enableScenarios(Scenarios.NOTEAMS);
 
         getCommand("broadcast").setExecutor(new GameCommands());
@@ -221,22 +222,24 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createBoard(Player player){
-        ChatColor gold = ChatColor.GOLD;
-        ChatColor red = ChatColor.DARK_RED;
-        Objective obj = player.getScoreboard().getObjective("UHCRun");
-        obj.unregister();
-        obj = player.getScoreboard().registerNewObjective("UHCRun", "dummy");
-        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
-        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
-        score.setScore(3);
-        Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED +alivePlayers.size());
-        score1.setScore(2);
-        int currentTimer = GameCycle.getTimer();
-        int seconds = currentTimer % 60;
-        int minutes = currentTimer / 60;
-        Score score2 = obj.getScore(gold + "Phase PvP dans "+ red + minutes + ":" + seconds);
-        score2.setScore(1);
+        if (player != null) {
+            ChatColor gold = ChatColor.GOLD;
+            ChatColor red = ChatColor.DARK_RED;
+            Objective obj = player.getScoreboard().getObjective("UHCRun");
+            obj.unregister();
+            obj = player.getScoreboard().registerNewObjective("UHCRun", "dummy");
+            obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
+            obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
+            score.setScore(3);
+            Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED + alivePlayers.size());
+            score1.setScore(2);
+            int currentTimer = GameCycle.getTimer();
+            int seconds = currentTimer % 60;
+            int minutes = currentTimer / 60;
+            Score score2 = obj.getScore(gold + "Phase PvP dans " + red + minutes + ":" + seconds);
+            score2.setScore(1);
+        }
     }
 
     public void createPVPBoard(Player player) {

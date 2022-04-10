@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class GameStart extends BukkitRunnable {
 
     private int timer = 10;
-    private final UHCRun uhcRun;
+    private UHCRun uhcRun;
 
     public GameStart(UHCRun UHCRun){
         this.uhcRun = UHCRun;

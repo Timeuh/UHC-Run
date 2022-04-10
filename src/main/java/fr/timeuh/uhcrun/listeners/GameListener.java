@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Team;
 
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class GameListener implements Listener {
 
-    private final UHCRun uhcRun;
+    private UHCRun uhcRun;
     private static List<ItemStack> usefulItems = new ArrayList<>();
 
     public GameListener(UHCRun UHCRun) {
@@ -45,15 +46,17 @@ public class GameListener implements Listener {
                 player.setGameMode(GameMode.SPECTATOR);
                 player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le jeu est en cours");
                 event.setJoinMessage(null);
+            } else {
+                Bukkit.broadcastMessage("rejoin");
             }
         } else {
+            player.getInventory().clear();
             player.setGameMode(GameMode.ADVENTURE);
             player.getInventory().setItem(4, teamSelection);
             player.updateInventory();
             for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
             player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 99999, 1, true, false));
             event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Rejoint les runners");
-            player.getInventory().clear();
             player.setStatistic(Statistic.PLAYER_KILLS, 0);
             PlayerTeams.joinScoreboard(player);
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Salut ! si tu as besoin d'informations pense au" + ChatColor.DARK_RED + " /help");
@@ -61,6 +64,7 @@ public class GameListener implements Listener {
             player.teleport(new Location(Bukkit.getWorld("world"), 0,100,0));
             player.setLevel(0);
             player.setExp(0f);
+            player.setHealth(20);
             if (player.isOp()){
                 player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
                 player.getInventory().setItem(0, scenarioSelection);
@@ -75,13 +79,6 @@ public class GameListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
-        if (uhcRun.getPlayers().contains(player)){
-            if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.FINISH)){
-                uhcRun.getPlayers().remove(player);
-                if (uhcRun.getAlivePlayers().contains(player)) uhcRun.getAlivePlayers().remove(player);
-                if (PlayerTeams.hasTeam(player)) PlayerTeams.leaveTeam(player, uhcRun);
-            }
-        }
         event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Quitte les runners");
     }
 
