@@ -24,39 +24,39 @@ public class PlayerTeams {
         board.registerNewObjective("UHCRunPVP","dummy");
         board.registerNewObjective("UHCRun","dummy");
 
-        Team redTeam = board.registerNewTeam("Rouge");
+        Team redTeam = board.registerNewTeam("RED");
         redTeam.setPrefix(ChatColor.DARK_RED + "");
         playerTeamList.add(redTeam);
 
-        Team blueTeam = board.registerNewTeam("Bleue");
+        Team blueTeam = board.registerNewTeam("BLUE");
         blueTeam.setPrefix(ChatColor.BLUE + "");
         playerTeamList.add(blueTeam);
 
-        Team orangeTeam = board.registerNewTeam("Orange");
+        Team orangeTeam = board.registerNewTeam("ORANGE");
         orangeTeam.setPrefix(ChatColor.GOLD + "");
         playerTeamList.add(orangeTeam);
 
-        Team greenTeam = board.registerNewTeam("Verte");
+        Team greenTeam = board.registerNewTeam("GREEN");
         greenTeam.setPrefix(ChatColor.DARK_GREEN + "");
         playerTeamList.add(greenTeam);
 
-        Team pinkTeam = board.registerNewTeam("Rose");
+        Team pinkTeam = board.registerNewTeam("PINK");
         pinkTeam.setPrefix(ChatColor.LIGHT_PURPLE + "");
         playerTeamList.add(pinkTeam);
 
-        Team purpleTeam = board.registerNewTeam("Violette");
+        Team purpleTeam = board.registerNewTeam("PURPLE");
         purpleTeam.setPrefix(ChatColor.DARK_PURPLE + "");
         playerTeamList.add(purpleTeam);
 
-        Team yellowTeam = board.registerNewTeam("Jaune");
+        Team yellowTeam = board.registerNewTeam("YELLOW");
         yellowTeam.setPrefix(ChatColor.YELLOW + "");
         playerTeamList.add(yellowTeam);
 
-        Team grayTeam = board.registerNewTeam("Grise");
+        Team grayTeam = board.registerNewTeam("GRAY");
         grayTeam.setPrefix(ChatColor.DARK_GRAY + "");
         playerTeamList.add(grayTeam);
 
-        Team blackTeam = board.registerNewTeam("Noire");
+        Team blackTeam = board.registerNewTeam("BLACK");
         blackTeam.setPrefix(ChatColor.BLACK + "");
         playerTeamList.add(blackTeam);
 
@@ -70,39 +70,39 @@ public class PlayerTeams {
                 if (hasTeam(player)) {
                     String playerTeamName = getPlayerTeam(player).getName();
                     switch (playerTeamName) {
-                        case "Rouge":
+                        case "RED":
                             joinTeam(player, "RED", uhcRun);
                             break;
 
-                        case "Bleue":
+                        case "BLUE":
                             joinTeam(player, "BLUE", uhcRun);
                             break;
 
-                        case "Orange":
+                        case "ORANGE":
                             joinTeam(player, "ORANGE", uhcRun);
                             break;
 
-                        case "Verte":
+                        case "GREEN":
                             joinTeam(player, "GREEN", uhcRun);
                             break;
 
-                        case "Rose":
+                        case "PINK":
                             joinTeam(player, "PINK", uhcRun);
                             break;
 
-                        case "Violette":
+                        case "PURPLE":
                             joinTeam(player, "PURPLE", uhcRun);
                             break;
 
-                        case "Jaune":
+                        case "YELLOW":
                             joinTeam(player, "YELLOW", uhcRun);
                             break;
 
-                        case "Grise":
+                        case "GRAY":
                             joinTeam(player, "GRAY", uhcRun);
                             break;
 
-                        case "Noire":
+                        case "BLACK":
                             joinTeam(player, "BLACK", uhcRun);
                             break;
 
@@ -120,63 +120,63 @@ public class PlayerTeams {
             Scoreboard board = sbPlayer.getScoreboard();
             switch (team) {
                 case "RED":
-                    Team redTeam = board.getTeam("Rouge");
+                    Team redTeam = board.getTeam("RED");
                     redTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.DARK_RED + player.getName());
                     break;
 
                 case "BLUE":
-                    Team blueTeam = board.getTeam("Bleue");
+                    Team blueTeam = board.getTeam("BLUE");
                     blueTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.BLUE + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.BLUE + player.getName());
                     break;
 
                 case "ORANGE":
-                    Team orangeTeam = board.getTeam("Orange");
+                    Team orangeTeam = board.getTeam("ORANGE");
                     orangeTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.GOLD + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.GOLD + player.getName());
                     break;
 
                 case "GREEN":
-                    Team greenTeam = board.getTeam("Verte");
+                    Team greenTeam = board.getTeam("GREEN");
                     greenTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.DARK_GREEN + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.DARK_GREEN + player.getName());
                     break;
 
                 case "PINK":
-                    Team pinkTeam = board.getTeam("Rose");
+                    Team pinkTeam = board.getTeam("PINK");
                     pinkTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.LIGHT_PURPLE + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.LIGHT_PURPLE + player.getName());
                     break;
 
                 case "PURPLE":
-                    Team purpleTeam = board.getTeam("Violette");
+                    Team purpleTeam = board.getTeam("PURPLE");
                     purpleTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.DARK_PURPLE + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
                     break;
 
                 case "YELLOW":
-                    Team yellowTeam = board.getTeam("Jaune");
+                    Team yellowTeam = board.getTeam("YELLOW");
                     yellowTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.YELLOW + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.YELLOW + player.getName());
                     break;
 
                 case "GRAY":
-                    Team grayTeam = board.getTeam("Grise");
+                    Team grayTeam = board.getTeam("GRAY");
                     grayTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.DARK_GRAY + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.DARK_GRAY + player.getName());
                     break;
 
                 case "BLACK":
-                    Team blackTeam = board.getTeam("Noire");
+                    Team blackTeam = board.getTeam("BLACK");
                     blackTeam.addEntry(player.getName());
                     player.setDisplayName(ChatColor.BLACK + player.getName() + ChatColor.WHITE);
                     player.setPlayerListName(ChatColor.BLACK + player.getName());
@@ -314,23 +314,23 @@ public class PlayerTeams {
     public static ChatColor getTeamColor(Team toCheck){
         String name = toCheck.getName();
         switch (name){
-            case "Rouge":
+            case "RED":
                 return ChatColor.DARK_RED;
-            case "Bleue":
+            case "BLUE":
                 return ChatColor.BLUE;
-            case "Orange":
+            case "ORANGE":
                 return ChatColor.GOLD;
-            case "Verte":
+            case "GREEN":
                 return ChatColor.DARK_GREEN;
-            case "Rose":
+            case "PINK":
                 return ChatColor.LIGHT_PURPLE;
-            case "Violette":
+            case "PURPLE":
                 return ChatColor.DARK_PURPLE;
-            case "Jaune":
+            case "YELLOW":
                 return ChatColor.YELLOW;
-            case "Grise":
+            case "GRAY":
                 return ChatColor.DARK_GRAY;
-            case "Noire":
+            case "BLACK":
                 return ChatColor.BLACK;
             default:
                 break;

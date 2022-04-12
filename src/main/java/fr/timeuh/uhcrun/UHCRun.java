@@ -31,6 +31,8 @@ public final class UHCRun extends JavaPlugin {
     private static List<Player> players;
     private static List<Player> alivePlayers;
     private static List<Player> cancelDamagePlayer;
+    private static List<Player> deconnectionPlayer;
+    private static List<Team> decoPlayerTeam;
     private static List<Location> spawns;
     private static List<Location> pvp;
     private static List<Scenarios> enabledScenarios;
@@ -47,6 +49,8 @@ public final class UHCRun extends JavaPlugin {
         pvp = new ArrayList<>();
         enabledScenarios = new ArrayList<>();
         allScenarios = new ArrayList<>();
+        deconnectionPlayer = new ArrayList<>();
+        decoPlayerTeam = new ArrayList<>();
 
         buildSpawns();
         buildPVP();
@@ -151,6 +155,14 @@ public final class UHCRun extends JavaPlugin {
 
     public List<Player> getCancelDamagePlayers() {
         return cancelDamagePlayer;
+    }
+
+    public List<Player> getDeconnectionPlayer() {
+        return deconnectionPlayer;
+    }
+
+    public List<Team> getDecoPlayerTeam() {
+        return decoPlayerTeam;
     }
 
     public List<Location> getSpawns() {
@@ -266,19 +278,21 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createLobbyBoard(Player player){
-        Objective obj = player.getScoreboard().getObjective("UHCRunLobby");
-        obj.unregister();
-        obj = player.getScoreboard().registerNewObjective("UHCRunLobby", "dummy");
-        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
-        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
-        score.setScore(3);
-        Score score1 = obj.getScore(ChatColor.GOLD +"Bienvenue dans cet UHC Run !");
-        score1.setScore(2);
-        Score score2 = obj.getScore(ChatColor.GOLD + "PVP : " + ChatColor.DARK_RED + 20 + ChatColor.GOLD + " minutes");
-        score2.setScore(1);
-        Score score3 = obj.getScore(ChatColor.GOLD + "Joueurs en ligne : " + ChatColor.DARK_RED + getPlayers().size() + ChatColor.GOLD + "/" + ChatColor.GOLD + Bukkit.getMaxPlayers());
-        score3.setScore(0);
+        if (player.getScoreboard().getObjective("UHCRunLobby") != null) {
+            Objective obj = player.getScoreboard().getObjective("UHCRunLobby");
+            obj.unregister();
+            obj = player.getScoreboard().registerNewObjective("UHCRunLobby", "dummy");
+            obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
+            obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
+            score.setScore(3);
+            Score score1 = obj.getScore(ChatColor.GOLD + "Bienvenue dans cet UHC Run !");
+            score1.setScore(2);
+            Score score2 = obj.getScore(ChatColor.GOLD + "PVP : " + ChatColor.DARK_RED + 20 + ChatColor.GOLD + " minutes");
+            score2.setScore(1);
+            Score score3 = obj.getScore(ChatColor.GOLD + "Joueurs en ligne : " + ChatColor.DARK_RED + getPlayers().size() + ChatColor.GOLD + "/" + ChatColor.GOLD + Bukkit.getMaxPlayers());
+            score3.setScore(0);
+        }
     }
 
     public void beInsensible(Player player){

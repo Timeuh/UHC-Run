@@ -36,20 +36,11 @@ public class GameListener implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
-        Player player = event.getPlayer();
-        ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Sélection des scenarios");
-        ItemStack teamSelection = findItem(ChatColor.GOLD + "Sélection de l'équipe");
-
-        if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
-            if (!uhcRun.getAlivePlayers().contains(player)) {
-                player.setGameMode(GameMode.SPECTATOR);
-                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le jeu est en cours");
-                event.setJoinMessage(null);
-            } else {
-                Bukkit.broadcastMessage("rejoin");
-            }
-        } else {
+    public void onFirstJoin(PlayerJoinEvent event){
+        if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.FINISH)) {
+            Player player = event.getPlayer();
+            ItemStack scenarioSelection = findItem(ChatColor.GOLD + "Sélection des scenarios");
+            ItemStack teamSelection = findItem(ChatColor.GOLD + "Sélection de l'équipe");
             player.getInventory().clear();
             player.setGameMode(GameMode.ADVENTURE);
             player.getInventory().setItem(4, teamSelection);
@@ -61,24 +52,56 @@ public class GameListener implements Listener {
             PlayerTeams.joinScoreboard(player);
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Salut ! si tu as besoin d'informations pense au" + ChatColor.DARK_RED + " /help");
             uhcRun.getPlayers().add(player);
-            player.teleport(new Location(Bukkit.getWorld("world"), 0,100,0));
+            player.teleport(new Location(Bukkit.getWorld("world"), 0, 100, 0));
             player.setLevel(0);
             player.setExp(0f);
             player.setHealth(20);
-            if (player.isOp()){
+            if (player.isOp()) {
                 player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
                 player.getInventory().setItem(0, scenarioSelection);
                 player.updateInventory();
             } else {
                 player.setPlayerListName(ChatColor.AQUA + "[Joueur] " + ChatColor.GOLD + player.getName());
             }
+            PlayerTeams.updateScoreboard(uhcRun);
         }
-        PlayerTeams.updateScoreboard(uhcRun);
+    }
+
+    @EventHandler
+    public void onReconnection(PlayerJoinEvent event){
+        Player player = event.getPlayer();
+        if (uhcRun.isState(GameState.STARTING) || uhcRun.isState(GameState.PLAYING) || uhcRun.isState(GameState.FIGHTING)){
+            if (!uhcRun.getDeconnectionPlayer().contains(player)) {
+                PlayerTeams.joinScoreboard(player);
+                player.setGameMode(GameMode.SPECTATOR);
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le jeu est en cours");
+                PlayerTeams.updateScoreboard(uhcRun);
+                event.setJoinMessage(null);
+            } else {
+                PlayerTeams.joinScoreboard(player);
+                uhcRun.getPlayers().add(player);
+                uhcRun.getAlivePlayers().add(player);
+                if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
+                    Team playerTeam = uhcRun.getDecoPlayerTeam().get(uhcRun.getDecoPlayerTeam().size() - 1);
+                    PlayerTeams.joinTeam(player, playerTeam.toString(), uhcRun);
+                }
+            }
+        }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
+        if (uhcRun.getAlivePlayers().contains(player)){
+            uhcRun.getDeconnectionPlayer().add(player);
+            uhcRun.getAlivePlayers().remove(player);
+            uhcRun.getPlayers().remove(player);
+            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
+                Team playerTeam = PlayerTeams.getPlayerTeam(player);
+                uhcRun.getDecoPlayerTeam().add(playerTeam);
+                PlayerTeams.leaveTeam(player, uhcRun);
+            }
+        } else uhcRun.getPlayers().remove(player);
         event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Quitte les runners");
     }
 
