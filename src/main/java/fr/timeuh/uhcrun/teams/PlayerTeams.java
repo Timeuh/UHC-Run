@@ -64,6 +64,52 @@ public class PlayerTeams {
         playerTeamsMap.put(player.getUniqueId(), playerTeamList);
     }
 
+    public static void rejoinScoreboard(Player player){
+        Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+        List<Team> playerTeamList = new ArrayList<>();
+        board.registerNewObjective("UHCRunLobby","dummy");
+        board.registerNewObjective("UHCRunPVP","dummy");
+        board.registerNewObjective("UHCRun","dummy");
+
+        Team redTeam = board.registerNewTeam("RED");
+        redTeam.setPrefix(ChatColor.DARK_RED + "");
+        playerTeamList.add(redTeam);
+
+        Team blueTeam = board.registerNewTeam("BLUE");
+        blueTeam.setPrefix(ChatColor.BLUE + "");
+        playerTeamList.add(blueTeam);
+
+        Team orangeTeam = board.registerNewTeam("ORANGE");
+        orangeTeam.setPrefix(ChatColor.GOLD + "");
+        playerTeamList.add(orangeTeam);
+
+        Team greenTeam = board.registerNewTeam("GREEN");
+        greenTeam.setPrefix(ChatColor.DARK_GREEN + "");
+        playerTeamList.add(greenTeam);
+
+        Team pinkTeam = board.registerNewTeam("PINK");
+        pinkTeam.setPrefix(ChatColor.LIGHT_PURPLE + "");
+        playerTeamList.add(pinkTeam);
+
+        Team purpleTeam = board.registerNewTeam("PURPLE");
+        purpleTeam.setPrefix(ChatColor.DARK_PURPLE + "");
+        playerTeamList.add(purpleTeam);
+
+        Team yellowTeam = board.registerNewTeam("YELLOW");
+        yellowTeam.setPrefix(ChatColor.YELLOW + "");
+        playerTeamList.add(yellowTeam);
+
+        Team grayTeam = board.registerNewTeam("GRAY");
+        grayTeam.setPrefix(ChatColor.DARK_GRAY + "");
+        playerTeamList.add(grayTeam);
+
+        Team blackTeam = board.registerNewTeam("BLACK");
+        blackTeam.setPrefix(ChatColor.BLACK + "");
+        playerTeamList.add(blackTeam);
+
+        player.setScoreboard(board);
+    }
+
     public static void updateScoreboard(UHCRun uhcRun){
         for (Player player : uhcRun.getActualPlayers()) {
             if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {

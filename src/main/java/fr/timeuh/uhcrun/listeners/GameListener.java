@@ -65,6 +65,7 @@ public class GameListener implements Listener {
             }
             PlayerTeams.updateScoreboard(uhcRun);
         } else {
+            PlayerTeams.rejoinScoreboard(player);
             if (!uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
                 if (player.isOp()) {
                     player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
@@ -72,8 +73,9 @@ public class GameListener implements Listener {
                     player.setPlayerListName(ChatColor.AQUA + "[Joueur] " + ChatColor.GOLD + player.getName());
                 }
             } else {
-
+                PlayerTeams.updateScoreboard(uhcRun);
             }
+            event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " s'est reconnecté");
         }
     }
 
