@@ -28,7 +28,7 @@ public class GameStop extends BukkitRunnable {
 
         if (timer == 0){
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Arrêt de la partie");
-            for (Player player : uhcRun.getPlayers()){
+            for (Player player : uhcRun.getActualPlayers()){
                 Location spawn = new Location(player.getWorld(), 0, 100, 0);
                 uhcRun.beInsensible(player);
                 player.teleport(spawn);

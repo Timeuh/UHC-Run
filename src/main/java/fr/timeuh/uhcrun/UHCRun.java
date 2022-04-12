@@ -24,19 +24,18 @@ import org.bukkit.scoreboard.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public final class UHCRun extends JavaPlugin {
 
     private GameState state;
-    private static List<Player> players;
-    private static List<Player> alivePlayers;
-    private static List<Player> cancelDamagePlayer;
-    private static List<Player> deconnectionPlayer;
-    private static List<Team> decoPlayerTeam;
-    private static List<Location> spawns;
-    private static List<Location> pvp;
-    private static List<Scenarios> enabledScenarios;
-    private static List<Scenarios> allScenarios;
+    private List<UUID> players;
+    private List<UUID> alivePlayers;
+    private List<UUID> cancelDamagePlayer;
+    private List<Location> spawns;
+    private List<Location> pvp;
+    private List<Scenarios> enabledScenarios;
+    private List<Scenarios> allScenarios;
 
     @Override
     public void onEnable() {
@@ -49,8 +48,6 @@ public final class UHCRun extends JavaPlugin {
         pvp = new ArrayList<>();
         enabledScenarios = new ArrayList<>();
         allScenarios = new ArrayList<>();
-        deconnectionPlayer = new ArrayList<>();
-        decoPlayerTeam = new ArrayList<>();
 
         buildSpawns();
         buildPVP();
@@ -145,24 +142,34 @@ public final class UHCRun extends JavaPlugin {
         return this.state == state;
     }
 
-    public List<Player> getPlayers() {
+    public List<UUID> getPlayers() {
         return players;
     }
 
-    public List<Player> getAlivePlayers() {
+    public List<Player> getActualPlayers(){
+        List<Player> players = new ArrayList<>();
+        for (UUID uuid : getPlayers()){
+            Player player = Bukkit.getPlayer(uuid);
+            if (player != null) players.add(player);
+        }
+        return players;
+    }
+
+    public List<UUID> getAlivePlayers() {
         return alivePlayers;
     }
 
-    public List<Player> getCancelDamagePlayers() {
+    public List<Player> getActualAlivePlayers(){
+        List<Player> players = new ArrayList<>();
+        for (UUID uuid : getAlivePlayers()){
+            Player player = Bukkit.getPlayer(uuid);
+            if (player != null) players.add(player);
+        }
+        return players;
+    }
+
+    public List<UUID> getCancelDamagePlayers() {
         return cancelDamagePlayer;
-    }
-
-    public List<Player> getDeconnectionPlayer() {
-        return deconnectionPlayer;
-    }
-
-    public List<Team> getDecoPlayerTeam() {
-        return decoPlayerTeam;
     }
 
     public List<Location> getSpawns() {
@@ -178,16 +185,16 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void addCancelDamage(Player player){
-        cancelDamagePlayer.add(player);
+        cancelDamagePlayer.add(player.getUniqueId());
     }
 
     public void removeCancelDamage(Player player) {
-        cancelDamagePlayer.remove(player);
+        cancelDamagePlayer.remove(player.getUniqueId());
     }
 
     public void eliminatePlayer(Player player) {
-       if (alivePlayers.contains(player)) {
-           alivePlayers.remove(player);
+       if (alivePlayers.contains(player.getUniqueId())) {
+           alivePlayers.remove(player.getUniqueId());
            player.setGameMode(GameMode.SPECTATOR);
            player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Vous êtes mort, cheh !");
            if (checkEnabledScenario(Scenarios.TEAMS)) {
@@ -206,7 +213,7 @@ public final class UHCRun extends JavaPlugin {
     public void checkWin(UHCRun uhcRun, Player player){
         if (checkEnabledScenario(Scenarios.NOTEAMS)) {
             if (alivePlayers.size() == 1) {
-                Player winner = alivePlayers.get(0);
+                Player winner = Bukkit.getPlayer(alivePlayers.get(0));
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + ChatColor.BOLD + winner.getName() + ChatColor.GOLD + " gagne cette partie !");
                 GameStop stop = new GameStop(this);
                 stop.runTaskTimer(uhcRun, 0, 20);
@@ -229,7 +236,7 @@ public final class UHCRun extends JavaPlugin {
     public boolean everyPlayerInTeam(){
         if (checkEnabledScenario(Scenarios.TEAMS)){
             int counter = 0;
-            for (Player player : getPlayers()){
+            for (Player player : getActualPlayers()){
                 if (PlayerTeams.hasTeam(player)){
                     counter++;
                 }
@@ -262,19 +269,21 @@ public final class UHCRun extends JavaPlugin {
     }
 
     public void createPVPBoard(Player player) {
-        Objective obj = player.getScoreboard().getObjective("UHCRunPVP");
-        obj.unregister();
-        obj = player.getScoreboard().registerNewObjective("UHCRunPVP", "dummy");
-        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
-        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
-        score.setScore(3);
-        Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED +alivePlayers.size());
-        score1.setScore(2);
-        Score score3 = obj.getScore(ChatColor.GOLD + "Kills : "+ ChatColor.DARK_RED + (player.getStatistic(Statistic.PLAYER_KILLS)));
-        score3.setScore(1);
-        Score score4 = obj.getScore(ChatColor.GOLD + "Phase PvP " + ChatColor.DARK_RED + "débutée");
-        score4.setScore(0);
+        if (player.getScoreboard().getObjective("UHCRunPVP") != null) {
+            Objective obj = player.getScoreboard().getObjective("UHCRunPVP");
+            obj.unregister();
+            obj = player.getScoreboard().registerNewObjective("UHCRunPVP", "dummy");
+            obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun " + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
+            obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
+            score.setScore(3);
+            Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED + alivePlayers.size());
+            score1.setScore(2);
+            Score score3 = obj.getScore(ChatColor.GOLD + "Kills : " + ChatColor.DARK_RED + (player.getStatistic(Statistic.PLAYER_KILLS)));
+            score3.setScore(1);
+            Score score4 = obj.getScore(ChatColor.GOLD + "Phase PvP " + ChatColor.DARK_RED + "débutée");
+            score4.setScore(0);
+        }
     }
 
     public void createLobbyBoard(Player player){

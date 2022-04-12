@@ -46,6 +46,9 @@ public class CutClean implements Listener {
             } else if (breakBlock.getType().equals(Material.SAND)){
                 breakBlock.setType(Material.AIR);
                 Bukkit.getWorld("world").dropItem(breakBlock.getLocation(), new ItemStack(Material.GLASS));
+            } else if (breakBlock.getType().equals(Material.GRAVEL)){
+                breakBlock.setType(Material.AIR);
+                Bukkit.getWorld("world").dropItem(breakBlock.getLocation(), new ItemStack(Material.FLINT));
             }
         }
     }

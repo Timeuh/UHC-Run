@@ -29,12 +29,12 @@ public class GameStart extends BukkitRunnable {
             Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Démarrage de la partie");
             uhcRun.setState(GameState.PLAYING);
 
-            for (Player alivePlayer : uhcRun.getPlayers()){
-                uhcRun.getAlivePlayers().add(alivePlayer);
+            for (Player alivePlayer : uhcRun.getActualPlayers()){
+                uhcRun.getAlivePlayers().add(alivePlayer.getUniqueId());
             }
 
             for (int i = 0 ; i < uhcRun.getAlivePlayers().size(); i++){
-                Player player = uhcRun.getAlivePlayers().get(i);
+                Player player = Bukkit.getPlayer(uhcRun.getAlivePlayers().get(i));
                 Location spawn = uhcRun.getSpawns().get(i);
                 uhcRun.beInsensible(player);
                 uhcRun.createBoard(player);

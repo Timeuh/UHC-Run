@@ -65,7 +65,7 @@ public class PlayerTeams {
     }
 
     public static void updateScoreboard(UHCRun uhcRun){
-        for (Player player : uhcRun.getPlayers()) {
+        for (Player player : uhcRun.getActualPlayers()) {
             if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
                 if (hasTeam(player)) {
                     String playerTeamName = getPlayerTeam(player).getName();
@@ -116,7 +116,7 @@ public class PlayerTeams {
     }
 
     public static void joinTeam(Player player, String team, UHCRun uhcRun){
-        for (Player sbPlayer : uhcRun.getPlayers()) {
+        for (Player sbPlayer : uhcRun.getActualPlayers()) {
             Scoreboard board = sbPlayer.getScoreboard();
             switch (team) {
                 case "RED":
@@ -229,7 +229,7 @@ public class PlayerTeams {
     }
 
     public static void leaveTeam(Player player, UHCRun uhcRun){
-        for (Player sbPlayer : uhcRun.getPlayers()) {
+        for (Player sbPlayer : uhcRun.getActualPlayers()) {
             List<Team> teamList = playerTeamsMap.get(sbPlayer.getUniqueId());
             for (Team team : teamList ) {
                 if (team.hasEntry(player.getName())) {
@@ -246,7 +246,7 @@ public class PlayerTeams {
     }
 
     public static void leaveTeamIngame(Player player, UHCRun uhcRun){
-        for (Player sbPlayer : uhcRun.getPlayers()) {
+        for (Player sbPlayer : uhcRun.getActualPlayers()) {
             List<Team> teamList = playerTeamsMap.get(sbPlayer.getUniqueId());
             for (Team team : teamList ) {
                 if (team.hasEntry(player.getName())) {
@@ -258,7 +258,7 @@ public class PlayerTeams {
     }
 
     public static void emptyTeams(UHCRun uhcRun){
-        for (Player player : uhcRun.getPlayers()){
+        for (Player player : uhcRun.getActualPlayers()){
             leaveTeam(player, uhcRun);
         }
     }
@@ -292,7 +292,7 @@ public class PlayerTeams {
 
     public static void updateTeams(UHCRun uhcRun){
         if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
-            for (Player player : uhcRun.getPlayers()) {
+            for (Player player : uhcRun.getActualPlayers()) {
                 List<Team> teamList = playerTeamsMap.get(player.getUniqueId());
                 teamList.removeIf(team -> team.getSize() == 0);
             }

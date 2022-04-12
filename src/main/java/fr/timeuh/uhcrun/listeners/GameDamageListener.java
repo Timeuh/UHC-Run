@@ -29,7 +29,7 @@ public class GameDamageListener implements Listener {
         if (victim instanceof Player){
             Player player = (Player) victim;
 
-            if (uhcRun.getCancelDamagePlayers().contains(player)){
+            if (uhcRun.getCancelDamagePlayers().contains(player.getUniqueId())){
                 event.setCancelled(true);
             }
             if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.FINISH)){
@@ -68,8 +68,8 @@ public class GameDamageListener implements Listener {
         Bukkit.getScheduler().scheduleSyncDelayedTask(uhcRun, () -> player.spigot().respawn());
         Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
         uhcRun.eliminatePlayer(player);
-        killer.setStatistic(Statistic.PLAYER_KILLS, (killer.getStatistic(Statistic.PLAYER_KILLS)) +1);
-        for (Player playerSb : uhcRun.getPlayers()){
+        if (killer != null) killer.setStatistic(Statistic.PLAYER_KILLS, (killer.getStatistic(Statistic.PLAYER_KILLS)) +1);
+        for (Player playerSb : uhcRun.getActualPlayers()){
             uhcRun.createPVPBoard(playerSb);
         }
     }
