@@ -23,15 +23,19 @@ import org.bukkit.scoreboard.Team;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class GameListener implements Listener {
 
     private UHCRun uhcRun;
     private static List<ItemStack> usefulItems = new ArrayList<>();
+    private HashMap<UUID, Team> decoTeams;
 
     public GameListener(UHCRun UHCRun) {
         this.uhcRun = UHCRun;
+        this.decoTeams = new HashMap<>();
         createUsefulItems();
     }
 
@@ -65,17 +69,25 @@ public class GameListener implements Listener {
             }
             PlayerTeams.updateScoreboard(uhcRun);
         } else {
-            PlayerTeams.rejoinScoreboard(player);
-            if (!uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
-                if (player.isOp()) {
-                    player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
+            if (uhcRun.getAlivePlayers().contains(player.getUniqueId())) {
+                PlayerTeams.rejoinScoreboard(player);
+                if (!uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
+                    if (player.isOp()) {
+                        player.setPlayerListName(ChatColor.DARK_RED + "[OP] " + ChatColor.GOLD + player.getName());
+                    } else {
+                        player.setPlayerListName(ChatColor.AQUA + "[Joueur] " + ChatColor.GOLD + player.getName());
+                    }
                 } else {
-                    player.setPlayerListName(ChatColor.AQUA + "[Joueur] " + ChatColor.GOLD + player.getName());
+                    Team playerTeam = decoTeams.get(player.getUniqueId());
+                    PlayerTeams.joinTeam(player, playerTeam.getName(), uhcRun);
+                    PlayerTeams.updateScoreboard(uhcRun);
                 }
+                event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " s'est reconnecté");
             } else {
-                PlayerTeams.updateScoreboard(uhcRun);
+                event.setJoinMessage(null);
+                player.setGameMode(GameMode.SPECTATOR);
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le jeu est en cours");
             }
-            event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " s'est reconnecté");
         }
     }
 
@@ -85,6 +97,12 @@ public class GameListener implements Listener {
         if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.FINISH)) {
             uhcRun.getPlayers().remove(player.getUniqueId());
             if (uhcRun.getAlivePlayers().contains(player.getUniqueId())) uhcRun.getAlivePlayers().remove(player.getUniqueId());
+        } else {
+            if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
+                Team playerTeam = PlayerTeams.getPlayerTeam(player);
+                decoTeams.put(player.getUniqueId(), playerTeam);
+                PlayerTeams.leaveTeamIngame(player, uhcRun);
+            }
         }
         event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " Quitte les runners");
     }

@@ -229,6 +229,8 @@ public class PlayerTeams {
                     break;
 
                 default:
+                    player.setDisplayName(ChatColor.WHITE + "[Pas de Team] " + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.WHITE + "[Pas de Team] " + player.getName());
                     break;
             }
         }
@@ -270,9 +272,12 @@ public class PlayerTeams {
                 break;
 
             default:
+                player.sendMessage("Reconnexion");
                 break;
         }
     }
+
+
 
     public static void leaveTeam(Player player, UHCRun uhcRun){
         for (Player sbPlayer : uhcRun.getActualPlayers()) {

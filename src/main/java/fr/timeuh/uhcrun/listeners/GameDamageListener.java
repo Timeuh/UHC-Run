@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scoreboard.Team;
 
 public class GameDamageListener implements Listener {
 
@@ -47,8 +48,8 @@ public class GameDamageListener implements Listener {
             if (uhcRun.checkEnabledScenario(Scenarios.TEAMS) && !uhcRun.isState(GameState.WAITING)){
                 if (killer instanceof Player){
                     Player killerPlayer = (Player) killer;
-                    String equipeVictime = player.getScoreboard().getEntryTeam(player.getName()).getName();
-                    String equipeAttaquant = killerPlayer.getScoreboard().getEntryTeam(killerPlayer.getName()).getName();
+                    Team equipeVictime = player.getScoreboard().getEntryTeam(player.getName());
+                    Team equipeAttaquant = killerPlayer.getScoreboard().getEntryTeam(killerPlayer.getName());
                     if (equipeAttaquant.equals(equipeVictime) && !uhcRun.checkEnabledScenario(Scenarios.FRIENDLYFIRE)){
                         event.setCancelled(true);
                     }
