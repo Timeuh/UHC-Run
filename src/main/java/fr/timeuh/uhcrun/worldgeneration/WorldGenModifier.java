@@ -26,7 +26,7 @@ public class WorldGenModifier implements Listener {
     }
 
     @EventHandler
-    public void modifyOreGeneration(WorldInitEvent event){
+    public void modifyGeneration(WorldInitEvent event){
         World world = event.getWorld();
         BlockPopulator goldOreModifier = createCustomOrePopulator(60,9, Material.GOLD_ORE);
         BlockPopulator ironOreModifier = createCustomOrePopulator(60,9, Material.IRON_ORE);
@@ -37,6 +37,7 @@ public class WorldGenModifier implements Listener {
         world.getPopulators().add(diamondOreModifier);
         world.getPopulators().add(sugarCaneModifier);
         world.getPopulators().add(new NetherChunk());
+        world.getPopulators().add(new SpawnPlatform());
     }
 
     public BlockPopulator createCustomOrePopulator(int maxLayer, int minChance, Material oreMaterial) {
