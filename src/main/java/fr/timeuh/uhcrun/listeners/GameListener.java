@@ -97,6 +97,7 @@ public class GameListener implements Listener {
         if (uhcRun.isState(GameState.WAITING) || uhcRun.isState(GameState.FINISH)) {
             uhcRun.getPlayers().remove(player.getUniqueId());
             if (uhcRun.getAlivePlayers().contains(player.getUniqueId())) uhcRun.getAlivePlayers().remove(player.getUniqueId());
+            for (Player sbPlayer : uhcRun.getActualPlayers()) uhcRun.createLobbyBoard(sbPlayer);
         } else {
             if (uhcRun.checkEnabledScenario(Scenarios.TEAMS)){
                 Team playerTeam = PlayerTeams.getPlayerTeam(player);

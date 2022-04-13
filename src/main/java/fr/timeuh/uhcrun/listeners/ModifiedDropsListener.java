@@ -32,7 +32,9 @@ public class ModifiedDropsListener implements Listener {
         Random chance = new Random();
 
         if (mob instanceof Cow){
+            event.getDrops().removeAll(event.getDrops());
             world.dropItemNaturally(mobDeathPoint, leather);
+            world.dropItemNaturally(mobDeathPoint, beef);
         } else if (mob instanceof Sheep){
             event.getDrops().removeAll(event.getDrops());
             world.dropItemNaturally(mobDeathPoint, leather);

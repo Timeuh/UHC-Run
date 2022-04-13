@@ -3,6 +3,7 @@ package fr.timeuh.uhcrun.listeners;
 import fr.timeuh.uhcrun.tasks.GameState;
 import fr.timeuh.uhcrun.UHCRun;
 import fr.timeuh.uhcrun.scenarios.Scenarios;
+import fr.timeuh.uhcrun.teams.PlayerTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
@@ -66,8 +67,13 @@ public class GameDamageListener implements Listener {
         event.setDeathMessage(null);
         Player player = event.getEntity();
         Player killer = player.getKiller();
+        if (!uhcRun.checkEnabledScenario(Scenarios.TEAMS)) {
+            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
+        } else {
+            ChatColor playerColor = PlayerTeams.getTeamColor(PlayerTeams.getPlayerTeam(player));
+            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + playerColor + player.getName() + ChatColor.GOLD + " est mort");
+        }
         Bukkit.getScheduler().scheduleSyncDelayedTask(uhcRun, () -> player.spigot().respawn());
-        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est mort");
         uhcRun.eliminatePlayer(player);
         if (killer != null) killer.setStatistic(Statistic.PLAYER_KILLS, (killer.getStatistic(Statistic.PLAYER_KILLS)) +1);
         for (Player playerSb : uhcRun.getActualPlayers()){

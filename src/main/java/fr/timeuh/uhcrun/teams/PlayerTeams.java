@@ -117,39 +117,39 @@ public class PlayerTeams {
                     String playerTeamName = getPlayerTeam(player).getName();
                     switch (playerTeamName) {
                         case "RED":
-                            joinTeam(player, "RED", uhcRun);
+                            rejoinTeam(player, "RED", uhcRun);
                             break;
 
                         case "BLUE":
-                            joinTeam(player, "BLUE", uhcRun);
+                            rejoinTeam(player, "BLUE", uhcRun);
                             break;
 
                         case "ORANGE":
-                            joinTeam(player, "ORANGE", uhcRun);
+                            rejoinTeam(player, "ORANGE", uhcRun);
                             break;
 
                         case "GREEN":
-                            joinTeam(player, "GREEN", uhcRun);
+                            rejoinTeam(player, "GREEN", uhcRun);
                             break;
 
                         case "PINK":
-                            joinTeam(player, "PINK", uhcRun);
+                            rejoinTeam(player, "PINK", uhcRun);
                             break;
 
                         case "PURPLE":
-                            joinTeam(player, "PURPLE", uhcRun);
+                            rejoinTeam(player, "PURPLE", uhcRun);
                             break;
 
                         case "YELLOW":
-                            joinTeam(player, "YELLOW", uhcRun);
+                            rejoinTeam(player, "YELLOW", uhcRun);
                             break;
 
                         case "GRAY":
-                            joinTeam(player, "GRAY", uhcRun);
+                            rejoinTeam(player, "GRAY", uhcRun);
                             break;
 
                         case "BLACK":
-                            joinTeam(player, "BLACK", uhcRun);
+                            rejoinTeam(player, "BLACK", uhcRun);
                             break;
 
                         default:
@@ -158,6 +158,81 @@ public class PlayerTeams {
                 }
             }
             uhcRun.createLobbyBoard(player);
+        }
+    }
+
+    public static void rejoinTeam(Player player, String team, UHCRun uhcRun) {
+        for (Player sbPlayer : uhcRun.getActualPlayers()) {
+            Scoreboard board = sbPlayer.getScoreboard();
+            switch (team) {
+                case "RED":
+                    Team redTeam = board.getTeam("RED");
+                    redTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_RED + player.getName());
+                    break;
+
+                case "BLUE":
+                    Team blueTeam = board.getTeam("BLUE");
+                    blueTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.BLUE + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.BLUE + player.getName());
+                    break;
+
+                case "ORANGE":
+                    Team orangeTeam = board.getTeam("ORANGE");
+                    orangeTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.GOLD + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.GOLD + player.getName());
+                    break;
+
+                case "GREEN":
+                    Team greenTeam = board.getTeam("GREEN");
+                    greenTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.DARK_GREEN + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_GREEN + player.getName());
+                    break;
+
+                case "PINK":
+                    Team pinkTeam = board.getTeam("PINK");
+                    pinkTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.LIGHT_PURPLE + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.LIGHT_PURPLE + player.getName());
+                    break;
+
+                case "PURPLE":
+                    Team purpleTeam = board.getTeam("PURPLE");
+                    purpleTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.DARK_PURPLE + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
+                    break;
+
+                case "YELLOW":
+                    Team yellowTeam = board.getTeam("YELLOW");
+                    yellowTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.YELLOW + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.YELLOW + player.getName());
+                    break;
+
+                case "GRAY":
+                    Team grayTeam = board.getTeam("GRAY");
+                    grayTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.DARK_GRAY + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_GRAY + player.getName());
+                    break;
+
+                case "BLACK":
+                    Team blackTeam = board.getTeam("BLACK");
+                    blackTeam.addEntry(player.getName());
+                    player.setDisplayName(ChatColor.BLACK + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.BLACK + player.getName());
+                    break;
+
+                default:
+                    player.setDisplayName(ChatColor.WHITE + "[Pas de Team] " + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.WHITE + "[Pas de Team] " + player.getName());
+                    break;
+            }
         }
     }
 
@@ -272,7 +347,7 @@ public class PlayerTeams {
                 break;
 
             default:
-                player.sendMessage("Reconnexion");
+                player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun]" + ChatColor.GOLD + " Vous n'avez pas pu rejoindre d'équipe à cause d'un bug, reportez-le à Timeuh#2670 sur discord");
                 break;
         }
     }
