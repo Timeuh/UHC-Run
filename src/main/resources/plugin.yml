@@ -1,0 +1,6 @@
+name: Timeuh
+version: '${project.version}'
+main: fr.timeuh.Timeuh
+load: STARTUP
+authors: [ Timeuh ]
+description: V2 de l'UHC Run
