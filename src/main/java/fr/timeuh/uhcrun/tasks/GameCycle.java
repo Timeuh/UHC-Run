@@ -13,7 +13,7 @@ import java.util.UUID;
 public class GameCycle  extends BukkitRunnable {
 
     private UHCRun uhcRun;
-    private static int gameTime = 40;
+    private static int gameTime = 1200;
     private static int timer = gameTime;
 
     public GameCycle(UHCRun uhcRun) {
