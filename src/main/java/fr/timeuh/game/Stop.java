@@ -12,6 +12,7 @@ public class Stop extends BukkitRunnable {
 
     @Override
     public void run() {
+        uhcRun.setState(State.FINISH);
         cancel();
     }
 }

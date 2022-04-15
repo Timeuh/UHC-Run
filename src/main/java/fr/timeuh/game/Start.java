@@ -12,6 +12,7 @@ public class Start extends BukkitRunnable {
 
     @Override
     public void run() {
+        uhcRun.setState(State.STARTING);
         Cycle game = new Cycle(uhcRun);
         game.runTaskTimer(uhcRun, 0, 20);
         cancel();
