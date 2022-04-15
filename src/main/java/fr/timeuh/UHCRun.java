@@ -9,7 +9,7 @@ public final class UHCRun extends JavaPlugin {
     @Override
     public void onEnable() {
         PluginManager pluginManager = getServer().getPluginManager();
-        getCommand("start").setExecutor(new Commands());
+        getCommand("start").setExecutor(new Commands(this));
     }
 
     @Override
