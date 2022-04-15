@@ -12,7 +12,7 @@ public class Start extends BukkitRunnable {
 
     @Override
     public void run() {
-        Cycle game = new Cycle();
+        Cycle game = new Cycle(uhcRun);
         game.runTaskTimer(uhcRun, 0, 20);
         cancel();
     }

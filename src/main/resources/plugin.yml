@@ -1,5 +1,5 @@
 name: Timeuh
-version: '${project.version}'
+version: 2.0
 main: fr.timeuh.Timeuh
 load: STARTUP
 authors: [ Timeuh ]
@@ -9,3 +9,7 @@ commands:
   start:
     description: commence la partie
     permission: start.use
+
+  gstop:
+    description: arrete la partie
+    permission: gstop.use
