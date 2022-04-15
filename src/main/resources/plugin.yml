@@ -4,3 +4,8 @@ main: fr.timeuh.Timeuh
 load: STARTUP
 authors: [ Timeuh ]
 description: V2 de l'UHC Run
+
+commands:
+  start:
+    description: commence la partie
+    permission: start.use

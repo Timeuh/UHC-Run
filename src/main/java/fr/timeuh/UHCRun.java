@@ -1,13 +1,15 @@
 package fr.timeuh;
 
+import fr.timeuh.commands.Commands;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class UHCRun extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
+        PluginManager pluginManager = getServer().getPluginManager();
+        getCommand("start").setExecutor(new Commands());
     }
 
     @Override
