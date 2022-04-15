@@ -37,4 +37,12 @@ public class GamePlayers {
         alivePlayers.remove(delPlayer);
     }
 
+    public boolean containsPlayer(UUID presentPlayer){
+        return coPlayers.contains(presentPlayer);
+    }
+
+    public boolean containsLivePlayer(UUID presentPlayer){
+        return alivePlayers.contains(presentPlayer);
+    }
+
 }
