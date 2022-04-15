@@ -15,7 +15,7 @@ public class Connections implements Listener {
 
     @EventHandler
     public void onFirstJoin(PlayerJoinEvent event){
-
+        if (uhcRun.isState(S))
     }
 
     @EventHandler
