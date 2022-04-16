@@ -1,6 +1,6 @@
-name: Timeuh
+name: UHCRun
 version: 2.0
-main: fr.timeuh.Timeuh
+main: fr.timeuh.UHCRun
 load: STARTUP
 authors: [ Timeuh ]
 description: V2 de l'UHC Run
