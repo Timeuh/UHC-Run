@@ -20,6 +20,7 @@ public final class UHCRun extends JavaPlugin {
 
         getCommand("start").setExecutor(new Commands(this));
         getCommand("gstop").setExecutor(new Commands(this));
+        getCommand("setState").setExecutor(new Commands(this));
 
         pluginManager.registerEvents(new Connections(this), this);
     }

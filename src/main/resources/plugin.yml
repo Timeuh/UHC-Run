@@ -13,3 +13,8 @@ commands:
   gstop:
     description: arrete la partie
     permission: gstop.use
+
+  setState:
+    description: change le state actuel du jeu (pour dev seulement)
+    permission: setState.use
+    aliases: [ss]
