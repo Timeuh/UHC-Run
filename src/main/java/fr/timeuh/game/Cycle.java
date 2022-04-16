@@ -19,7 +19,9 @@ public class Cycle extends BukkitRunnable {
         switch (timer){
             case 0:
                 uhcRun.setState(State.PVP);
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la phase PVP");
                 cancel();
+                break;
 
             case 30:
             case 20:
@@ -28,8 +30,12 @@ public class Cycle extends BukkitRunnable {
             case 4:
             case 3:
             case 2:
-            case 1:
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "phase PVP dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
+                break;
+
+            case 1:
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "phase PVP dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " seconde");
+                break;
         }
         timer --;
     }
