@@ -4,6 +4,7 @@ import fr.timeuh.commands.Commands;
 import fr.timeuh.damages.HubDamages;
 import fr.timeuh.damages.IngameDamages;
 import fr.timeuh.game.State;
+import fr.timeuh.game.WinConditions;
 import fr.timeuh.players.Connections;
 import fr.timeuh.players.GamePlayers;
 import org.bukkit.plugin.PluginManager;
@@ -12,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class UHCRun extends JavaPlugin {
     private State state;
     private GamePlayers players;
+    private WinConditions wins;
 
     @Override
     public void onEnable() {
@@ -19,6 +21,7 @@ public final class UHCRun extends JavaPlugin {
 
         setState(State.WAITING);
         players = new GamePlayers(this);
+        wins = new WinConditions(this);
 
         getCommand("start").setExecutor(new Commands(this));
         getCommand("gstop").setExecutor(new Commands(this));
@@ -44,5 +47,9 @@ public final class UHCRun extends JavaPlugin {
 
     public GamePlayers getPlayers() {
         return players;
+    }
+
+    public WinConditions getWins() {
+        return wins;
     }
 }

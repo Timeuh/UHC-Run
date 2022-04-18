@@ -27,6 +27,7 @@ public class Cycle extends BukkitRunnable {
                     player.teleport(Bukkit.getWorld("world").getSpawnLocation());
                 }
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la phase PVP");
+                uhcRun.getWins().checkWin();
                 cancel();
                 break;
 
