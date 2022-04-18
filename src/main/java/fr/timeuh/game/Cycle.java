@@ -3,6 +3,9 @@ package fr.timeuh.game;
 import fr.timeuh.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Cycle extends BukkitRunnable {
@@ -19,6 +22,10 @@ public class Cycle extends BukkitRunnable {
         switch (timer){
             case 0:
                 uhcRun.setState(State.PVP);
+                for (Player player : uhcRun.getPlayers().allLivePlayers()){
+                    for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
+                    player.teleport(new Location(Bukkit.getWorld("world"),0,100,0));
+                }
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la phase PVP");
                 cancel();
                 break;

@@ -1,8 +1,10 @@
 package fr.timeuh.game;
 
 import fr.timeuh.UHCRun;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Start extends BukkitRunnable {
@@ -21,6 +23,13 @@ public class Start extends BukkitRunnable {
             case 0:
                 uhcRun.setState(State.PLAYING);
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la partie");
+                for (Player player : uhcRun.getPlayers().allCoPlayers()){
+                    uhcRun.getPlayers().beInvincible(player);
+                    player.teleport(new Location(Bukkit.getWorld("world"),0,100,0));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1, false, false), false);
+                    player.setGameMode(GameMode.SURVIVAL);
+                    player.getInventory().clear();
+                }
                 Cycle game = new Cycle(uhcRun);
                 game.runTaskTimer(uhcRun, 0, 20);
                 cancel();
