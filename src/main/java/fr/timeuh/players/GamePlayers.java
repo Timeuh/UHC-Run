@@ -86,4 +86,28 @@ public class GamePlayers {
         }, 0, 20);
     }
 
+    public List<Player> allCoPlayers(){
+        List<Player> connectedPlayers = new ArrayList<>();
+        for (UUID playerUUID : coPlayers){
+            connectedPlayers.add(Bukkit.getPlayer(playerUUID));
+        }
+        return connectedPlayers;
+    }
+
+    public List<Player> allLivePlayers(){
+        List<Player> livePlayers = new ArrayList<>();
+        for (UUID playerUUID : alivePlayers){
+            livePlayers.add(Bukkit.getPlayer(playerUUID));
+        }
+        return livePlayers;
+    }
+
+    public List<Player> allInvinciblePlayers(){
+        List<Player> insensiblePlayers = new ArrayList<>();
+        for (UUID playerUUID : noDamagePlayers){
+            insensiblePlayers.add(Bukkit.getPlayer(playerUUID));
+        }
+        return insensiblePlayers;
+    }
+
 }
