@@ -25,41 +25,70 @@ public class Commands implements CommandExecutor {
 
             switch(command.getName()){
                 case "start":
-                    Start start = new Start(uhcRun);
-                    start.runTaskTimer(uhcRun, 0, 20);
+                    start(args, player);
                     return true;
 
                 case "gstop":
-                    Stop stop = new Stop(uhcRun);
-                    stop.runTaskTimer(uhcRun, 0, 20);
+                    stop(args, player);
                     return true;
 
                 case "setState":
-                    switch (args[0]){
-                        case "waiting":
-                            uhcRun.setState(State.WAITING);
-                            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "WAITING");
-                            break;
-                        case "starting":
-                            uhcRun.setState(State.STARTING);
-                            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "STARTING");
-                            break;
-                        case "playing":
-                            uhcRun.setState(State.PLAYING);
-                            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "PLAYING");
-                            break;
-                        case "pvp":
-                            uhcRun.setState(State.PVP);
-                            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "PVP");
-                            break;
-                        case "finish":
-                            uhcRun.setState(State.FINISH);
-                            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "FINISH");
-                            break;
-                    }
-
+                    setState(args[0], args, player);
+                    return true;
             }
         }
         return false;
+    }
+
+    private void start(String[] args, Player player){
+        if (wrongLength(args)){
+            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/start <Pas d'arguments>");
+        } else {
+            Start start = new Start(uhcRun);
+            start.runTaskTimer(uhcRun, 0, 20);
+        }
+    }
+
+    private void stop(String[] args, Player player){
+        if (wrongLength(args)){
+            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/gstop <Pas d'arguments>");
+        } else {
+            Stop stop = new Stop(uhcRun);
+            stop.runTaskTimer(uhcRun, 0, 20);
+        }
+    }
+
+    private void setState(String state, String[] args, Player player){
+        if (wrongLength(args)){
+            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[setState|ss] <nouveau state>");
+            player.sendMessage("" + ChatColor.DARK_RED + ChatColor.BOLD + "⚠️ Cette commande est utilisée en développement pour les tests, elle n'est pas destinée à être utilisée pour les parties");
+        } else {
+            switch (state) {
+                case "waiting":
+                    uhcRun.setState(State.WAITING);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "WAITING");
+                    break;
+                case "starting":
+                    uhcRun.setState(State.STARTING);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "STARTING");
+                    break;
+                case "playing":
+                    uhcRun.setState(State.PLAYING);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "PLAYING");
+                    break;
+                case "pvp":
+                    uhcRun.setState(State.PVP);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "PVP");
+                    break;
+                case "finish":
+                    uhcRun.setState(State.FINISH);
+                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "FINISH");
+                    break;
+            }
+        }
+    }
+
+    private boolean wrongLength(String[] args){
+        return args.length > 1;
     }
 }
