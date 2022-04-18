@@ -40,6 +40,22 @@ public class Commands implements CommandExecutor {
                         setState(args[0], args, player);
                         return true;
                     }
+
+                case "scenario":
+                    displayScenarios(player);
+                    return true;
+
+                case "help":
+                    help(player);
+                    return true;
+
+                case "commandHelp":
+                    commandHelp(player);
+                    return true;
+
+                case "scenarioHelp":
+                    scenarioHelp(player);
+                    return true;
             }
         }
         return false;
@@ -106,5 +122,21 @@ public class Commands implements CommandExecutor {
     private void helpSetState(Player player){
         player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[setState/ss] <waiting/starting/playing/pvp/finish>");
         player.sendMessage("" + ChatColor.DARK_RED + ChatColor.BOLD + "⚠ Cette commande est utilisée en développement pour les tests, elle n'est pas destinée à être utilisée pour les parties");
+    }
+
+    private void displayScenarios(Player player){
+        player.sendMessage(ChatColor.GOLD + "Commande en construction");
+    }
+
+    private void help(Player player){
+        player.sendMessage(ChatColor.GOLD + "Commande en construction");
+    }
+
+    private void commandHelp(Player player){
+        player.sendMessage(ChatColor.GOLD + "Commande en construction");
+    }
+
+    private void scenarioHelp(Player player){
+        player.sendMessage(ChatColor.GOLD + "Commande en construction");
     }
 }

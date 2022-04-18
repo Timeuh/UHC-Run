@@ -26,6 +26,10 @@ public final class UHCRun extends JavaPlugin {
         getCommand("start").setExecutor(new Commands(this));
         getCommand("gstop").setExecutor(new Commands(this));
         getCommand("setState").setExecutor(new Commands(this));
+        getCommand("scenario").setExecutor(new Commands(this));
+        getCommand("help").setExecutor(new Commands(this));
+        getCommand("commandHelp").setExecutor(new Commands(this));
+        getCommand("scenarioHelp").setExecutor(new Commands(this));
 
         pluginManager.registerEvents(new Connections(this), this);
         pluginManager.registerEvents(new HubDamages(this), this);

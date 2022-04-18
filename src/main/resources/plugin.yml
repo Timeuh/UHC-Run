@@ -11,10 +11,25 @@ commands:
     permission: start.use
 
   gstop:
-    description: arrete la partie
+    description: arrête la partie
     permission: gstop.use
 
   setState:
     description: change le state actuel du jeu (pour dev seulement)
     permission: setState.use
     aliases: [ss]
+
+  scenario:
+    description: affiche les scenarios activés
+    aliases: [ses]
+
+  help:
+    description: affiche un aide pour le plugin
+
+  commandHelp:
+    description: affiche une aide avec la liste des commandes
+    aliases: [ch]
+
+  scenarioHelp:
+    description: affiche une aide pour la liste de scenarios
+    aliases: [sh]
