@@ -33,15 +33,20 @@ public class Commands implements CommandExecutor {
                     return true;
 
                 case "setState":
-                    setState(args[0], args, player);
-                    return true;
+                    if (args.length == 0){
+                        helpSetState(player);
+                        return false;
+                    } else {
+                        setState(args[0], args, player);
+                        return true;
+                    }
             }
         }
         return false;
     }
 
     private void start(String[] args, Player player){
-        if (wrongLength(args)){
+        if (wrongLengthNoArguments(args)){
             player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/start <Pas d'arguments>");
         } else {
             Start start = new Start(uhcRun);
@@ -50,7 +55,7 @@ public class Commands implements CommandExecutor {
     }
 
     private void stop(String[] args, Player player){
-        if (wrongLength(args)){
+        if (wrongLengthNoArguments(args)){
             player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/gstop <Pas d'arguments>");
         } else {
             Stop stop = new Stop(uhcRun);
@@ -59,9 +64,8 @@ public class Commands implements CommandExecutor {
     }
 
     private void setState(String state, String[] args, Player player){
-        if (wrongLength(args)){
-            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[setState/ss] <waiting/starting/playing/pvp/finish>");
-            player.sendMessage("" + ChatColor.DARK_RED + ChatColor.BOLD + "⚠️ Cette commande est utilisée en développement pour les tests, elle n'est pas destinée à être utilisée pour les parties");
+        if (wrongLengthOneArgument(args) || state == null){
+            helpSetState(player);
         } else {
             switch (state) {
                 case "waiting":
@@ -86,12 +90,21 @@ public class Commands implements CommandExecutor {
                     break;
 
                 default:
-                    player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[setState/ss] <waiting/starting/playing/pvp/finish>");
+                    helpSetState(player);
             }
         }
     }
 
-    private boolean wrongLength(String[] args){
+    private boolean wrongLengthNoArguments(String[] args){
         return args.length > 0;
+    }
+
+    private boolean wrongLengthOneArgument(String[] args){
+        return args.length != 1;
+    }
+
+    private void helpSetState(Player player){
+        player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[setState/ss] <waiting/starting/playing/pvp/finish>");
+        player.sendMessage("" + ChatColor.DARK_RED + ChatColor.BOLD + "⚠ Cette commande est utilisée en développement pour les tests, elle n'est pas destinée à être utilisée pour les parties");
     }
 }
