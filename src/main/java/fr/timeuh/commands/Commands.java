@@ -42,19 +42,19 @@ public class Commands implements CommandExecutor {
                     }
 
                 case "scenario":
-                    displayScenarios(player);
+                    displayScenarios(player, args);
                     return true;
 
                 case "help":
-                    help(player);
+                    help(player, args);
                     return true;
 
                 case "commandHelp":
-                    commandHelp(player);
+                    commandHelp(player, args);
                     return true;
 
                 case "scenarioHelp":
-                    scenarioHelp(player);
+                    scenarioHelp(player, args);
                     return true;
             }
         }
@@ -124,19 +124,63 @@ public class Commands implements CommandExecutor {
         player.sendMessage("" + ChatColor.DARK_RED + ChatColor.BOLD + "⚠ Cette commande est utilisée en développement pour les tests, elle n'est pas destinée à être utilisée pour les parties");
     }
 
-    private void displayScenarios(Player player){
-        player.sendMessage(ChatColor.GOLD + "Commande en construction");
+    private void help(Player player, String[] args){
+        if (wrongLengthNoArguments(args)){
+            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[help] <pas d'arguments>");
+        } else {
+            String separation = ChatColor.GOLD + "-----------------------------------------------------\n";
+            String help = ChatColor.GOLD + "-----------------------" +ChatColor.DARK_RED + "[Help]" + ChatColor.GOLD + "------------------------\n";
+            String bienvenue = ChatColor.GOLD + "Bienvenue dans cette partie d'" + ChatColor.DARK_RED + " UHCRun" + ChatColor.GOLD + "\nVoici la V2 de l'UHCRun (tu as peut-être même pas joué à la V1 d'ailleurs)" +
+                    ".\nSi tu connais pas, le principe c'est un UHC (ultra hardcore) donc la seule régénération possible vient des potions ou des pommes en or, mais en accéléré. Au début de la partie et pendant" +
+                    " 20 minutes, tu auras speed 2 et tu devras miner pour te faire de l'équipement.\nAu bout de ces 20 minutes, tous les joueurs seront téléportés à des points aléatoires et devront se battre, " +
+                    "sachant que la bordure se réduit avec le temps qui passe et qu'elle peut tuer très rapidement les joueurs derrière.\nLe but est d'être le dernier survivant, ou la dernière équipe survivante " +
+                    "si les équipes sont activées.";
+            String scenarios = "Pour ce mode de jeu, il existe différents scénarios qui permettent de rendre plus rapide la partie. Si tu veux une description des scénarios, utilise" +
+                    ChatColor.DARK_RED + " /scenarioHelp ou /sh" + ChatColor.GOLD + ".";
+            String commandes = "Si t'es simple joueur, la moitié te sera pas utile, mais sache qu'il existe plusieurs commandes et que tu peux utiliser" + ChatColor.DARK_RED + " /commandHelp ou /ch"
+                    + ChatColor.GOLD + " pour avoir une description détaillée de chaque.\n";
+            player.sendMessage(help + bienvenue + separation + scenarios + separation + commandes + help);
+        }
     }
 
-    private void help(Player player){
-        player.sendMessage(ChatColor.GOLD + "Commande en construction");
+    private void displayScenarios(Player player, String[] args){
+        if (wrongLengthNoArguments(args)){
+            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[scenario] <pas d'arguments>");
+        } else {
+            player.sendMessage(ChatColor.GOLD + "Commande en construction");
+        }
     }
 
-    private void commandHelp(Player player){
-        player.sendMessage(ChatColor.GOLD + "Commande en construction");
+    private void commandHelp(Player player, String[] args){
+        if (wrongLengthNoArguments(args)){
+            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[commandHelp/ch] <pas d'arguments>");
+        } else {
+            String command = ChatColor.GOLD + "---------------------" +ChatColor.DARK_RED + "[Commandes]" + ChatColor.GOLD + "---------------------\n";
+            String listeCommandes = "Voici une liste des commandes avec leur descriptif :\n"
+                    + "-" + ChatColor.DARK_RED + "/help" + ChatColor.GOLD + " : affiche l'aide du plugin\n"
+                    + "-" + ChatColor.DARK_RED + "/start" + ChatColor.GOLD + " : lance un timer de 10 secondes pour commencer la partie\n"
+                    + "-" + ChatColor.DARK_RED + "/gstop" + ChatColor.GOLD + " : lance un timer de 10 secondes pour terminer la partie\n"
+                    + "-" + ChatColor.DARK_RED + "/setState" + ChatColor.GOLD + " : change le State du plugin, ⚠ c'est réservé au dévelopemment\n"
+                    + "-" + ChatColor.DARK_RED + "/scenario" + ChatColor.GOLD + " : affiche la liste des scenarios, avec leur état d'activité (activé ou non)\n"
+                    + "-" + ChatColor.DARK_RED + "/scenarioHelp" + ChatColor.GOLD + " : affiche l'aide liée aux scénarios\n"
+                    + "-" + ChatColor.DARK_RED + "/commandHelp" + ChatColor.GOLD + " : affiche l'aide liée aux commandes, t'y es déjà\n";
+            player.sendMessage(command + listeCommandes + "\n" + command);
+        }
     }
 
-    private void scenarioHelp(Player player){
-        player.sendMessage(ChatColor.GOLD + "Commande en construction");
+    private void scenarioHelp(Player player, String[] args){
+        if (wrongLengthNoArguments(args)){
+            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[scenarioHelp/sh] <pas d'arguments>");
+        } else {
+            String scenario = ChatColor.GOLD + "---------------------" +ChatColor.DARK_RED + "[Scenarios]" + ChatColor.GOLD + "---------------------\n";
+            String listeScenarios = "Voici une liste des scenarios avec leur descriptif :\n"
+                    + "-" + ChatColor.DARK_RED + "TEAMS" + ChatColor.GOLD + " : pour une partie en équipes, désactivé si NOTEAMS est activé\n"
+                    + "-" + ChatColor.DARK_RED + "NOTEAMS" + ChatColor.GOLD + " : pour une partie en Free For All, activé de base et désactivé si TEAMS est activé\n"
+                    + "-" + ChatColor.DARK_RED + "FRIENDLYFIRE" + ChatColor.GOLD + " : permet aux joueurs d'une même équipe de se blesser, désactivé et activable uniquement si TEAMS activé\n"
+                    + "-" + ChatColor.DARK_RED + "TIMBER" + ChatColor.GOLD + " : coupe l'arbre entier dès qu'une buche est cassée, désactivé de base\n"
+                    + "-" + ChatColor.DARK_RED + "CUTCLEAN" + ChatColor.GOLD + " : drop directement le lingot/le résultat en double quand le minerai est cassé, désactivé de base\n"
+                    + "-" + ChatColor.DARK_RED + "HASTEYBOYS" + ChatColor.GOLD + " : enchante les outils avec efficiency 3 et unbreaking 3 au craft, désactivé de base\n";
+            player.sendMessage(scenario + listeScenarios + "\n" + scenario);
+        }
     }
 }
