@@ -18,7 +18,7 @@ public final class UHCRun extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
 
         setState(State.WAITING);
-        players = new GamePlayers();
+        players = new GamePlayers(this);
 
         getCommand("start").setExecutor(new Commands(this));
         getCommand("gstop").setExecutor(new Commands(this));
