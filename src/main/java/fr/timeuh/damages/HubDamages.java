@@ -20,7 +20,7 @@ public class HubDamages implements Listener {
     public void pvpHub(EntityDamageByEntityEvent event){
         if (event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
-            if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.STARTING) || uhcRun.isState(State.FINISH) || uhcRun.getPlayers().containsInvinciblePlayer(player.getUniqueId())){
+            if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.STARTING) || uhcRun.isState(State.FINISH)){
                 event.setCancelled(true);
             }
         }
@@ -30,7 +30,7 @@ public class HubDamages implements Listener {
     public void damageHub(EntityDamageEvent event){
         if (event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
-            if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.STARTING) || uhcRun.isState(State.FINISH) || uhcRun.getPlayers().containsInvinciblePlayer(player.getUniqueId())){
+            if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.STARTING) || uhcRun.isState(State.FINISH)){
                 event.setCancelled(true);
             }
         }
