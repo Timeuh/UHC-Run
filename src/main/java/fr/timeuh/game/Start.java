@@ -25,7 +25,8 @@ public class Start extends BukkitRunnable {
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la partie");
                 for (Player player : uhcRun.getPlayers().allCoPlayers()){
                     uhcRun.getPlayers().beInvincible(player);
-                    player.teleport(new Location(Bukkit.getWorld("world"),0,100,0));
+                    uhcRun.getPlayers().addLivePlayer(player.getUniqueId());
+                    player.teleport(Bukkit.getWorld("world").getSpawnLocation());
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1, false, false), false);
                     player.setGameMode(GameMode.SURVIVAL);
                     player.getInventory().clear();

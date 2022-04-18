@@ -24,7 +24,7 @@ public class Cycle extends BukkitRunnable {
                 uhcRun.setState(State.PVP);
                 for (Player player : uhcRun.getPlayers().allLivePlayers()){
                     for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
-                    player.teleport(new Location(Bukkit.getWorld("world"),0,100,0));
+                    player.teleport(Bukkit.getWorld("world").getSpawnLocation());
                 }
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la phase PVP");
                 cancel();
