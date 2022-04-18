@@ -1,6 +1,8 @@
 package fr.timeuh;
 
 import fr.timeuh.commands.Commands;
+import fr.timeuh.damages.HubDamages;
+import fr.timeuh.damages.IngameDamages;
 import fr.timeuh.game.State;
 import fr.timeuh.players.Connections;
 import fr.timeuh.players.GamePlayers;
@@ -23,6 +25,8 @@ public final class UHCRun extends JavaPlugin {
         getCommand("setState").setExecutor(new Commands(this));
 
         pluginManager.registerEvents(new Connections(this), this);
+        pluginManager.registerEvents(new HubDamages(this), this);
+        pluginManager.registerEvents(new IngameDamages(this), this);
     }
 
     @Override
