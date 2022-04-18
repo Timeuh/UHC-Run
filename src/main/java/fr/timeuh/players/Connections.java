@@ -44,6 +44,7 @@ public class Connections implements Listener {
                 player.setGameMode(GameMode.SPECTATOR);
                 player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "La partie est déjà démarrée");
                 uhcRun.getPlayers().addPlayer(player.getUniqueId());
+                event.setJoinMessage(null);
             }
         }
     }
