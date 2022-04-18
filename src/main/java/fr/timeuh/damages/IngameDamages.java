@@ -4,6 +4,7 @@ import fr.timeuh.UHCRun;
 import fr.timeuh.game.State;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,10 +47,11 @@ public class IngameDamages implements Listener {
     public void kill(PlayerDeathEvent event){
         Player victim = event.getEntity();
         Player killer = victim.getKiller();
-        killer.setStatistic(Statistic.PLAYER_KILLS, killer.getStatistic(Statistic.PLAYER_KILLS) + 1);
+        if (killer != null) killer.setStatistic(Statistic.PLAYER_KILLS, killer.getStatistic(Statistic.PLAYER_KILLS) + 1);
         victim.sendMessage(ChatColor.GOLD + "Vous êtes mort, CHEH !");
-        event.setDeathMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur" + ChatColor.BOLD + ChatColor.DARK_RED + victim.getName() + ChatColor.GOLD  + " est mort");
+        event.setDeathMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + ChatColor.BOLD +  victim.getName() + ChatColor.GOLD  + " est mort");
         Bukkit.getScheduler().scheduleSyncDelayedTask(uhcRun, () -> victim.spigot().respawn());
+        victim.setGameMode(GameMode.SPECTATOR);
     }
 
 

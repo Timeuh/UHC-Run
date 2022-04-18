@@ -25,6 +25,7 @@ public class Connections implements Listener {
         if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.FINISH)){
             Player player = event.getPlayer();
             uhcRun.getPlayers().addPlayer(player.getUniqueId());
+            player.getInventory().clear();
             player.setGameMode(GameMode.ADVENTURE);
             player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false));
             player.setHealth(20);
