@@ -60,7 +60,7 @@ public class Commands implements CommandExecutor {
 
     private void setState(String state, String[] args, Player player){
         if (wrongLength(args)){
-            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[setState|ss] <nouveau state>");
+            player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[setState/ss] <waiting/starting/playing/pvp/finish>");
             player.sendMessage("" + ChatColor.DARK_RED + ChatColor.BOLD + "⚠️ Cette commande est utilisée en développement pour les tests, elle n'est pas destinée à être utilisée pour les parties");
         } else {
             switch (state) {
@@ -84,11 +84,14 @@ public class Commands implements CommandExecutor {
                     uhcRun.setState(State.FINISH);
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "State " + ChatColor.DARK_RED + "FINISH");
                     break;
+
+                default:
+                    player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[setState/ss] <waiting/starting/playing/pvp/finish>");
             }
         }
     }
 
     private boolean wrongLength(String[] args){
-        return args.length > 1;
+        return args.length > 0;
     }
 }
