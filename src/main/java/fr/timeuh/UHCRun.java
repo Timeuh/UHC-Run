@@ -22,11 +22,11 @@ public final class UHCRun extends JavaPlugin {
     public void onEnable() {
         PluginManager pluginManager = getServer().getPluginManager();
 
-        setState(State.WAITING);
         players = new GamePlayers(this);
         wins = new WinConditions(this);
         scenario = new ScenarList();
 
+        setState(State.WAITING);
         scenario.enableScenario(Scenario.NOTEAMS);
 
         getCommand("start").setExecutor(new Commands(this));
