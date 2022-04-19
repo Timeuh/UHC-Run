@@ -44,6 +44,10 @@ public class ScenarList {
         return allScenarios;
     }
 
+    public boolean isEnabled(Scenario scenario){
+        return activeScenarios.contains(scenario);
+    }
+
     public String getScenarioName(Scenario scenario){
         if (allScenarios.contains(scenario)){
             switch (scenario){
