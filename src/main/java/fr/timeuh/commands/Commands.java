@@ -4,6 +4,7 @@ import fr.timeuh.UHCRun;
 import fr.timeuh.game.Start;
 import fr.timeuh.game.State;
 import fr.timeuh.game.Stop;
+import fr.timeuh.scenario.Scenario;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -147,7 +148,16 @@ public class Commands implements CommandExecutor {
         if (wrongLengthNoArguments(args)){
             player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/[scenario] <pas d'arguments>");
         } else {
-            player.sendMessage(ChatColor.GOLD + "Commande en construction");
+            String scenario = ChatColor.GOLD + "-----------------" +ChatColor.DARK_RED + "[Scenarios actifs]" + ChatColor.GOLD + "------------------\n";
+            String scenariosActifs = "";
+            for (Scenario scenar : uhcRun.getScenario().getAllScenarios()){
+                if (uhcRun.getScenario().getActiveScenarios().contains(scenar)){
+                    scenariosActifs += ChatColor.GOLD + "Scenario : " + ChatColor.DARK_RED + uhcRun.getScenario().getScenarioName(scenar) + ChatColor.GREEN + " ✔\n";
+                } else {
+                    scenariosActifs += ChatColor.GOLD + "Scenario : " + ChatColor.DARK_RED + uhcRun.getScenario().getScenarioName(scenar) + ChatColor.RED + " ✘\n";
+                }
+            }
+            player.sendMessage(scenario + scenariosActifs + "\n" + scenario);
         }
     }
 
