@@ -5,6 +5,7 @@ import fr.timeuh.damages.HubDamages;
 import fr.timeuh.damages.IngameDamages;
 import fr.timeuh.game.State;
 import fr.timeuh.game.WinConditions;
+import fr.timeuh.inventories.ScenarioSelect;
 import fr.timeuh.players.Connections;
 import fr.timeuh.players.GamePlayers;
 import fr.timeuh.scenario.ScenarList;
@@ -40,6 +41,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new Connections(this), this);
         pluginManager.registerEvents(new HubDamages(this), this);
         pluginManager.registerEvents(new IngameDamages(this), this);
+        pluginManager.registerEvents(new ScenarioSelect(this), this);
     }
 
     @Override
