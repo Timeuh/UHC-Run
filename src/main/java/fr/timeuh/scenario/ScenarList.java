@@ -43,4 +43,26 @@ public class ScenarList {
     public List<Scenario> getAllScenarios() {
         return allScenarios;
     }
+
+    public String getScenarioName(Scenario scenario){
+        if (allScenarios.contains(scenario)){
+            switch (scenario){
+                case TEAMS:
+                    return "Teams";
+                case NOTEAMS:
+                    return "No Teams";
+                case FRIENDLYFIRE:
+                    return "Friendly Fire";
+                case TIMBER:
+                    return "Timber";
+                case CUTCLEAN:
+                    return "Cutclean";
+                case HASTEYBOYS:
+                    return "Hastey Boys";
+                default:
+                    return "";
+            }
+        }
+        return "";
+    }
 }

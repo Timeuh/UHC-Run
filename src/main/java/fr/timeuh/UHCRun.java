@@ -8,6 +8,7 @@ import fr.timeuh.game.WinConditions;
 import fr.timeuh.players.Connections;
 import fr.timeuh.players.GamePlayers;
 import fr.timeuh.scenario.ScenarList;
+import fr.timeuh.scenario.Scenario;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,6 +26,8 @@ public final class UHCRun extends JavaPlugin {
         players = new GamePlayers(this);
         wins = new WinConditions(this);
         scenario = new ScenarList();
+
+        scenario.enableScenario(Scenario.NOTEAMS);
 
         getCommand("start").setExecutor(new Commands(this));
         getCommand("gstop").setExecutor(new Commands(this));
@@ -58,5 +61,9 @@ public final class UHCRun extends JavaPlugin {
 
     public WinConditions getWins() {
         return wins;
+    }
+
+    public ScenarList getScenario() {
+        return scenario;
     }
 }
