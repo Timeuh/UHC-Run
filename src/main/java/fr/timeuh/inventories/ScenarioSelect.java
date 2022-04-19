@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -32,6 +33,7 @@ public class ScenarioSelect implements Listener {
         Action action = event.getAction();
         ItemStack item = event.getItem();
 
+        if (item == null) return;
         if (item.isSimilar(getScenarioSelection()) && action == Action.RIGHT_CLICK_AIR){
             Inventory inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "Menu sélection des scenarios");
             inv.setItem(2, getAllScenarioItems().get(0));
@@ -49,11 +51,13 @@ public class ScenarioSelect implements Listener {
         Inventory inv = event.getInventory();
         ItemStack current = event.getCurrentItem();
 
-        if (current != null && inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu sélection des scenarios")){
+        if (current == null) return;
+        if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu sélection des scenarios")){
             event.setCancelled(true);
             if (current.isSimilar(getAllScenarioItems().get(0))){
                 if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)){
                     uhcRun.getScenario().disableScenario(Scenario.TEAMS);
+                    if (uhcRun.getScenario().isEnabled(Scenario.FRIENDLYFIRE)) uhcRun.getScenario().disableScenario(Scenario.FRIENDLYFIRE);
                     uhcRun.getScenario().enableScenario(Scenario.NOTEAMS);
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "Teams " + ChatColor.GOLD + "désactivé. Cela active le scenario" +
                             ChatColor.DARK_RED + " No Teams");
@@ -80,8 +84,13 @@ public class ScenarioSelect implements Listener {
                     uhcRun.getScenario().disableScenario(Scenario.FRIENDLYFIRE);
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "Friendly Fire " + ChatColor.GOLD + "désactivé");
                 } else {
-                    uhcRun.getScenario().enableScenario(Scenario.FRIENDLYFIRE);
-                    Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "Friendly Fire " + ChatColor.GOLD + "activé");
+                    if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)) {
+                        uhcRun.getScenario().enableScenario(Scenario.FRIENDLYFIRE);
+                        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "Friendly Fire " + ChatColor.GOLD + "activé");
+                    } else {
+                        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Vous devez activer le scenario " + ChatColor.DARK_RED + "Teams " + ChatColor.GOLD + "pour" +
+                                " activer le Friendly Fire");
+                    }
                 }
             } else if (current.isSimilar(getAllScenarioItems().get(3))){
                 if (uhcRun.getScenario().isEnabled(Scenario.TIMBER)){
@@ -133,27 +142,30 @@ public class ScenarioSelect implements Listener {
 
         ItemStack noTeams = new ItemStack(Material.GOLD_SWORD);
         ItemMeta metaNoTeams = noTeams.getItemMeta();
-        metaNoTeams.setDisplayName(ChatColor.DARK_GREEN + "Activer/désactiver le FFA");
+        metaNoTeams.setDisplayName(ChatColor.DARK_RED + "Activer/désactiver le FFA");
+        metaNoTeams.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         noTeams.setItemMeta(metaNoTeams);
 
         ItemStack friendlyFire = new ItemStack(Material.YELLOW_FLOWER);
         ItemMeta metaFriendlyFire = friendlyFire.getItemMeta();
-        metaFriendlyFire.setDisplayName(ChatColor.DARK_GREEN + "Activer/désactiver le friendly fire (uniquement si les teams sont activées)");
+        metaFriendlyFire.setDisplayName(ChatColor.BLUE + "Activer/désactiver le friendly fire");
         friendlyFire.setItemMeta(metaFriendlyFire);
 
         ItemStack timber = new ItemStack(Material.DIAMOND_AXE);
         ItemMeta metaTimber = timber.getItemMeta();
-        metaTimber.setDisplayName(ChatColor.DARK_GREEN + "Activer/désactiver timber");
+        metaTimber.setDisplayName(ChatColor.YELLOW + "Activer/désactiver timber");
+        metaTimber.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         timber.setItemMeta(metaTimber);
 
         ItemStack cutclean = new ItemStack(Material.FURNACE);
         ItemMeta metaCutclean = cutclean.getItemMeta();
-        metaCutclean.setDisplayName(ChatColor.DARK_GREEN + "Activer/désactiver le cutclean");
+        metaCutclean.setDisplayName(ChatColor.DARK_PURPLE + "Activer/désactiver le cutclean");
         cutclean.setItemMeta(metaCutclean);
 
         ItemStack hasteyBoys = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta metaHasteyBoys = hasteyBoys.getItemMeta();
-        metaHasteyBoys.setDisplayName(ChatColor.DARK_GREEN + "Activer/désactiver hasteyBoys");
+        metaHasteyBoys.setDisplayName(ChatColor.DARK_BLUE + "Activer/désactiver hasteyBoys");
+        metaHasteyBoys.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         hasteyBoys.setItemMeta(metaHasteyBoys);
 
         List<ItemStack> scenarList = new ArrayList<>();
