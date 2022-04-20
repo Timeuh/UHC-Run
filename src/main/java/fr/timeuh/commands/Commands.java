@@ -66,8 +66,12 @@ public class Commands implements CommandExecutor {
         if (wrongLengthNoArguments(args)){
             player.sendMessage(ChatColor.GOLD + "L'usage pour cette commande est : " + ChatColor.DARK_RED + "/start <Pas d'arguments>");
         } else {
-            Start start = new Start(uhcRun);
-            start.runTaskTimer(uhcRun, 0, 20);
+            if (uhcRun.getTeams().allPlayersInTeam()) {
+                Start start = new Start(uhcRun);
+                start.runTaskTimer(uhcRun, 0, 20);
+            } else {
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Tous les joueurs doivent avoir une team pour lancer la partie");
+            }
         }
     }
 

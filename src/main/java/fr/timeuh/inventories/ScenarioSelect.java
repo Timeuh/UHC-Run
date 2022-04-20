@@ -60,6 +60,7 @@ public class ScenarioSelect implements Listener {
                     uhcRun.getScenario().disableScenario(Scenario.TEAMS);
                     if (uhcRun.getScenario().isEnabled(Scenario.FRIENDLYFIRE)) uhcRun.getScenario().disableScenario(Scenario.FRIENDLYFIRE);
                     uhcRun.getScenario().enableScenario(Scenario.NOTEAMS);
+                    for (Player sbPlayer : uhcRun.getPlayers().allCoPlayers()) uhcRun.getTeams().leaveTeam(sbPlayer);
                     Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Scenario " + ChatColor.DARK_RED + "Teams " + ChatColor.GOLD + "désactivé. Cela active le scenario" +
                             ChatColor.DARK_RED + " No Teams");
                 } else {
