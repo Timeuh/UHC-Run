@@ -52,9 +52,8 @@ public class IngameDamages implements Listener {
         uhcRun.getPlayers().removeLivePlayer(victim.getUniqueId());
         uhcRun.getWins().checkWin();
         event.setDeathMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + ChatColor.BOLD +  victim.getName() + ChatColor.GOLD  + " est mort");
+        for (Player player : uhcRun.getPlayers().allCoPlayers()) uhcRun.getBoard().displayPvp(player);
         Bukkit.getScheduler().scheduleSyncDelayedTask(uhcRun, () -> victim.spigot().respawn());
         victim.setGameMode(GameMode.SPECTATOR);
     }
-
-
 }

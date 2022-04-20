@@ -34,7 +34,7 @@ public class Connections implements Listener {
             player.setExp(0);
             player.setStatistic(Statistic.PLAYER_KILLS, 0);
             uhcRun.getBoard().joinScoreboard(player);
-            uhcRun.getBoard().displayLobby(player);
+            uhcRun.getBoard().updateLobby();
             event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " rejoint les runners");
         }
     }
@@ -44,6 +44,7 @@ public class Connections implements Listener {
         if (uhcRun.isState(State.STARTING) || uhcRun.isState(State.PLAYING) || uhcRun.isState(State.PVP)){
             Player player = event.getPlayer();
             if (uhcRun.getPlayers().containsLivePlayer(player.getUniqueId())){
+                uhcRun.getBoard().joinScoreboard(player);
                 event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Reconnexion du joueur " + ChatColor.DARK_RED + player.getName());
             } else {
                 for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
@@ -62,6 +63,7 @@ public class Connections implements Listener {
             uhcRun.getPlayers().removePlayer(player.getUniqueId());
             if (uhcRun.getPlayers().containsLivePlayer(player.getUniqueId())) uhcRun.getPlayers().removeLivePlayer(player.getUniqueId());
             event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " quitte les runners");
+            uhcRun.getBoard().updateLobby();
         }
     }
 }
