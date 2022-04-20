@@ -22,7 +22,7 @@ public class Start extends BukkitRunnable {
         switch (timer){
             case 0:
                 uhcRun.setState(State.PLAYING);
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la partie");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Début de la partie");
                 for (Player player : uhcRun.getPlayers().allCoPlayers()){
                     uhcRun.getPlayers().beInvincible(player);
                     uhcRun.getPlayers().addLivePlayer(player.getUniqueId());
@@ -41,11 +41,11 @@ public class Start extends BukkitRunnable {
             case 4:
             case 3:
             case 2:
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la partie dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Début de la partie dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
                 break;
 
             case 1:
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la partie dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " seconde");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Début de la partie dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " seconde");
                 break;
         }
         timer --;
