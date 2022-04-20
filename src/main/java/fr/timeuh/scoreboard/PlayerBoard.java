@@ -23,6 +23,7 @@ public class PlayerBoard {
 
     public PlayerBoard(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
+        this.playerSb = new HashMap<>();
     }
 
     public void joinScoreboard(Player player){
