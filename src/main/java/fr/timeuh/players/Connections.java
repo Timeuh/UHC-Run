@@ -29,6 +29,8 @@ public class Connections implements Listener {
             player.setGameMode(GameMode.ADVENTURE);
             player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false));
             player.setHealth(20);
+            player.setLevel(0);
+            player.setExp(0);
             event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " rejoint les runners");
         }
     }
