@@ -1,6 +1,7 @@
 package fr.timeuh.inventories;
 
 import fr.timeuh.UHCRun;
+import fr.timeuh.game.State;
 import fr.timeuh.scenario.Scenario;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -122,8 +123,10 @@ public class ScenarioSelect implements Listener {
 
     @EventHandler
     public void onConnection(PlayerJoinEvent event){
-        Player player = event.getPlayer();
-        if (player.isOp()) player.getInventory().setItem(0, getScenarioSelection());
+        if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.FINISH)) {
+            Player player = event.getPlayer();
+            if (player.isOp()) player.getInventory().setItem(0, getScenarioSelection());
+        }
     }
 
     private ItemStack getScenarioSelection(){

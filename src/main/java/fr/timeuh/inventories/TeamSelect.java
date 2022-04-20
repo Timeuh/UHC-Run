@@ -1,6 +1,7 @@
 package fr.timeuh.inventories;
 
 import fr.timeuh.UHCRun;
+import fr.timeuh.game.State;
 import fr.timeuh.scenario.Scenario;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -98,8 +99,10 @@ public class TeamSelect implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        Player player = event.getPlayer();
-        player.getInventory().setItem(4, getTeamSelection());
+        if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.FINISH)) {
+            Player player = event.getPlayer();
+            player.getInventory().setItem(4, getTeamSelection());
+        }
     }
 
     private ItemStack getTeamSelection(){
