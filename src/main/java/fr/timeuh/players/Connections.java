@@ -53,6 +53,7 @@ public class Connections implements Listener {
                     uhcRun.getTeams().joinTeamBoard(player);
                     uhcRun.getTeams().updateTeamDisplay(player);
                     uhcRun.getTeams().rejoinTeam(player);
+                    uhcRun.getTeams().updateTeams(player);
                 }
                 event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est revenu !");
             } else {
@@ -75,7 +76,7 @@ public class Connections implements Listener {
             uhcRun.getBoard().updateLobby();
         } else {
             uhcRun.getPlayers().addDecoPlayer(player.getUniqueId());
-            uhcRun.getPlayers().addDecoPlayerTeam(player.getUniqueId(), uhcRun.getTeams().getPlayerTeam(player));
+            if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)) uhcRun.getPlayers().addDecoPlayerTeam(player.getUniqueId(), uhcRun.getTeams().getPlayerTeam(player));
             event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " va bientôt revenir !");
         }
     }
