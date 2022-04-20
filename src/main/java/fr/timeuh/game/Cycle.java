@@ -9,11 +9,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Cycle extends BukkitRunnable {
     private UHCRun uhcRun;
-    private int timer;
+    private static int timer;
 
     public Cycle(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
-        this.timer = 40;
+        timer = 40;
     }
 
     @Override
@@ -46,5 +46,9 @@ public class Cycle extends BukkitRunnable {
                 break;
         }
         timer --;
+    }
+
+    public static int getTimer(){
+        return timer;
     }
 }
