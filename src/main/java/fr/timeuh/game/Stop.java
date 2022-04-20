@@ -30,6 +30,7 @@ public class Stop extends BukkitRunnable {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false), false);
                     player.setGameMode(GameMode.ADVENTURE);
                     player.getInventory().clear();
+                    player.updateInventory();
                     uhcRun.getBoard().displayLobby(player);
                 }
                 cancel();

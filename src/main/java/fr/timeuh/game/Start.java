@@ -30,6 +30,7 @@ public class Start extends BukkitRunnable {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1, false, false), false);
                     player.setGameMode(GameMode.SURVIVAL);
                     player.getInventory().clear();
+                    player.updateInventory();
                 }
                 Cycle game = new Cycle(uhcRun);
                 game.runTaskTimer(uhcRun, 0, 20);
