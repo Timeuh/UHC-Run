@@ -38,7 +38,7 @@ public class WinConditions {
                     Team winnerTeam = uhcRun.getTeams().getWinnerTeam();
                     if (winnerTeam != null) {
                         ChatColor teamColor = uhcRun.getTeams().getTeamColor(winnerTeam);
-                        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "La partie est terminée, l'équipe" + teamColor + ChatColor.BOLD + winnerTeam.getName()
+                        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "La partie est terminée, l'équipe " + teamColor + ChatColor.BOLD + winnerTeam.getName()
                                 + ChatColor.GOLD + " a gagné");
                     }
                     Stop stop = new Stop(uhcRun);

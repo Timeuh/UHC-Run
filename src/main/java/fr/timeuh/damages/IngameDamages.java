@@ -50,7 +50,6 @@ public class IngameDamages implements Listener {
         Player killer = victim.getKiller();
         if (killer != null) killer.setStatistic(Statistic.PLAYER_KILLS, killer.getStatistic(Statistic.PLAYER_KILLS) + 1);
         victim.sendMessage(ChatColor.GOLD + "Vous êtes mort, CHEH !");
-        uhcRun.getPlayers().removeLivePlayer(victim.getUniqueId());
         if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)){
             ChatColor teamColor = uhcRun.getTeams().getTeamColor(uhcRun.getTeams().getPlayerTeam(victim));
             uhcRun.getTeams().eliminatePlayer(victim);
@@ -58,6 +57,7 @@ public class IngameDamages implements Listener {
         } else {
             event.setDeathMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + victim.getName() + ChatColor.GOLD  + " est mort");
         }
+        uhcRun.getPlayers().removeLivePlayer(victim.getUniqueId());
         uhcRun.getWins().checkWin();
         for (Player player : uhcRun.getPlayers().allCoPlayers()) uhcRun.getBoard().displayPvp(player);
         Bukkit.getScheduler().scheduleSyncDelayedTask(uhcRun, () -> victim.spigot().respawn());

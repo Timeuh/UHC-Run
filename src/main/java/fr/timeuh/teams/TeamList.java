@@ -130,7 +130,7 @@ public class TeamList {
                 }
             }
         }
-        if (uhcRun.isState(State.WAITING)) player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Vous rejoingez l'équipe " + teamColor + team);
+        if (uhcRun.isState(State.WAITING)) player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Vous rejoignez l'équipe " + teamColor + team);
     }
 
     public void leaveTeam(Player player){
@@ -138,7 +138,7 @@ public class TeamList {
         if (playerTeam != null){
             for (Player sbPlayer : uhcRun.getPlayers().allCoPlayers()){
                 for (Team team : sbPlayer.getScoreboard().getTeams()){
-                    if (team.equals(playerTeam)) team.removeEntry(player.getName());
+                    if (playerTeam.getName().equalsIgnoreCase(team.getName())) team.removeEntry(player.getName());
                 }
             }
         }
@@ -161,23 +161,13 @@ public class TeamList {
     }
 
     public boolean oneTeamRemaining(){
-        Player player = getAnActualPlayer();
-        if (player != null){
-            List<Team> teams = playerTeamList.get(player.getUniqueId());
-            return teams.size() == 1;
-        }
-        return false;
-    }
-
-    public Player getAnActualPlayer(){
-        for (Player player : uhcRun.getPlayers().allLivePlayers()){
-            if (player != null) return player;
-        }
-        return null;
+        Player player = uhcRun.getPlayers().allLivePlayers().get(0);
+        List<Team> teams = playerTeamList.get(player.getUniqueId());
+        return teams.size() == 1;
     }
 
     public Team getWinnerTeam(){
-        Player player = getAnActualPlayer();
+        Player player = uhcRun.getPlayers().allLivePlayers().get(0);
         List<Team> teams = playerTeamList.get(player.getUniqueId());
         return teams.get(0);
     }
@@ -212,7 +202,7 @@ public class TeamList {
         if (team != null){
             for (Player sbPlayer : uhcRun.getPlayers().allLivePlayers()){
                 for (Team playerTeams : sbPlayer.getScoreboard().getTeams()){
-                    if (playerTeams.equals(team)) playerTeams.removeEntry(player.getName());
+                    if (playerTeams.getName().equalsIgnoreCase(team.getName())) playerTeams.removeEntry(player.getName());
                 }
                 updateTeams(sbPlayer);
             }
@@ -222,6 +212,76 @@ public class TeamList {
     public void updateTeams(Player player){
         List<Team> teams = playerTeamList.get(player.getUniqueId());
         teams.removeIf(team -> team.getSize() == 0);
+    }
+
+    public void updateTeamDisplay(Player player){
+        for (Player sbPlayer : uhcRun.getPlayers().allCoPlayers()){
+            Team joinTeam = getPlayerTeam(sbPlayer);
+            if (joinTeam != null) {
+                player.getScoreboard().getTeam(joinTeam.getName()).addEntry(sbPlayer.getName());
+            }
+        }
+    }
+
+    public void rejoinTeam(Player player){
+        if (uhcRun.isState(State.PLAYING) || uhcRun.isState(State.PVP)) {
+            Team rejoin = uhcRun.getPlayers().getDecoPlayerTeam().get(player.getUniqueId());
+            switch (rejoin.getName()) {
+                case "Rouge":
+                    player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_RED + player.getName());
+                    player.getScoreboard().getTeam("Rouge").addEntry(player.getName());
+                    break;
+
+                case "Bleue":
+                    player.setDisplayName(ChatColor.DARK_BLUE + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_BLUE + player.getName());
+                    player.getScoreboard().getTeam("Bleue").addEntry(player.getName());
+                    break;
+
+                case "Orange":
+                    player.setDisplayName(ChatColor.GOLD + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.GOLD + player.getName());
+                    player.getScoreboard().getTeam("Orange").addEntry(player.getName());
+                    break;
+
+                case "Verte":
+                    player.setDisplayName(ChatColor.DARK_GREEN + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_GREEN + player.getName());
+                    player.getScoreboard().getTeam("Verte").addEntry(player.getName());
+                    break;
+
+                case "Rose":
+                    player.setDisplayName(ChatColor.LIGHT_PURPLE + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.LIGHT_PURPLE + player.getName());
+                    player.getScoreboard().getTeam("Rose").addEntry(player.getName());
+                    break;
+
+                case "Violette":
+                    player.setDisplayName(ChatColor.DARK_PURPLE + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
+                    player.getScoreboard().getTeam("Violette").addEntry(player.getName());
+                    break;
+
+                case "Jaune":
+                    player.setDisplayName(ChatColor.YELLOW + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.YELLOW + player.getName());
+                    player.getScoreboard().getTeam("Jaune").addEntry(player.getName());
+                    break;
+
+                case "Grise":
+                    player.setDisplayName(ChatColor.GRAY + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.GRAY + player.getName());
+                    player.getScoreboard().getTeam("Grise").addEntry(player.getName());
+                    break;
+
+                case "Noire":
+                    player.setDisplayName(ChatColor.BLACK + player.getName() + ChatColor.WHITE);
+                    player.setPlayerListName(ChatColor.BLACK + player.getName());
+                    player.getScoreboard().getTeam("Noire").addEntry(player.getName());
+                    break;
+            }
+        }
     }
 
 

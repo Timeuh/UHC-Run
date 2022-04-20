@@ -2,6 +2,7 @@ package fr.timeuh.players;
 
 import fr.timeuh.UHCRun;
 import fr.timeuh.game.State;
+import fr.timeuh.scenario.Scenario;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Statistic;
@@ -36,6 +37,7 @@ public class Connections implements Listener {
             uhcRun.getBoard().joinScoreboard(player);
             uhcRun.getBoard().updateLobby();
             uhcRun.getTeams().joinTeamBoard(player);
+            uhcRun.getTeams().updateTeamDisplay(player);
             event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " rejoint les runners");
         }
     }
@@ -47,6 +49,11 @@ public class Connections implements Listener {
             if (uhcRun.getPlayers().containsLivePlayer(player.getUniqueId())){
                 uhcRun.getPlayers().removeDecoPlayer(player.getUniqueId());
                 uhcRun.getBoard().joinScoreboard(player);
+                if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)){
+                    uhcRun.getTeams().joinTeamBoard(player);
+                    uhcRun.getTeams().updateTeamDisplay(player);
+                    uhcRun.getTeams().rejoinTeam(player);
+                }
                 event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est revenu !");
             } else {
                 for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
@@ -68,6 +75,7 @@ public class Connections implements Listener {
             uhcRun.getBoard().updateLobby();
         } else {
             uhcRun.getPlayers().addDecoPlayer(player.getUniqueId());
+            uhcRun.getPlayers().addDecoPlayerTeam(player.getUniqueId(), uhcRun.getTeams().getPlayerTeam(player));
             event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " va bientôt revenir !");
         }
     }

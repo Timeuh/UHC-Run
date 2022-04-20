@@ -4,8 +4,10 @@ import fr.timeuh.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ public class GamePlayers {
     private List<UUID> alivePlayers;
     private List<UUID> noDamagePlayers;
     private List<UUID> decoPlayers;
+    private HashMap<UUID, Team> decoPlayerTeam;
     private UHCRun uhcRun;
 
     public GamePlayers(UHCRun uhcRun) {
@@ -21,6 +24,7 @@ public class GamePlayers {
         this.alivePlayers = new ArrayList<>();
         this.noDamagePlayers = new ArrayList<>();
         this.decoPlayers = new ArrayList<>();
+        this.decoPlayerTeam = new HashMap<>();
         this.uhcRun = uhcRun;
     }
 
@@ -40,6 +44,10 @@ public class GamePlayers {
         decoPlayers.add(newPlayer);
     }
 
+    public void addDecoPlayerTeam(UUID newPlayer, Team playerTeam){
+        decoPlayerTeam.put(newPlayer, playerTeam);
+    }
+
     public List<UUID> getCoPlayers() {
         return coPlayers;
     }
@@ -56,6 +64,10 @@ public class GamePlayers {
         return decoPlayers;
     }
 
+    public HashMap<UUID, Team> getDecoPlayerTeam() {
+        return decoPlayerTeam;
+    }
+
     public void removePlayer(UUID delPlayer){
         coPlayers.remove(delPlayer);
     }
@@ -70,6 +82,10 @@ public class GamePlayers {
 
     public void removeDecoPlayer(UUID delPlayer){
         decoPlayers.remove(delPlayer);
+    }
+
+    public void removeDecoPlayerTeam(UUID delPlayer){
+        decoPlayerTeam.remove(delPlayer);
     }
 
     public boolean containsPlayer(UUID presentPlayer){

@@ -31,6 +31,7 @@ public class Start extends BukkitRunnable {
                     player.setGameMode(GameMode.SURVIVAL);
                     player.getInventory().clear();
                     player.updateInventory();
+                    uhcRun.getTeams().updateTeams(player);
                 }
                 Cycle game = new Cycle(uhcRun);
                 game.runTaskTimer(uhcRun, 0, 20);
