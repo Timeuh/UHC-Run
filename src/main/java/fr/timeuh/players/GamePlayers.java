@@ -13,12 +13,14 @@ public class GamePlayers {
     private List<UUID> coPlayers;
     private List<UUID> alivePlayers;
     private List<UUID> noDamagePlayers;
+    private List<UUID> decoPlayers;
     private UHCRun uhcRun;
 
     public GamePlayers(UHCRun uhcRun) {
         this.coPlayers = new ArrayList<>();
         this.alivePlayers = new ArrayList<>();
         this.noDamagePlayers = new ArrayList<>();
+        this.decoPlayers = new ArrayList<>();
         this.uhcRun = uhcRun;
     }
 
@@ -34,6 +36,10 @@ public class GamePlayers {
         noDamagePlayers.add(newPlayer);
     }
 
+    public void addDecoPlayer(UUID newPlayer){
+        decoPlayers.add(newPlayer);
+    }
+
     public List<UUID> getCoPlayers() {
         return coPlayers;
     }
@@ -44,6 +50,10 @@ public class GamePlayers {
 
     public List<UUID> getInvinciblePlayers() {
         return noDamagePlayers;
+    }
+
+    public List<UUID> getDecoPlayers() {
+        return decoPlayers;
     }
 
     public void removePlayer(UUID delPlayer){
@@ -58,6 +68,10 @@ public class GamePlayers {
         noDamagePlayers.remove(delPlayer);
     }
 
+    public void removeDecoPlayer(UUID delPlayer){
+        decoPlayers.remove(delPlayer);
+    }
+
     public boolean containsPlayer(UUID presentPlayer){
         return coPlayers.contains(presentPlayer);
     }
@@ -68,6 +82,10 @@ public class GamePlayers {
 
     public boolean containsInvinciblePlayer(UUID presentPlayer){
         return noDamagePlayers.contains(presentPlayer);
+    }
+
+    public boolean containsDecoPlayer(UUID presentPlayer){
+        return decoPlayers.contains(presentPlayer);
     }
 
     public void beInvincible(Player player){
@@ -108,6 +126,14 @@ public class GamePlayers {
             insensiblePlayers.add(Bukkit.getPlayer(playerUUID));
         }
         return insensiblePlayers;
+    }
+
+    public List<Player> allDecoPlayers(){
+        List<Player> deconnectedPlayers = new ArrayList<>();
+        for (UUID playerUUID : decoPlayers){
+            deconnectedPlayers.add(Bukkit.getPlayer(playerUUID));
+        }
+        return deconnectedPlayers;
     }
 
 }

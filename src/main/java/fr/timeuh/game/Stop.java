@@ -25,13 +25,16 @@ public class Stop extends BukkitRunnable {
                 uhcRun.setState(State.FINISH);
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Fin de la partie");
                 for (Player player : uhcRun.getPlayers().allCoPlayers()){
-                    for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
-                    player.teleport(Bukkit.getWorld("world").getSpawnLocation());
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false), false);
-                    player.setGameMode(GameMode.ADVENTURE);
-                    player.getInventory().clear();
-                    player.updateInventory();
-                    uhcRun.getBoard().displayLobby(player);
+                    if (player != null) {
+                        for (PotionEffect effect : player.getActivePotionEffects())
+                            player.removePotionEffect(effect.getType());
+                        player.teleport(Bukkit.getWorld("world").getSpawnLocation());
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false), false);
+                        player.setGameMode(GameMode.ADVENTURE);
+                        player.getInventory().clear();
+                        player.updateInventory();
+                        uhcRun.getBoard().displayLobby(player);
+                    }
                 }
                 cancel();
                 break;

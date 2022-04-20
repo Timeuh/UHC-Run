@@ -44,6 +44,7 @@ public class Connections implements Listener {
         if (uhcRun.isState(State.STARTING) || uhcRun.isState(State.PLAYING) || uhcRun.isState(State.PVP)){
             Player player = event.getPlayer();
             if (uhcRun.getPlayers().containsLivePlayer(player.getUniqueId())){
+                uhcRun.getPlayers().removeDecoPlayer(player.getUniqueId());
                 uhcRun.getBoard().joinScoreboard(player);
                 event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est revenu !");
             } else {
@@ -65,6 +66,7 @@ public class Connections implements Listener {
             event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " quitte les runners");
             uhcRun.getBoard().updateLobby();
         } else {
+            uhcRun.getPlayers().addDecoPlayer(player.getUniqueId());
             event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " va bientôt revenir !");
         }
     }

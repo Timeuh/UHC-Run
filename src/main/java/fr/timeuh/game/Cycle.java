@@ -22,9 +22,12 @@ public class Cycle extends BukkitRunnable {
             case 0:
                 uhcRun.setState(State.PVP);
                 for (Player player : uhcRun.getPlayers().allLivePlayers()){
-                    for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
-                    player.teleport(Bukkit.getWorld("world").getSpawnLocation());
-                    uhcRun.getPlayers().beInvincible(player);
+                    if (player != null) {
+                        for (PotionEffect effect : player.getActivePotionEffects())
+                            player.removePotionEffect(effect.getType());
+                        player.teleport(Bukkit.getWorld("world").getSpawnLocation());
+                        uhcRun.getPlayers().beInvincible(player);
+                    }
                 }
                 for (Player sbPlayer : uhcRun.getPlayers().allCoPlayers()) uhcRun.getBoard().displayPvp(sbPlayer);
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Début de la phase PVP");

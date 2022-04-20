@@ -35,7 +35,7 @@ public class PlayerBoard {
     }
 
     public void displayLobby(Player player){
-        if (playerSb.get(player.getUniqueId()).getObjective("Lobby") != null) {
+        if (player != null) {
             Objective obj = playerSb.get(player.getUniqueId()).getObjective("Lobby");
             obj.unregister();
             obj = playerSb.get(player.getUniqueId()).registerNewObjective("Lobby", "dummy");
@@ -71,7 +71,7 @@ public class PlayerBoard {
     }
 
     public void displayPvp(Player player){
-        if (playerSb.get(player.getUniqueId()).getObjective("PVP") != null) {
+        if (player != null) {
             Objective obj = playerSb.get(player.getUniqueId()).getObjective("PVP");
             obj.unregister();
             obj = playerSb.get(player.getUniqueId()).registerNewObjective("PVP", "dummy");
