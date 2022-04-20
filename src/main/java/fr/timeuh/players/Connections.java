@@ -54,8 +54,11 @@ public class Connections implements Listener {
                     uhcRun.getTeams().updateTeamDisplay(player);
                     uhcRun.getTeams().rejoinTeam(player);
                     uhcRun.getTeams().updateTeams(player);
+                    ChatColor color = uhcRun.getTeams().getTeamColor(uhcRun.getTeams().getPlayerTeam(player));
+                    event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + color + player.getName() + ChatColor.GOLD + " est revenu !");
+                } else {
+                    event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est revenu !");
                 }
-                event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " est revenu !");
             } else {
                 for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
                 player.setGameMode(GameMode.SPECTATOR);
@@ -76,8 +79,13 @@ public class Connections implements Listener {
             uhcRun.getBoard().updateLobby();
         } else {
             uhcRun.getPlayers().addDecoPlayer(player.getUniqueId());
-            if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)) uhcRun.getPlayers().addDecoPlayerTeam(player.getUniqueId(), uhcRun.getTeams().getPlayerTeam(player));
-            event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " va bientôt revenir !");
+            if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)){
+                uhcRun.getPlayers().addDecoPlayerTeam(player.getUniqueId(), uhcRun.getTeams().getPlayerTeam(player));
+                ChatColor color = uhcRun.getTeams().getTeamColor(uhcRun.getTeams().getPlayerTeam(player));
+                event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + color + player.getName() + ChatColor.GOLD + " va bientôt revenir !");
+            } else {
+                event.setQuitMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " va bientôt revenir !");
+            }
         }
     }
 }
