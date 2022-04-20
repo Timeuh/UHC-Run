@@ -11,6 +11,7 @@ import fr.timeuh.players.Connections;
 import fr.timeuh.players.GamePlayers;
 import fr.timeuh.scenario.ScenarList;
 import fr.timeuh.scenario.Scenario;
+import fr.timeuh.scoreboard.PlayerBoard;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,6 +20,7 @@ public final class UHCRun extends JavaPlugin {
     private GamePlayers players;
     private WinConditions wins;
     private ScenarList scenario;
+    private PlayerBoard board;
 
     @Override
     public void onEnable() {
@@ -27,6 +29,7 @@ public final class UHCRun extends JavaPlugin {
         players = new GamePlayers(this);
         wins = new WinConditions(this);
         scenario = new ScenarList();
+        board = new PlayerBoard(this);
 
         setState(State.WAITING);
         scenario.enableScenario(Scenario.NOTEAMS);
