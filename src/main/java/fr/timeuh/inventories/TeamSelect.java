@@ -67,31 +67,40 @@ public class TeamSelect implements Listener {
         if (inv.getName().equalsIgnoreCase(ChatColor.GOLD + "Menu sélection de l'équipe")){
             event.setCancelled(true);
             if (current.isSimilar(getTeamSelectionItems().get(0))){
-                //join red team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Rouge");
                 player.closeInventory();
             } else if (current.isSimilar(getTeamSelectionItems().get(1))){
-                //join blue team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Bleue");
                 player.closeInventory();
             } else if (current.isSimilar(getTeamSelectionItems().get(2))){
-                //join orange team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Orange");
                 player.closeInventory();
             } else if (current.isSimilar(getTeamSelectionItems().get(3))){
-                //join green team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Verte");
                 player.closeInventory();
             } else if (current.isSimilar(getTeamSelectionItems().get(4))){
-                //join pink team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Rose");
                 player.closeInventory();
             } else if (current.isSimilar(getTeamSelectionItems().get(5))){
-                //join purple team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Violette");
                 player.closeInventory();
             } else if (current.isSimilar(getTeamSelectionItems().get(6))){
-                //join yellow team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Jaune");
                 player.closeInventory();
             } else if (current.isSimilar(getTeamSelectionItems().get(7))){
-                //join gray team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Grise");
                 player.closeInventory();
             } else if (current.isSimilar(getTeamSelectionItems().get(8))){
-                //join black team
+                uhcRun.getTeams().leaveTeam(player);
+                uhcRun.getTeams().joinTeam(player, "Noire");
                 player.closeInventory();
             }
         }
@@ -122,7 +131,7 @@ public class TeamSelect implements Listener {
 
         ItemStack blueTeam = new ItemStack(Material.WOOL, 1, DyeColor.BLUE.getData());
         ItemMeta metaBlueTeam = blueTeam.getItemMeta();
-        metaBlueTeam.setDisplayName(ChatColor.DARK_BLUE + "Équipe blueue");
+        metaBlueTeam.setDisplayName(ChatColor.DARK_BLUE + "Équipe bleue");
         blueTeam.setItemMeta(metaBlueTeam);
 
         ItemStack orangeTeam = new ItemStack(Material.WOOL, 1, DyeColor.ORANGE.getData());

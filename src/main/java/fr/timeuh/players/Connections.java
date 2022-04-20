@@ -35,6 +35,7 @@ public class Connections implements Listener {
             player.setStatistic(Statistic.PLAYER_KILLS, 0);
             uhcRun.getBoard().joinScoreboard(player);
             uhcRun.getBoard().updateLobby();
+            uhcRun.getTeams().joinTeamBoard(player);
             event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " rejoint les runners");
         }
     }
