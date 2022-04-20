@@ -23,13 +23,14 @@ public class Stop extends BukkitRunnable {
         switch (timer){
             case 0:
                 uhcRun.setState(State.FINISH);
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "fin de la partie");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Fin de la partie");
                 for (Player player : uhcRun.getPlayers().allCoPlayers()){
                     for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
                     player.teleport(Bukkit.getWorld("world").getSpawnLocation());
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false), false);
                     player.setGameMode(GameMode.ADVENTURE);
                     player.getInventory().clear();
+                    uhcRun.getBoard().displayLobby(player);
                 }
                 cancel();
                 break;
@@ -39,11 +40,11 @@ public class Stop extends BukkitRunnable {
             case 4:
             case 3:
             case 2:
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "fin de la partie dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Fin de la partie dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " secondes");
                 break;
 
             case 1:
-                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "fin de la partie dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " seconde");
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Fin de la partie dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " seconde");
                 break;
         }
         timer --;

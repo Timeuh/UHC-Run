@@ -32,13 +32,14 @@ public class PlayerBoard {
         board.registerNewObjective("Run", "dummy");
         board.registerNewObjective("PVP", "dummy");
         playerSb.put(player.getUniqueId(), board);
+        player.setScoreboard(board);
     }
 
     public void displayLobby(Player player){
         Objective obj = playerSb.get(player.getUniqueId()).getObjective("Lobby");
         obj.unregister();
         obj = playerSb.get(player.getUniqueId()).registerNewObjective("Lobby", "dummy");
-        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun V2" + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
+        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun V2" + ChatColor.GOLD + " by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
         score.setScore(3);
@@ -50,19 +51,18 @@ public class PlayerBoard {
         score3.setScore(0);
     }
 
-    public void displayRun(Player player){
+    public void displayRun(Player player, int timer){
         Objective obj = playerSb.get(player.getUniqueId()).getObjective("Run");
         obj.unregister();
         obj = playerSb.get(player.getUniqueId()).registerNewObjective("Run", "dummy");
-        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun V2" + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
+        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun V2" + ChatColor.GOLD + " by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
         score.setScore(3);
         Score score1 = obj.getScore(ChatColor.GOLD + "Joueurs en vie : " + ChatColor.DARK_RED + uhcRun.getPlayers().getCoPlayers().size());
         score1.setScore(2);
-        int currentTimer = Cycle.getTimer();
-        int seconds = currentTimer % 60;
-        int minutes = currentTimer / 60;
+        int seconds = timer % 60;
+        int minutes = timer / 60;
         Score score2 = obj.getScore(gold + "Phase PvP dans " + red + minutes + ":" + seconds);
         score2.setScore(1);
     }
@@ -71,7 +71,7 @@ public class PlayerBoard {
         Objective obj = playerSb.get(player.getUniqueId()).getObjective("PVP");
         obj.unregister();
         obj = playerSb.get(player.getUniqueId()).registerNewObjective("PVP", "dummy");
-        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun V2" + ChatColor.GOLD + "by " + ChatColor.DARK_RED + "Timeuh");
+        obj.setDisplayName(ChatColor.DARK_PURPLE + "UHCRun V2" + ChatColor.GOLD + " by " + ChatColor.DARK_RED + "Timeuh");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore(ChatColor.GOLD + "-------------------------");
         score.setScore(3);

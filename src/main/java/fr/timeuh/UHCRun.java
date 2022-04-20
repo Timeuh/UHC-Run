@@ -73,4 +73,8 @@ public final class UHCRun extends JavaPlugin {
     public ScenarList getScenario() {
         return scenario;
     }
+
+    public PlayerBoard getBoard() {
+        return board;
+    }
 }

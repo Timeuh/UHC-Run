@@ -9,11 +9,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Cycle extends BukkitRunnable {
     private UHCRun uhcRun;
-    private static int timer;
+    private int timer;
 
     public Cycle(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
-        timer = 40;
+        this.timer = 40;
     }
 
     @Override
@@ -25,6 +25,7 @@ public class Cycle extends BukkitRunnable {
                     for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
                     player.teleport(Bukkit.getWorld("world").getSpawnLocation());
                     uhcRun.getPlayers().beInvincible(player);
+                    uhcRun.getBoard().displayPvp(player);
                 }
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "début de la phase PVP");
                 uhcRun.getWins().checkWin();
@@ -45,10 +46,7 @@ public class Cycle extends BukkitRunnable {
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "phase PVP dans " + ChatColor.DARK_RED + timer + ChatColor.GOLD + " seconde");
                 break;
         }
+        for (Player player : uhcRun.getPlayers().allCoPlayers()) uhcRun.getBoard().displayRun(player, timer);
         timer --;
-    }
-
-    public static int getTimer(){
-        return timer;
     }
 }

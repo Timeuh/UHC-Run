@@ -31,6 +31,8 @@ public class Connections implements Listener {
             player.setHealth(20);
             player.setLevel(0);
             player.setExp(0);
+            uhcRun.getBoard().joinScoreboard(player);
+            uhcRun.getBoard().displayLobby(player);
             event.setJoinMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Le joueur " + ChatColor.DARK_RED + player.getName() + ChatColor.GOLD + " rejoint les runners");
         }
     }
