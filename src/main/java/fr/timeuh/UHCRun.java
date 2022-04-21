@@ -9,6 +9,7 @@ import fr.timeuh.inventories.ScenarioSelect;
 import fr.timeuh.inventories.TeamSelect;
 import fr.timeuh.players.Connections;
 import fr.timeuh.players.GamePlayers;
+import fr.timeuh.scenario.Cutclean;
 import fr.timeuh.scenario.HasteyBoys;
 import fr.timeuh.scenario.ScenarList;
 import fr.timeuh.scenario.Scenario;
@@ -52,6 +53,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new ScenarioSelect(this), this);
         pluginManager.registerEvents(new TeamSelect(this), this);
         pluginManager.registerEvents(new HasteyBoys(this), this);
+        pluginManager.registerEvents(new Cutclean(this), this);
     }
 
     @Override
