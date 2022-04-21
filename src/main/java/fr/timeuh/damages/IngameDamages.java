@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scoreboard.Team;
 
 public class IngameDamages implements Listener {
     private UHCRun uhcRun;
@@ -28,7 +29,15 @@ public class IngameDamages implements Listener {
             if (event.getDamager() instanceof Player){
                 Player attacker = (Player) event.getDamager();
                 if ((uhcRun.isState(State.PLAYING) || uhcRun.isState(State.PVP)) && !uhcRun.getPlayers().containsInvinciblePlayer(player.getUniqueId())) {
-                    //scenario friendly fire
+                    if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)) {
+                        Team playerTeam = uhcRun.getTeams().getPlayerTeam(player);
+                        Team attackerTeam = uhcRun.getTeams().getPlayerTeam(attacker);
+                        if (playerTeam != null && attackerTeam != null){
+                            if (playerTeam.getName().equalsIgnoreCase(attackerTeam.getName())) {
+                                if (!uhcRun.getScenario().isEnabled(Scenario.FRIENDLYFIRE)) event.setCancelled(true);
+                            }
+                        }
+                    }
                 }
             }
         }
