@@ -9,10 +9,7 @@ import fr.timeuh.inventories.ScenarioSelect;
 import fr.timeuh.inventories.TeamSelect;
 import fr.timeuh.players.Connections;
 import fr.timeuh.players.GamePlayers;
-import fr.timeuh.scenario.Cutclean;
-import fr.timeuh.scenario.HasteyBoys;
-import fr.timeuh.scenario.ScenarList;
-import fr.timeuh.scenario.Scenario;
+import fr.timeuh.scenario.*;
 import fr.timeuh.scoreboard.PlayerBoard;
 import fr.timeuh.teams.TeamList;
 import org.bukkit.plugin.PluginManager;
@@ -54,6 +51,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new TeamSelect(this), this);
         pluginManager.registerEvents(new HasteyBoys(this), this);
         pluginManager.registerEvents(new Cutclean(this), this);
+        pluginManager.registerEvents(new Timber(this), this);
     }
 
     @Override
