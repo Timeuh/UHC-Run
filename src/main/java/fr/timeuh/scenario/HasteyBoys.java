@@ -30,9 +30,10 @@ public class HasteyBoys implements Listener {
 
     @EventHandler
     public void onCraft(CraftItemEvent event){
-        ItemStack item = event.getRecipe().getResult();
-        ItemStack result = null;
         if (uhcRun.getScenario().isEnabled(Scenario.HASTEYBOYS)) {
+            ItemStack item = event.getRecipe().getResult();
+            ItemStack result = null;
+
             if (item.isSimilar(wood.get(0))) {
                 item = new ItemStack(Material.STONE_PICKAXE);
                 result = enchantItem(item);
