@@ -3,6 +3,7 @@ package fr.timeuh.scenario;
 import fr.timeuh.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
@@ -18,11 +19,13 @@ public class Timber implements Listener {
     private UHCRun uhcRun;
     private List<Material> logs;
     private List<BlockFace> faces;
+    private List<Material> logList;
 
     public Timber(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
         this.logs = getLogs();
         this.faces = getFaces();
+        this.logList = getLogList();
     }
 
     @EventHandler
@@ -73,8 +76,27 @@ public class Timber implements Listener {
         }
     }
 
-    private void breakBigTree(Block block){
-        Block foot = getTreeFoot(block);
+    public void breakBigTree(Block current){
+        List<Block> blockBreak = new ArrayList<>();
+        World world = Bukkit.getWorld("world");
+
+        int minYLayer = current.getY() - 10;
+        int yLayer = current.getY();
+        int xLayer = current.getX();
+        int zLayer = current.getZ();
+
+        for (int y = minYLayer; y <= yLayer + 20; y++){
+            for (int x = xLayer -3; x <= xLayer +3; x++){
+                for (int z = zLayer -3; z <= zLayer +3; z++){
+                    Block move = world.getBlockAt(x, y, z);
+                    if (logList.contains(move.getType())) blockBreak.add(move);
+                }
+            }
+        }
+        for (Block block : blockBreak){
+            block.setType(Material.AIR);
+            world.dropItemNaturally(block.getLocation(), new ItemStack(Material.LOG));
+        }
     }
 
     private Block getTreeFoot(Block block){
@@ -105,5 +127,12 @@ public class Timber implements Listener {
         allFaces.add(BlockFace.NORTH);
         allFaces.add(BlockFace.SOUTH);
         return allFaces;
+    }
+
+    private List<Material> getLogList(){
+        List<Material> logType = new ArrayList<>();
+        logType.add(Material.LOG);
+        logType.add(Material.LOG_2);
+        return logType;
     }
 }
