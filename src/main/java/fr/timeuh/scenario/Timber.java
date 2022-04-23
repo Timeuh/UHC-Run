@@ -17,10 +17,12 @@ public class Timber implements Listener {
 
     private UHCRun uhcRun;
     private List<Material> logs;
+    private List<BlockFace> faces;
 
     public Timber(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
         this.logs = getLogs();
+        this.faces = getFaces();
     }
 
     @EventHandler
@@ -50,12 +52,14 @@ public class Timber implements Listener {
     }
 
     private String getTreeType(Block block){
-        if (block.getRelative(BlockFace.EAST).getType().equals(block.getType()) || block.getRelative(BlockFace.EAST).getType().equals(block.getType())
-                || block.getRelative(BlockFace.NORTH).getType().equals(block.getType()) || block.getRelative(BlockFace.SOUTH).getType().equals(block.getType())){
-            return "Big";
-        } else {
-            return "Thin";
+        Block foot = getTreeFoot(block);
+        while  (!(foot.getRelative(BlockFace.UP).getType().equals(Material.LEAVES) || foot.getRelative(BlockFace.UP).getType().equals(Material.LEAVES_2))){
+            for (BlockFace face : faces){
+                if (foot.getRelative(face).getType().equals(foot.getType())) return "Big";
+            }
+            foot = foot.getRelative(BlockFace.UP);
         }
+        return "Thin";
     }
 
     private void breakThinTree(Block block){
@@ -78,5 +82,28 @@ public class Timber implements Listener {
             block = block.getRelative(BlockFace.DOWN);
         }
         return block;
+    }
+
+    private List<BlockFace> getFaces(){
+        List<BlockFace> allFaces = new ArrayList<>();
+        allFaces.add(BlockFace.EAST);
+        allFaces.add(BlockFace.EAST_NORTH_EAST);
+        allFaces.add(BlockFace.EAST_SOUTH_EAST);
+        allFaces.add(BlockFace.NORTH_EAST);
+        allFaces.add(BlockFace.NORTH_NORTH_EAST);
+        allFaces.add(BlockFace.SOUTH_EAST);
+        allFaces.add(BlockFace.SOUTH_SOUTH_EAST);
+
+        allFaces.add(BlockFace.WEST);
+        allFaces.add(BlockFace.WEST_NORTH_WEST);
+        allFaces.add(BlockFace.WEST_SOUTH_WEST);
+        allFaces.add(BlockFace.NORTH_NORTH_WEST);
+        allFaces.add(BlockFace.NORTH_WEST);
+        allFaces.add(BlockFace.SOUTH_SOUTH_WEST);
+        allFaces.add(BlockFace.SOUTH_WEST);
+
+        allFaces.add(BlockFace.NORTH);
+        allFaces.add(BlockFace.SOUTH);
+        return allFaces;
     }
 }
