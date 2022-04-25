@@ -1,5 +1,6 @@
 package fr.timeuh;
 
+import fr.timeuh.changes.FastThings;
 import fr.timeuh.commands.Commands;
 import fr.timeuh.damages.HubDamages;
 import fr.timeuh.damages.IngameDamages;
@@ -52,6 +53,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new HasteyBoys(this), this);
         pluginManager.registerEvents(new Cutclean(this), this);
         pluginManager.registerEvents(new Timber(this), this);
+        pluginManager.registerEvents(new FastThings(this), this);
     }
 
     @Override
