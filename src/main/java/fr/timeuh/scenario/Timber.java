@@ -32,17 +32,20 @@ public class Timber implements Listener {
     public void treeChop(BlockBreakEvent event){
         if (uhcRun.getScenario().isEnabled(Scenario.TIMBER)){
             Block block = event.getBlock();
+            Block top = null;
             for (Material log : logs){
                 if (block.getType().equals(log)){
                     String treeType = getTreeType(block);
                     if (treeType.equals("Big")){
+                        top = getTreeTop(block);
                         event.setCancelled(true);
                         breakBigTree(block);
-                        uhcRun.getChop().breakBigLeaves(block);
+                        if (top != null) uhcRun.getChop().breakBigLeaves(top);
                     } else if (treeType.equals("Thin")){
+                        top = getTreeTop(block);
                         event.setCancelled(true);
                         breakThinTree(block);
-                        uhcRun.getChop().breakLeaves(block);
+                        if (top != null) uhcRun.getChop().breakLeaves(top);
                     }
                 }
             }
@@ -104,6 +107,13 @@ public class Timber implements Listener {
     private Block getTreeFoot(Block block){
         while (!(block.getRelative(BlockFace.DOWN).getType().equals(Material.DIRT) || block.getRelative(BlockFace.DOWN).getType().equals(Material.GRASS))){
             block = block.getRelative(BlockFace.DOWN);
+        }
+        return block;
+    }
+
+    private Block getTreeTop(Block block){
+        while (!(block.getRelative(BlockFace.UP).getType().equals(Material.LEAVES) || block.getRelative(BlockFace.UP).getType().equals(Material.LEAVES_2))){
+            block = block.getRelative(BlockFace.UP);
         }
         return block;
     }
