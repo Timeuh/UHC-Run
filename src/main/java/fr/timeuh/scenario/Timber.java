@@ -38,9 +38,11 @@ public class Timber implements Listener {
                     if (treeType.equals("Big")){
                         event.setCancelled(true);
                         breakBigTree(block);
+                        uhcRun.getChop().breakBigLeaves(block);
                     } else if (treeType.equals("Thin")){
                         event.setCancelled(true);
                         breakThinTree(block);
+                        uhcRun.getChop().breakLeaves(block);
                     }
                 }
             }
