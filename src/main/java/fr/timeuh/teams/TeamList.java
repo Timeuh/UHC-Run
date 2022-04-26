@@ -138,7 +138,11 @@ public class TeamList {
         if (playerTeam != null){
             for (Player sbPlayer : uhcRun.getPlayers().allCoPlayers()){
                 for (Team team : sbPlayer.getScoreboard().getTeams()){
-                    if (playerTeam.getName().equalsIgnoreCase(team.getName())) team.removeEntry(player.getName());
+                    if (playerTeam.getName().equalsIgnoreCase(team.getName())) {
+                        team.removeEntry(player.getName());
+                        player.setDisplayName(ChatColor.WHITE + player.getName());
+                        player.setPlayerListName(ChatColor.WHITE + player.getName());
+                    }
                 }
             }
         }
