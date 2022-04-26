@@ -1,6 +1,7 @@
 package fr.timeuh;
 
 import fr.timeuh.changes.FastThings;
+import fr.timeuh.changes.ForbiddenThings;
 import fr.timeuh.changes.TreeChop;
 import fr.timeuh.commands.Commands;
 import fr.timeuh.damages.HubDamages;
@@ -57,6 +58,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new Cutclean(this), this);
         pluginManager.registerEvents(new Timber(this), this);
         pluginManager.registerEvents(new FastThings(this), this);
+        pluginManager.registerEvents(new ForbiddenThings(this), this);
     }
 
     @Override
