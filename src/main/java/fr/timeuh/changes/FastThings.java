@@ -42,6 +42,27 @@ public class FastThings implements Listener {
         }
     }
 
+    @EventHandler
+    public void transformBlocks(BlockBreakEvent event){
+        Block block = event.getBlock();
+        if (block.getType().equals(Material.SAND)){
+            block.setType(Material.AIR);
+            Bukkit.getWorld("world").dropItem(block.getLocation(), new ItemStack(Material.GLASS));
+        } else if (block.getType().equals(Material.GRAVEL)){
+            block.setType(Material.AIR);
+            Bukkit.getWorld("world").dropItem(block.getLocation(), new ItemStack(Material.FLINT));
+        }
+    }
+
+    @EventHandler
+    public void allCobble(BlockBreakEvent event){
+        Block block = event.getBlock();
+        if (block.getType().equals(Material.STONE) || block.getType().equals(Material.SANDSTONE)){
+            block.setType(Material.AIR);
+            Bukkit.getWorld("world").dropItem(block.getLocation(), new ItemStack(Material.COBBLESTONE));
+        }
+    }
+
     private boolean checkSurroundings(Block block){
         for (int y = block.getY()-1; y < block.getY()+2; y++){
             for (int x = block.getX()-1; x < block.getX()+2; x++){
