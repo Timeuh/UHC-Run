@@ -2,6 +2,7 @@ package fr.timeuh.teams;
 
 import fr.timeuh.UHCRun;
 import fr.timeuh.game.State;
+import fr.timeuh.scenario.Scenario;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -158,10 +159,14 @@ public class TeamList {
     }
 
     public boolean allPlayersInTeam(){
-        for (Player player : uhcRun.getPlayers().allCoPlayers()){
-            if (getPlayerTeam(player) == null) return false;
+        if (uhcRun.getScenario().isEnabled(Scenario.TEAMS)) {
+            for (Player player : uhcRun.getPlayers().allCoPlayers()) {
+                if (getPlayerTeam(player) == null) return false;
+            }
+            return true;
+        } else {
+            return true;
         }
-        return true;
     }
 
     public boolean oneTeamRemaining(){

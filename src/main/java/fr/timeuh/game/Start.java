@@ -33,6 +33,7 @@ public class Start extends BukkitRunnable {
                     player.updateInventory();
                     uhcRun.getTeams().updateTeams(player);
                 }
+                Bukkit.getWorld("world").getWorldBorder().setSize(3000);
                 Cycle game = new Cycle(uhcRun);
                 game.runTaskTimer(uhcRun, 0, 20);
                 cancel();

@@ -32,6 +32,7 @@ public class Cycle extends BukkitRunnable {
                 for (Player sbPlayer : uhcRun.getPlayers().allCoPlayers()) uhcRun.getBoard().displayPvp(sbPlayer);
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Début de la phase PVP");
                 uhcRun.getWins().checkWin();
+                if (Bukkit.getWorld("world").getWorldBorder().getSize() > 250) Bukkit.getWorld("world").getWorldBorder().setSize(250, 600);
                 cancel();
                 break;
 
