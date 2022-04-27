@@ -3,9 +3,7 @@ package fr.timeuh.players;
 import fr.timeuh.UHCRun;
 import fr.timeuh.game.State;
 import fr.timeuh.scenario.Scenario;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Statistic;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,7 +22,9 @@ public class Connections implements Listener {
     @EventHandler
     public void onFirstJoin(PlayerJoinEvent event){
         if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.FINISH)){
+            World world = Bukkit.getWorld("world");
             Player player = event.getPlayer();
+            Location tp = new Location(world, world.getSpawnLocation().getX(), 100, world.getSpawnLocation().getZ());
             uhcRun.getPlayers().addPlayer(player.getUniqueId());
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Bienvenue dans cette partie, si tu es perdu, pense au" + ChatColor.DARK_RED + "/help");
             player.getInventory().clear();
@@ -34,6 +34,7 @@ public class Connections implements Listener {
             player.setLevel(0);
             player.setExp(0);
             player.setStatistic(Statistic.PLAYER_KILLS, 0);
+            player.teleport(tp);
             uhcRun.getBoard().joinScoreboard(player);
             uhcRun.getBoard().updateLobby();
             uhcRun.getTeams().joinTeamBoard(player);

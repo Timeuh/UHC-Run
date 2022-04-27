@@ -1,9 +1,7 @@
 package fr.timeuh.game;
 
 import fr.timeuh.UHCRun;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -24,11 +22,12 @@ public class Stop extends BukkitRunnable {
             case 0:
                 uhcRun.setState(State.FINISH);
                 Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Fin de la partie");
+                World world = Bukkit.getWorld("world");
+                Location tp = new Location(world, world.getSpawnLocation().getX(), 100, world.getSpawnLocation().getZ());
                 for (Player player : uhcRun.getPlayers().allCoPlayers()){
                     if (player != null) {
-                        for (PotionEffect effect : player.getActivePotionEffects())
-                            player.removePotionEffect(effect.getType());
-                        player.teleport(Bukkit.getWorld("world").getSpawnLocation());
+                        for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
+                        player.teleport(tp);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false), false);
                         player.setGameMode(GameMode.ADVENTURE);
                         player.getInventory().clear();
