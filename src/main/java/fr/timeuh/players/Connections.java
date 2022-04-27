@@ -24,7 +24,7 @@ public class Connections implements Listener {
         if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.FINISH)){
             World world = Bukkit.getWorld("world");
             Player player = event.getPlayer();
-            Location tp = new Location(world, world.getSpawnLocation().getX(), 100, world.getSpawnLocation().getZ());
+            Location tp = new Location(world, world.getSpawnLocation().getX(), 101, world.getSpawnLocation().getZ());
             uhcRun.getPlayers().addPlayer(player.getUniqueId());
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Bienvenue dans cette partie, si tu es perdu, pense au" + ChatColor.DARK_RED + "/help");
             player.getInventory().clear();
