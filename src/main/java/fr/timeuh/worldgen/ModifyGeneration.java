@@ -18,5 +18,6 @@ public class ModifyGeneration implements Listener {
         World world = event.getWorld();
         world.getPopulators().add(new SpawnPlatform());
         world.getPopulators().add(new SugarCaneGrowth());
+        world.getPopulators().add(new AugmentOres());
     }
 }
