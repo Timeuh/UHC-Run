@@ -15,6 +15,7 @@ import fr.timeuh.players.GamePlayers;
 import fr.timeuh.scenario.*;
 import fr.timeuh.scoreboard.PlayerBoard;
 import fr.timeuh.teams.TeamList;
+import fr.timeuh.worldgen.ModifyGeneration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -59,6 +60,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new Timber(this), this);
         pluginManager.registerEvents(new FastThings(this), this);
         pluginManager.registerEvents(new ForbiddenThings(this), this);
+        pluginManager.registerEvents(new ModifyGeneration(this), this);
     }
 
     @Override
