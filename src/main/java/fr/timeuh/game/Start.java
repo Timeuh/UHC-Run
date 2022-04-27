@@ -26,13 +26,13 @@ public class Start extends BukkitRunnable {
                 for (Player player : uhcRun.getPlayers().allCoPlayers()){
                     uhcRun.getPlayers().beInvincible(player);
                     uhcRun.getPlayers().addLivePlayer(player.getUniqueId());
-                    player.teleport(Bukkit.getWorld("world").getSpawnLocation());
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1, false, false), false);
                     player.setGameMode(GameMode.SURVIVAL);
                     player.getInventory().clear();
                     player.updateInventory();
                     uhcRun.getTeams().updateTeams(player);
                 }
+                uhcRun.getPlayers().teleportPlayers();
                 Bukkit.getWorld("world").getWorldBorder().setSize(3000);
                 Cycle game = new Cycle(uhcRun);
                 game.runTaskTimer(uhcRun, 0, 20);

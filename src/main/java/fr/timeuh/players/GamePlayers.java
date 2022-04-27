@@ -3,13 +3,11 @@ package fr.timeuh.players;
 import fr.timeuh.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class GamePlayers {
     private List<UUID> coPlayers;
@@ -150,6 +148,23 @@ public class GamePlayers {
             deconnectedPlayers.add(Bukkit.getPlayer(playerUUID));
         }
         return deconnectedPlayers;
+    }
+
+    public void teleportPlayers(){
+        Random coordinates = new Random();
+
+        for (Player player : allLivePlayers()){
+            int x = coordinates.nextInt(1500);
+            int z = coordinates.nextInt(1500);
+            int firstMinus = coordinates.nextInt(2);
+            int secondMinus = coordinates.nextInt(2);
+
+            if (firstMinus > 0) x = -x;
+            if (secondMinus > 0) z = -z;
+
+            Location teleport = new Location(Bukkit.getWorld("world"), x, 100, z);
+            player.teleport(teleport);
+        }
     }
 
 }

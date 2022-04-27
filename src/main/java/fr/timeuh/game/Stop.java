@@ -36,6 +36,7 @@ public class Stop extends BukkitRunnable {
                         uhcRun.getBoard().displayLobby(player);
                     }
                 }
+                Bukkit.getWorld("world").getWorldBorder().setSize(1500);
                 cancel();
                 break;
 
