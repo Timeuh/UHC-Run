@@ -1,5 +1,6 @@
 package fr.timeuh;
 
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import fr.timeuh.changes.FastThings;
 import fr.timeuh.changes.ForbiddenThings;
 import fr.timeuh.changes.TreeChop;

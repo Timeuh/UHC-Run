@@ -3,6 +3,7 @@ version: 2.0
 main: fr.timeuh.UHCRun
 load: STARTUP
 authors: [ Timeuh ]
+depend: [WorldEdit]
 description: V2 de l'UHC Run
 
 commands:
