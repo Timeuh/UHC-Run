@@ -19,6 +19,6 @@ public class ModifyGeneration implements Listener {
         world.getPopulators().add(new SpawnPlatform());
         world.getPopulators().add(new SugarCaneGrowth());
         world.getPopulators().add(new AugmentOres());
-        world.getPopulators().add(new NetherChunk());
+        world.getPopulators().add(new NetherChunk(uhcRun));
     }
 }
