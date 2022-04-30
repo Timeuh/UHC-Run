@@ -1,6 +1,7 @@
 package fr.timeuh.changes;
 
 import fr.timeuh.UHCRun;
+import fr.timeuh.game.State;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,6 +13,7 @@ import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -74,6 +76,13 @@ public class ForbiddenThings implements Listener {
     public void onRegen(EntityRegainHealthEvent event){
         EntityRegainHealthEvent.RegainReason healReson = event.getRegainReason();
         if (healReson.equals(EntityRegainHealthEvent.RegainReason.SATIATED)){
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent event){
+        if (uhcRun.isState(State.WAITING) || uhcRun.isState(State.FINISH)){
             event.setCancelled(true);
         }
     }
