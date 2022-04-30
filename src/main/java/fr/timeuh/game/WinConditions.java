@@ -43,6 +43,21 @@ public class WinConditions {
                     }
                     Stop stop = new Stop(uhcRun);
                     stop.runTaskTimer(uhcRun, 0, 20);
+                } else{
+                    if (uhcRun.getTeams().getTeamList() != null){
+                        int remainingSize =  uhcRun.getTeams().getTeamList().size();
+                        int decoSize = uhcRun.getPlayers().getDecoPlayers().size();
+                        if (remainingSize - decoSize == 1){
+                            Team winnerTeam = uhcRun.getTeams().getLastTeamDeco();
+                            if (winnerTeam != null){
+                                ChatColor teamColor = uhcRun.getTeams().getTeamColor(winnerTeam);
+                                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "La partie est terminée, l'équipe " + teamColor + ChatColor.BOLD + winnerTeam.getName()
+                                        + ChatColor.GOLD + " a gagné");
+                            }
+                            Stop stop = new Stop(uhcRun);
+                            stop.runTaskTimer(uhcRun, 0, 20);
+                        }
+                    }
                 }
             }
         }

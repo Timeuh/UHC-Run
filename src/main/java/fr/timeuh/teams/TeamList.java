@@ -3,6 +3,7 @@ package fr.timeuh.teams;
 import fr.timeuh.UHCRun;
 import fr.timeuh.game.State;
 import fr.timeuh.scenario.Scenario;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -170,9 +171,42 @@ public class TeamList {
     }
 
     public boolean oneTeamRemaining(){
-        Player player = uhcRun.getPlayers().allLivePlayers().get(0);
-        List<Team> teams = playerTeamList.get(player.getUniqueId());
-        return teams.size() == 1;
+        Player player = null;
+        for (Player allPlayer : uhcRun.getPlayers().allLivePlayers()){
+            if (allPlayer != null) player = allPlayer;
+        }
+
+        if (player != null) {
+            List<Team> teams = playerTeamList.get(player.getUniqueId());
+            return teams.size() == 1;
+        } else {
+            return false;
+        }
+    }
+
+    public List<Team> getTeamList(){
+        for (Player player : uhcRun.getPlayers().allLivePlayers()){
+            if (player != null) return playerTeamList.get(player.getUniqueId());
+        }
+        return null;
+    }
+
+    public Team getLastTeamDeco(){
+        List<Team> teamList = getTeamList();
+
+        if (teamList != null) {
+            for (Team team : teamList) {
+                for (Player player : uhcRun.getPlayers().allLivePlayers()){
+                    if (player != null){
+                        Team playerTeam = getPlayerTeam(player);
+                        if (playerTeam.getName().equals(team.getName())){
+                            return playerTeam;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public Team getWinnerTeam(){
