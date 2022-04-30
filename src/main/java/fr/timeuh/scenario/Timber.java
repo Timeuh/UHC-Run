@@ -76,7 +76,7 @@ public class Timber implements Listener {
         while (!(up.getType().equals(Material.LEAVES_2) || up.getType().equals(Material.LEAVES))){
             up = up.getRelative(BlockFace.UP);
             foot.setType(Material.AIR);
-            Bukkit.getWorld("world").dropItemNaturally(foot.getLocation(), new ItemStack(Material.LOG));
+            Bukkit.getWorld("world").dropItem(foot.getLocation(), new ItemStack(Material.LOG));
             foot = up;
         }
     }
@@ -100,7 +100,7 @@ public class Timber implements Listener {
         }
         for (Block block : blockBreak){
             block.setType(Material.AIR);
-            world.dropItemNaturally(block.getLocation(), new ItemStack(Material.LOG));
+            world.dropItem(block.getLocation(), new ItemStack(Material.LOG));
         }
     }
 

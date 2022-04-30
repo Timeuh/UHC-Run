@@ -90,7 +90,7 @@ public class Cutclean implements Listener {
                 items = new ItemStack(Material.TORCH, 4);
                 break;
         }
-        Bukkit.getWorld("world").dropItemNaturally(block.getLocation(), items);
+        Bukkit.getWorld("world").dropItem(block.getLocation(), items);
         Bukkit.getWorld("world").spawn(block.getLocation(), ExperienceOrb.class).setExperience(getExpToDrop(ore));
     }
 
