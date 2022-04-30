@@ -13,7 +13,7 @@ public class Cycle extends BukkitRunnable {
 
     public Cycle(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
-        this.timer = 40;
+        this.timer = 1200;
     }
 
     @Override
@@ -33,6 +33,13 @@ public class Cycle extends BukkitRunnable {
                 uhcRun.getWins().checkWin();
                 if (Bukkit.getWorld("world").getWorldBorder().getSize() > 250) Bukkit.getWorld("world").getWorldBorder().setSize(250, 600);
                 cancel();
+                break;
+
+            case 900:
+            case 600:
+            case 300:
+            case 60:
+                Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Phase PVP dans " + ChatColor.DARK_RED + timer/60 + ChatColor.GOLD + " minutes");
                 break;
 
             case 30:
