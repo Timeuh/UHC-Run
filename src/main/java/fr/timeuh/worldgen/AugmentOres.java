@@ -26,7 +26,7 @@ public class AugmentOres extends BlockPopulator {
     private void generateOre(Block block, Chunk source){
         Material ore = getOreType();
         Random generateChance = new Random();
-        int chance = generateChance.nextInt(30)+1;
+        int chance = generateChance.nextInt(50)+1;
 
         if (chance > 25) {
             block.setType(ore);
