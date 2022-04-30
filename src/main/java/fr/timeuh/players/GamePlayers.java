@@ -153,17 +153,19 @@ public class GamePlayers {
     public void teleportPlayers(){
         Random coordinates = new Random();
 
-        for (Player player : allLivePlayers()){
-            int x = coordinates.nextInt(1500);
-            int z = coordinates.nextInt(1500);
-            int firstMinus = coordinates.nextInt(2);
-            int secondMinus = coordinates.nextInt(2);
+        for (Player player : allLivePlayers()) {
+            if (player != null) {
+                int x = coordinates.nextInt(1500);
+                int z = coordinates.nextInt(1500);
+                int firstMinus = coordinates.nextInt(2);
+                int secondMinus = coordinates.nextInt(2);
 
-            if (firstMinus > 0) x = -x;
-            if (secondMinus > 0) z = -z;
+                if (firstMinus > 0) x = -x;
+                if (secondMinus > 0) z = -z;
 
-            Location teleport = new Location(Bukkit.getWorld("world"), x, 100, z);
-            player.teleport(teleport);
+                Location teleport = new Location(Bukkit.getWorld("world"), x, 100, z);
+                player.teleport(teleport);
+            }
         }
     }
 
