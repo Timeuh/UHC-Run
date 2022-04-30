@@ -28,7 +28,7 @@ public class AugmentOres extends BlockPopulator {
         Random generateChance = new Random();
         int chance = generateChance.nextInt(50)+1;
 
-        if (chance > 25) {
+        if (chance > 45) {
             block.setType(ore);
             for (int y = block.getY(); y < block.getY()+2; y++){
                 for (int x = block.getX(); x < block.getX()+2; x++){
