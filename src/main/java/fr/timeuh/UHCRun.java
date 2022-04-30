@@ -15,10 +15,12 @@ import fr.timeuh.players.Connections;
 import fr.timeuh.players.GamePlayers;
 import fr.timeuh.scenario.*;
 import fr.timeuh.scoreboard.PlayerBoard;
+import fr.timeuh.teams.TeamChat;
 import fr.timeuh.teams.TeamList;
 import fr.timeuh.worldgen.ModifyGeneration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Team;
 
 public final class UHCRun extends JavaPlugin {
     private State state;
@@ -62,6 +64,7 @@ public final class UHCRun extends JavaPlugin {
         pluginManager.registerEvents(new FastThings(this), this);
         pluginManager.registerEvents(new ForbiddenThings(this), this);
         pluginManager.registerEvents(new ModifyGeneration(this), this);
+        pluginManager.registerEvents(new TeamChat(this), this);
     }
 
     @Override
