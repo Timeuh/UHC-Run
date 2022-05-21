@@ -28,7 +28,7 @@ public class NetherChunk extends BlockPopulator {
     }
 
     private void paste(Location pasteLoc) {
-        File file = new File("D:\\Bureau\\All\\PluginsMinecraft\\UHCRunV2\\src\\main\\resources\\NetherChunk.schematic");
+        File file = new File(uhcRun.getDataFolder().getAbsolutePath()  + "/NetherChunk.schematic");
         EditSession session = new EditSession(new BukkitWorld(pasteLoc.getWorld()), 1000000);
         Vector loc = new Vector(pasteLoc.getX(), pasteLoc.getY(), pasteLoc.getZ());
         Bukkit.getScheduler().runTaskLater(uhcRun, new Runnable() {
