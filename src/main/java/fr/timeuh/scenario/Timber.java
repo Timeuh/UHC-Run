@@ -25,7 +25,7 @@ public class Timber implements Listener {
             Location location = event.getBlock().getLocation();
             Random appleChance = new Random();
 
-            event.getBlock().getDrops().removeAll(event.getBlock().getDrops());
+            event.getBlock().setType(Material.AIR);
             if (appleChance.nextInt(100) > 80) {
                 Bukkit.getWorld("world").dropItem(location, new ItemStack(Material.APPLE));
             }
