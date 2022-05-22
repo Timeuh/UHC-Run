@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class TreeChop {
 
-    private void dropApples(Block block) {
+    public void dropApples(Block block) {
         Location loc = block.getLocation();
         Random appleChance = new Random();
 
@@ -31,8 +31,8 @@ public class TreeChop {
         for (int newY = y; newY <= maxY; newY ++){
             for (int newX = x; newX <= maxX; newX++){
                 for (int newZ = z; newZ <= maxZ; newZ++){
-                    Material blockType = world.getBlockAt(x, y, z).getType();
-                    Block current = world.getBlockAt(x, y, z);
+                    Material blockType = world.getBlockAt(newX, newY, newZ).getType();
+                    Block current = world.getBlockAt(newX, newY, newZ);
                     if (blockType.equals(Material.LEAVES) || blockType.equals(Material.LEAVES_2)) {
                         current.setType(Material.AIR);
                         dropApples(current);

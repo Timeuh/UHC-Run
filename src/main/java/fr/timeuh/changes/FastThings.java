@@ -3,6 +3,7 @@ package fr.timeuh.changes;
 import fr.timeuh.UHCRun;
 import fr.timeuh.scenario.Scenario;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -11,6 +12,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -42,6 +44,12 @@ public class FastThings implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onDecay(LeavesDecayEvent event){
+        event.getBlock().setType(Material.AIR);
+        uhcRun.getChop().dropApples(event.getBlock());
     }
 
     @EventHandler

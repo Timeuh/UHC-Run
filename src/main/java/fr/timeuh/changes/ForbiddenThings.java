@@ -8,7 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.inventory.BrewEvent;
@@ -23,12 +22,6 @@ public class ForbiddenThings implements Listener {
 
     public ForbiddenThings(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
-    }
-
-    @EventHandler
-    public void onDecay(LeavesDecayEvent event){
-        event.getBlock().setData((byte) (event.getBlock().getData()%4));
-        event.setCancelled(true);
     }
 
     @EventHandler
