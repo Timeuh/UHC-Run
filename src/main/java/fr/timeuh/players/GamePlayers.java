@@ -163,7 +163,7 @@ public class GamePlayers {
                 if (firstMinus > 0) x = -x;
                 if (secondMinus > 0) z = -z;
 
-                Location teleport = new Location(Bukkit.getWorld("world"), x, 100, z);
+                Location teleport = new Location(Bukkit.getWorld("world"), x, 200, z);
                 player.teleport(teleport);
             }
         }
