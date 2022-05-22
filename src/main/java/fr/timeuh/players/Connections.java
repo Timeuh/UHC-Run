@@ -28,6 +28,7 @@ public class Connections implements Listener {
             uhcRun.getPlayers().addPlayer(player.getUniqueId());
             player.sendMessage(ChatColor.DARK_PURPLE + "[UHCRun] " + ChatColor.GOLD + "Bienvenue dans cette partie, si tu es perdu, pense au" + ChatColor.DARK_RED + "/help");
             player.getInventory().clear();
+            for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
             player.setGameMode(GameMode.ADVENTURE);
             player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false));
             player.setHealth(20);
