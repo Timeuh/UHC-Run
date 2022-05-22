@@ -1,6 +1,5 @@
 package fr.timeuh;
 
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import fr.timeuh.changes.FastThings;
 import fr.timeuh.changes.ForbiddenThings;
 import fr.timeuh.changes.TreeChop;
@@ -20,7 +19,6 @@ import fr.timeuh.teams.TeamList;
 import fr.timeuh.worldgen.ModifyGeneration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.Team;
 
 public final class UHCRun extends JavaPlugin {
     private State state;
@@ -40,7 +38,7 @@ public final class UHCRun extends JavaPlugin {
         scenario = new ScenarList();
         board = new PlayerBoard(this);
         teams = new TeamList(this);
-        chop = new TreeChop(this);
+        chop = new TreeChop();
 
         setState(State.WAITING);
         scenario.enableScenario(Scenario.NOTEAMS);
@@ -69,7 +67,7 @@ public final class UHCRun extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
     }
 
     public void setState(State newState){

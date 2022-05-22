@@ -1,94 +1,85 @@
 package fr.timeuh.changes;
 
-import fr.timeuh.UHCRun;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class TreeChop {
 
-    private UHCRun uhcRun;
-
-    public TreeChop(UHCRun uhcRun) {
-        this.uhcRun = uhcRun;
-    }
-
-    private void dropApples(Block block){
+    private void dropApples(Block block) {
         Location loc = block.getLocation();
         Random appleChance = new Random();
-        Random goldAppleChance = new Random();
-        ItemStack resultApple = null;
-        ItemStack resultGoldenApple = null;
 
-        if ((appleChance.nextInt(50)+1) >= 45) resultApple = new ItemStack(Material.APPLE);
-        if ((goldAppleChance.nextInt(100)+1) == 100) resultGoldenApple = new ItemStack(Material.GOLDEN_APPLE);
-        if (resultApple != null) Bukkit.getWorld("world").dropItem(loc,resultApple);
-        if (resultGoldenApple != null) Bukkit.getWorld("world").dropItem(loc,resultGoldenApple);
+        if ((appleChance.nextInt(50)) >= 44) Bukkit.getWorld("world").dropItem(loc, new ItemStack(Material.APPLE));
+        if ((appleChance.nextInt(100)) == 99) Bukkit.getWorld("world").dropItem(loc, new ItemStack(Material.GOLDEN_APPLE));
     }
 
-    public void breakLeaves(Block block) {
+    public void breakLeaves(Block block, int blockReach) {
         World world = block.getWorld();
-        new BukkitRunnable() {
-            int maxX = block.getX()+2, maxY = block.getY()+2, maxZ = block.getZ()+2;
-            int x = block.getX()-2, y = block.getY()-2, z = block.getZ()-2;
 
-            @Override
-            public void run() {
-                Material blockType = world.getBlockAt(x, y, z).getType();
-                Block current = world.getBlockAt(x, y, z);
-                if (blockType.equals(Material.LEAVES) || blockType.equals(Material.LEAVES_2)){
-                    current.setType(Material.AIR);
-                    dropApples(current);
-                }
+        int maxX = block.getX() + blockReach, maxY = block.getY() + blockReach, maxZ = block.getZ() + blockReach;
+        int x = block.getX() - blockReach, y = block.getY() - blockReach, z = block.getZ() - blockReach;
 
-                x ++;
-                if (x > maxX){
-                    x = block.getX()-2;
-                    z ++;
+        for (int newY = y; newY <= maxY; newY ++){
+            for (int newX = x; newX <= maxX; newX++){
+                for (int newZ = z; newZ <= maxZ; newZ++){
+                    Material blockType = world.getBlockAt(x, y, z).getType();
+                    Block current = world.getBlockAt(x, y, z);
+                    if (blockType.equals(Material.LEAVES) || blockType.equals(Material.LEAVES_2)) {
+                        current.setType(Material.AIR);
+                        dropApples(current);
+                    }
                 }
-                if (z > maxZ){
-                    x = block.getX()-2;
-                    z = block.getZ()-2;
-                    y ++;
-                }
-                if (y > maxY) cancel();
             }
-        }.runTaskTimer(uhcRun,0,1);
+        }
     }
 
-    public void breakBigLeaves(Block block) {
-        World world = block.getWorld();
-        new BukkitRunnable() {
-            int maxX = block.getX()+3, maxY = block.getY()+3, maxZ = block.getZ()+3;
-            int x = block.getX()-3, y = block.getY()-3, z = block.getZ()-3;
-
-            @Override
-            public void run() {
-                Material blockType = world.getBlockAt(x, y, z).getType();
-                Block current = world.getBlockAt(x, y, z);
-                if (blockType.equals(Material.LEAVES) || blockType.equals(Material.LEAVES_2)){
-                    current.setType(Material.AIR);
-                    dropApples(current);
-                }
-
-                x ++;
-                if (x > maxX){
-                    x = block.getX()-3;
-                    z ++;
-                }
-                if (z > maxZ){
-                    x = block.getX()-3;
-                    z = block.getZ()-3;
-                    y ++;
-                }
-                if (y > maxY) cancel();
+    public String getTreeType(Block block){
+        Block foot = getTreeFoot(block);
+        while  (!(foot.getRelative(BlockFace.UP).getType().equals(Material.LEAVES) || foot.getRelative(BlockFace.UP).getType().equals(Material.LEAVES_2))){
+            for (BlockFace face : getFaces()){
+                if (foot.getRelative(face).getType().equals(foot.getType())) return "Big";
             }
-        }.runTaskTimer(uhcRun,0,1);
+            foot = foot.getRelative(BlockFace.UP);
+        }
+        return "Thin";
+    }
+
+    public Block getTreeFoot(Block block){
+        while (!(block.getRelative(BlockFace.DOWN).getType().equals(Material.DIRT) || block.getRelative(BlockFace.DOWN).getType().equals(Material.GRASS))){
+            block = block.getRelative(BlockFace.DOWN);
+        }
+        return block;
+    }
+
+    public List<BlockFace> getFaces(){
+        List<BlockFace> allFaces = new ArrayList<>();
+        allFaces.add(BlockFace.EAST);
+        allFaces.add(BlockFace.EAST_NORTH_EAST);
+        allFaces.add(BlockFace.EAST_SOUTH_EAST);
+        allFaces.add(BlockFace.NORTH_EAST);
+        allFaces.add(BlockFace.NORTH_NORTH_EAST);
+        allFaces.add(BlockFace.SOUTH_EAST);
+        allFaces.add(BlockFace.SOUTH_SOUTH_EAST);
+
+        allFaces.add(BlockFace.WEST);
+        allFaces.add(BlockFace.WEST_NORTH_WEST);
+        allFaces.add(BlockFace.WEST_SOUTH_WEST);
+        allFaces.add(BlockFace.NORTH_NORTH_WEST);
+        allFaces.add(BlockFace.NORTH_WEST);
+        allFaces.add(BlockFace.SOUTH_SOUTH_WEST);
+        allFaces.add(BlockFace.SOUTH_WEST);
+
+        allFaces.add(BlockFace.NORTH);
+        allFaces.add(BlockFace.SOUTH);
+        return allFaces;
     }
 }

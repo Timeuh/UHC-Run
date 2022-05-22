@@ -24,8 +24,8 @@ public class Timber implements Listener {
     public Timber(UHCRun uhcRun) {
         this.uhcRun = uhcRun;
         this.logs = getLogs();
-        this.faces = getFaces();
-        this.logList = getLogList();
+        this.faces = uhcRun.getChop().getFaces();
+        this.logList = getLogs();
     }
 
     @EventHandler
@@ -35,17 +35,17 @@ public class Timber implements Listener {
             Block top = null;
             for (Material log : logs){
                 if (block.getType().equals(log)){
-                    String treeType = getTreeType(block);
+                    String treeType = uhcRun.getChop().getTreeType(block);
                     if (treeType.equals("Big")){
                         top = getTreeTop(block);
                         event.setCancelled(true);
                         breakBigTree(block);
-                        if (top != null) uhcRun.getChop().breakBigLeaves(top);
+                        if (top != null) uhcRun.getChop().breakLeaves(top,3);
                     } else if (treeType.equals("Thin")){
                         top = getTreeTop(block);
                         event.setCancelled(true);
                         breakThinTree(block);
-                        if (top != null) uhcRun.getChop().breakLeaves(top);
+                        if (top != null) uhcRun.getChop().breakLeaves(top,2);
                     }
                 }
             }
@@ -59,19 +59,8 @@ public class Timber implements Listener {
         return logs;
     }
 
-    private String getTreeType(Block block){
-        Block foot = getTreeFoot(block);
-        while  (!(foot.getRelative(BlockFace.UP).getType().equals(Material.LEAVES) || foot.getRelative(BlockFace.UP).getType().equals(Material.LEAVES_2))){
-            for (BlockFace face : faces){
-                if (foot.getRelative(face).getType().equals(foot.getType())) return "Big";
-            }
-            foot = foot.getRelative(BlockFace.UP);
-        }
-        return "Thin";
-    }
-
     private void breakThinTree(Block block){
-        Block foot = getTreeFoot(block);
+        Block foot = uhcRun.getChop().getTreeFoot(block);
         Block up = foot;
         while (!(up.getType().equals(Material.LEAVES_2) || up.getType().equals(Material.LEAVES))){
             up = up.getRelative(BlockFace.UP);
@@ -104,47 +93,10 @@ public class Timber implements Listener {
         }
     }
 
-    private Block getTreeFoot(Block block){
-        while (!(block.getRelative(BlockFace.DOWN).getType().equals(Material.DIRT) || block.getRelative(BlockFace.DOWN).getType().equals(Material.GRASS))){
-            block = block.getRelative(BlockFace.DOWN);
-        }
-        return block;
-    }
-
     private Block getTreeTop(Block block){
         while (!(block.getRelative(BlockFace.UP).getType().equals(Material.LEAVES) || block.getRelative(BlockFace.UP).getType().equals(Material.LEAVES_2))){
             block = block.getRelative(BlockFace.UP);
         }
         return block;
-    }
-
-    private List<BlockFace> getFaces(){
-        List<BlockFace> allFaces = new ArrayList<>();
-        allFaces.add(BlockFace.EAST);
-        allFaces.add(BlockFace.EAST_NORTH_EAST);
-        allFaces.add(BlockFace.EAST_SOUTH_EAST);
-        allFaces.add(BlockFace.NORTH_EAST);
-        allFaces.add(BlockFace.NORTH_NORTH_EAST);
-        allFaces.add(BlockFace.SOUTH_EAST);
-        allFaces.add(BlockFace.SOUTH_SOUTH_EAST);
-
-        allFaces.add(BlockFace.WEST);
-        allFaces.add(BlockFace.WEST_NORTH_WEST);
-        allFaces.add(BlockFace.WEST_SOUTH_WEST);
-        allFaces.add(BlockFace.NORTH_NORTH_WEST);
-        allFaces.add(BlockFace.NORTH_WEST);
-        allFaces.add(BlockFace.SOUTH_SOUTH_WEST);
-        allFaces.add(BlockFace.SOUTH_WEST);
-
-        allFaces.add(BlockFace.NORTH);
-        allFaces.add(BlockFace.SOUTH);
-        return allFaces;
-    }
-
-    private List<Material> getLogList(){
-        List<Material> logType = new ArrayList<>();
-        logType.add(Material.LOG);
-        logType.add(Material.LOG_2);
-        return logType;
     }
 }
