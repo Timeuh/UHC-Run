@@ -3,7 +3,6 @@ package fr.timeuh.changes;
 import fr.timeuh.UHCRun;
 import fr.timeuh.scenario.Scenario;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;

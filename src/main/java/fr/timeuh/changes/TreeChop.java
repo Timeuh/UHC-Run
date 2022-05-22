@@ -18,8 +18,8 @@ public class TreeChop {
         Location loc = block.getLocation();
         Random appleChance = new Random();
 
-        if ((appleChance.nextInt(50)) >= 44) Bukkit.getWorld("world").dropItem(loc, new ItemStack(Material.APPLE));
-        if ((appleChance.nextInt(100)) == 99) Bukkit.getWorld("world").dropItem(loc, new ItemStack(Material.GOLDEN_APPLE));
+        if ((appleChance.nextInt(50)) == 49) Bukkit.getWorld("world").dropItem(loc, new ItemStack(Material.APPLE));
+        if ((appleChance.nextInt(200)) == 199) Bukkit.getWorld("world").dropItem(loc, new ItemStack(Material.GOLDEN_APPLE));
     }
 
     public void breakLeaves(Block block, int blockReach) {
