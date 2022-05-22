@@ -41,6 +41,18 @@ public class FastThings implements Listener {
         } else if (block.getType().equals(Material.GRAVEL)){
             block.setType(Material.AIR);
             Bukkit.getWorld("world").dropItem(block.getLocation(), new ItemStack(Material.FLINT));
+        } else if (block.getType().equals(Material.CACTUS)){
+            while (!block.getRelative(BlockFace.DOWN).getType().equals(Material.SAND)){
+                block = block.getRelative(BlockFace.DOWN);
+            }
+            block.setType(Material.AIR);
+            Bukkit.getWorld("world").dropItem(block.getLocation(), new ItemStack(Material.LOG));
+
+            while (block.getRelative(BlockFace.UP).getType().equals(Material.CACTUS)){
+                block = block.getRelative(BlockFace.UP);
+                block.setType(Material.AIR);
+                Bukkit.getWorld("world").dropItem(block.getLocation(), new ItemStack(Material.LOG));
+            }
         }
     }
 
