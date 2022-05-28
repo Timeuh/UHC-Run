@@ -32,6 +32,7 @@ public final class UHCRun extends JavaPlugin {
     @Override
     public void onEnable() {
         PluginManager pluginManager = getServer().getPluginManager();
+        saveDefaultConfig();
 
         players = new GamePlayers(this);
         wins = new WinConditions(this);
